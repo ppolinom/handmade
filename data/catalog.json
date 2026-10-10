@@ -801,7 +801,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Вазы и декор"
     ],
@@ -809,7 +811,6 @@
     "price": 400,
     "availability": "on_order",
     "visible": true,
-    "createdAt": "2026-10-10T15:05:21.713Z",
     "images": [
       "IMG_5067.JPEG",
       "IMG_5323.JPEG",
