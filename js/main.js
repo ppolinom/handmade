@@ -6,7 +6,7 @@ const TELEGRAM_USERNAME = 'ppolinom';
 // Способ 1 (проще, без ключа): укажите Channel ID канала.
 // Найти его: YouTube Studio → Настройки → Канал → Расширенные настройки → Channel ID
 // Выглядит как: UCxxxxxxxxxxxxxxxxxxxx
-const YOUTUBE_CHANNEL_ID = '';
+const YOUTUBE_CHANNEL_ID = 'UCFiNw0RjTlb9oeQGNyyOrQg';
 
 // Способ 2 (резервный): YouTube Data API v3 ключ.
 // console.cloud.google.com → YouTube Data API v3 → ограничить referrer ppolinom.ru/*
