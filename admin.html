@@ -205,15 +205,15 @@
     .autocomplete-item.new-cat strong { color: var(--text); font-style: normal; }
 
     /* Admin filters */
-    .admin-filters {
-      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: center;
+    .admin-filters { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .filter-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 0.4rem 1rem; border-radius: 999px; border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--muted); font-size: 0.875rem;
+      cursor: pointer; transition: all 0.15s; font-family: inherit;
     }
-    .admin-filters select {
-      padding: 0.4rem 0.85rem; border-radius: 8px; border: 1.5px solid var(--border);
-      font-size: 0.875rem; font-family: inherit; color: var(--text); background: var(--surface);
-      cursor: pointer; outline: none;
-    }
-    .admin-filters select:focus { border-color: var(--accent); }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
     /* Hidden product dimming */
     .product-row.is-hidden { opacity: 0.45; }
@@ -256,12 +256,14 @@
       <button class="btn btn-primary" id="btn-add">+ Добавить товар</button>
     </div>
     <div class="admin-filters">
-      <select id="filter-category"><option value="">Все категории</option></select>
-      <select id="filter-visible">
-        <option value="">Все</option>
-        <option value="true">Отображаемые</option>
-        <option value="false">Скрытые</option>
-      </select>
+      <div class="filter-row" id="filter-visible-row">
+        <button class="filter-btn active" data-vis="">Все</button>
+        <button class="filter-btn" data-vis="true">Отображаемые</button>
+        <button class="filter-btn" data-vis="false">Скрытые</button>
+      </div>
+      <div class="filter-row" id="filter-category-row">
+        <button class="filter-btn active" data-cat="">Все категории</button>
+      </div>
     </div>
     <div class="product-list" id="product-list">
       <p style="color:var(--muted)">Загрузка...</p>
@@ -446,24 +448,21 @@ async function loadProducts() {
 function renderProductList() {
   const listEl = document.getElementById('product-list');
 
-  // Rebuild category filter options
-  const catSelect = document.getElementById('filter-category');
-  const activeCat = catSelect.value;
+  // Rebuild category filter buttons
+  const catRow = document.getElementById('filter-category-row');
   const allCats = [...new Map(products.flatMap(p =>
     (Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
     .map(c => [c.toLowerCase(), c])
   ).values())];
-  catSelect.innerHTML = '<option value="">Все категории</option>' +
-    allCats.map(c => `<option value="${c}" ${activeCat === c ? 'selected' : ''}>${c}</option>`).join('');
+  catRow.innerHTML = `<button class="filter-btn${activeCatFilter === '' ? ' active' : ''}" data-cat="">Все категории</button>` +
+    allCats.map(c => `<button class="filter-btn${activeCatFilter === c ? ' active' : ''}" data-cat="${c}">${c}</button>`).join('');
 
-  const visFilter = document.getElementById('filter-visible').value;
-
-  const filtered = products.filter((p, _) => {
-    if (visFilter === 'true' && p.data.visible === false) return false;
-    if (visFilter === 'false' && p.data.visible !== false) return false;
-    if (activeCat) {
+  const filtered = products.filter(p => {
+    if (activeVisFilter === 'true' && p.data.visible === false) return false;
+    if (activeVisFilter === 'false' && p.data.visible !== false) return false;
+    if (activeCatFilter) {
       const cats = Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [];
-      if (!cats.some(c => c.toLowerCase() === activeCat.toLowerCase())) return false;
+      if (!cats.some(c => c.toLowerCase() === activeCatFilter.toLowerCase())) return false;
     }
     return true;
   });
@@ -831,8 +830,24 @@ function toast(msg, error = false) {
 
 // ── Filters ───────────────────────────────────────────────────────────────────
 
-document.getElementById('filter-category').addEventListener('change', renderProductList);
-document.getElementById('filter-visible').addEventListener('change', renderProductList);
+let activeVisFilter = '';
+let activeCatFilter = '';
+
+document.getElementById('filter-visible-row').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  activeVisFilter = btn.dataset.vis;
+  document.getElementById('filter-visible-row').querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.vis === activeVisFilter));
+  renderProductList();
+});
+
+document.getElementById('filter-category-row').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  activeCatFilter = btn.dataset.cat;
+  document.getElementById('filter-category-row').querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === activeCatFilter));
+  renderProductList();
+});
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
 
