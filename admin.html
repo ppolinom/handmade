@@ -490,13 +490,16 @@ function renderProductList() {
       : avail === 'on_order' ? '<span class="badge badge-off">На заказ</span>'
       : '<span class="badge badge-off">Нет</span>';
     const hiddenBadge = isHidden ? '<span class="badge badge-hidden">Скрыт</span>' : '';
-    const cats = (Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : []).join(', ') || '—';
+    const catList = (Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : []);
+    const catBadges = catList.length
+      ? catList.map(c => `<span class="tag" style="font-size:0.7rem;padding:0.1rem 0.5rem">${c}</span>`).join('')
+      : '<span style="color:var(--muted)">—</span>';
     return `
       <div class="product-row${isHidden ? ' is-hidden' : ''}">
         ${thumb}
         <div class="product-row-info">
           <div class="name">${p.data.name || p.id} ${hiddenBadge}</div>
-          <div class="meta">${cats} · ${p.data.price || 0} ₽ · ${availBadge}</div>
+          <div class="meta" style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap">${catBadges} · ${p.data.price || 0} ₽ · ${availBadge}</div>
         </div>
         <div class="product-row-actions">
           <button class="btn btn-sm btn-secondary" onclick="openEdit(${i})">Изменить</button>
@@ -812,12 +815,49 @@ function showCatDropdown(val) {
   dd.classList.remove('hidden');
 }
 
-document.getElementById('f-category-input').addEventListener('input', e => showCatDropdown(e.target.value.trim()));
-document.getElementById('f-category-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') { e.preventDefault(); const v = e.target.value.trim(); if (v) addCategory(v); }
-  else if (e.key === 'Escape') hideCatDropdown();
+let catFocusIndex = -1;
+
+function updateCatFocus(items, idx) {
+  catFocusIndex = idx;
+  items.forEach((el, i) => el.classList.toggle('focused', i === catFocusIndex));
+}
+
+document.getElementById('f-category-input').addEventListener('input', e => {
+  catFocusIndex = -1;
+  showCatDropdown(e.target.value.trim());
 });
-document.getElementById('f-category-input').addEventListener('blur', () => setTimeout(hideCatDropdown, 150));
+
+document.getElementById('f-category-input').addEventListener('keydown', e => {
+  const dd = document.getElementById('cat-dropdown');
+  const items = [...dd.querySelectorAll('.autocomplete-item')];
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (!dd.classList.contains('hidden') && items.length) {
+      updateCatFocus(items, Math.min(catFocusIndex + 1, items.length - 1));
+    }
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (!dd.classList.contains('hidden') && items.length) {
+      updateCatFocus(items, Math.max(catFocusIndex - 1, 0));
+    }
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (!dd.classList.contains('hidden') && catFocusIndex >= 0 && items[catFocusIndex]) {
+      items[catFocusIndex].dispatchEvent(new MouseEvent('mousedown'));
+    } else {
+      const v = e.target.value.trim();
+      if (v) addCategory(v);
+    }
+  } else if (e.key === 'Escape') {
+    hideCatDropdown();
+  }
+});
+
+document.getElementById('f-category-input').addEventListener('blur', () => {
+  catFocusIndex = -1;
+  setTimeout(hideCatDropdown, 150);
+});
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
 
