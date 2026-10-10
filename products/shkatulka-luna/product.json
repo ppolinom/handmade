@@ -1,9 +1,8 @@
 {
   "name": "Шкатулка Луна",
-  "categories": [
-    "Гипс",
-    "Хранение"
-  ],
+  "sections": [],
+  "collections": [],
+  "categories": [],
   "description": "",
   "price": 600,
   "availability": "on_order",

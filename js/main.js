@@ -2,6 +2,12 @@ const CATALOG_URL = 'data/catalog.json';
 const TAXONOMY_URL = 'data/taxonomy.json';
 const TELEGRAM_USERNAME = 'ppolinom';
 
+// YouTube: получите API ключ на https://console.cloud.google.com → YouTube Data API v3
+// Ограничьте ключ по HTTP referrer: ppolinom.ru/* (чтобы не было злоупотреблений)
+const YOUTUBE_API_KEY = '';
+const YOUTUBE_CHANNEL_HANDLE = 'ppolinom';
+const YOUTUBE_CHANNEL_URL = `https://www.youtube.com/@${YOUTUBE_CHANNEL_HANDLE}`;
+
 async function loadCatalog() {
   const res = await fetch(CATALOG_URL);
   if (!res.ok) throw new Error('catalog not found');
@@ -22,11 +28,46 @@ function imgSrc(productId, filename) {
   return `products/${productId}/images/${filename}`;
 }
 
+// ── YouTube ────────────────────────────────────────────────────────────────────
+
+async function fetchYouTubeLatestVideo() {
+  if (!YOUTUBE_API_KEY) return null;
+  try {
+    // Шаг 1: получаем ID плейлиста загрузок канала
+    const chRes = await fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=${YOUTUBE_CHANNEL_HANDLE}&key=${YOUTUBE_API_KEY}`
+    );
+    if (!chRes.ok) return null;
+    const chData = await chRes.json();
+    const uploadsId = chData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+    if (!uploadsId) return null;
+
+    // Шаг 2: первый элемент плейлиста = последнее видео
+    const plRes = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=${uploadsId}&key=${YOUTUBE_API_KEY}`
+    );
+    if (!plRes.ok) return null;
+    const plData = await plRes.json();
+    const snippet = plData.items?.[0]?.snippet;
+    if (!snippet) return null;
+
+    const videoId = snippet.resourceId?.videoId;
+    if (!videoId) return null;
+    const thumb = snippet.thumbnails?.maxres?.url
+      || snippet.thumbnails?.standard?.url
+      || snippet.thumbnails?.high?.url
+      || null;
+    return { videoId, thumb, url: `https://www.youtube.com/watch?v=${videoId}` };
+  } catch {
+    return null;
+  }
+}
+
 // ── Index page ────────────────────────────────────────────────────────────────
 
 async function initIndex() {
   const grid = document.getElementById('grid');
-  const collectionsSection = document.getElementById('collections-section');
+  const heroSection = document.getElementById('collections-section');
 
   let catalog, taxonomy;
   try {
@@ -75,25 +116,74 @@ async function initIndex() {
       btn.classList.toggle('active', btn.dataset.filterVal === value);
     });
     if (type === 'collection') {
-      document.querySelectorAll('.collection-card').forEach(c => {
-        c.classList.toggle('active', value !== '' && c.dataset.name === value);
+      document.querySelectorAll('.hero-slide[data-col]').forEach(el => {
+        el.classList.toggle('active', value !== '' && el.dataset.col === value);
       });
     }
     applyFilters();
   }
 
-  // ── Collections carousel ──────────────────────────────────────────────
+  // ── Hero carousel ──────────────────────────────────────────────────────────
+
+  // Новинка: последний видимый товар (по createdAt, иначе по порядку в каталоге)
+  const newestProduct = catalog.length
+    ? catalog.reduce((best, p) => {
+        if (p.createdAt && best.createdAt) return p.createdAt > best.createdAt ? p : best;
+        if (p.createdAt) return p;
+        if (best.createdAt) return best;
+        return p; // без меток времени — побеждает последний в каталоге
+      })
+    : null;
+
+  // YouTube (не блокирует отрисовку — всё равно await, но быстро)
+  const ytData = await fetchYouTubeLatestVideo().catch(() => null);
+
   const enabledCollections = (taxonomy.collections || []).filter(c => c.enabled);
-  if (enabledCollections.length > 0 && collectionsSection) {
-    collectionsSection.classList.remove('hidden');
-    renderCollectionsCarousel(enabledCollections, collectionsSection, name => {
-      const newVal = activeCollection === name ? '' : name;
+
+  // Собираем слайды
+  const heroSlides = [];
+
+  if (newestProduct) {
+    heroSlides.push({
+      type: 'new',
+      title: newestProduct.name,
+      badge: 'Новинка',
+      bgImage: newestProduct.images?.[0] ? imgSrc(newestProduct.id, newestProduct.images[0]) : null,
+      href: `product.html?id=${newestProduct.id}`,
+      target: '_self'
+    });
+  }
+
+  heroSlides.push({
+    type: 'youtube',
+    title: 'Мой YouTube канал',
+    badge: ytData ? 'Последнее видео' : null,
+    bgImage: ytData?.thumb || null,
+    href: ytData?.url || YOUTUBE_CHANNEL_URL,
+    target: '_blank',
+    ytFallback: !ytData?.thumb
+  });
+
+  enabledCollections.forEach(c => {
+    heroSlides.push({
+      type: 'collection',
+      title: c.name,
+      badge: 'Подборка',
+      bgImage: c.image || null,
+      collectionName: c.name
+    });
+  });
+
+  if (heroSlides.length > 0 && heroSection) {
+    heroSection.classList.remove('hidden');
+    renderHeroCarousel(heroSlides, heroSection, collectionName => {
+      const newVal = activeCollection === collectionName ? '' : collectionName;
       setFilter('collection', newVal);
       grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }
 
-  // ── Filter rows ───────────────────────────────────────────────────────
+  // ── Filter rows ───────────────────────────────────────────────────────────
   const allSections = [...new Set([...(taxonomy.sections || []), ...catalog.flatMap(getProductSections)])];
   const allCollectionNames = [...new Set([
     ...(taxonomy.collections || []).filter(c => c.enabled).map(c => c.name),
@@ -149,48 +239,136 @@ async function initIndex() {
   applyFilters();
 }
 
-// ── Collections carousel ──────────────────────────────────────────────────────
+// ── Hero carousel ──────────────────────────────────────────────────────────────
 
-function renderCollectionsCarousel(collections, container, onSelect) {
-  container.innerHTML = `
-    <div class="collections-carousel">
-      <div class="collections-track">
-        ${collections.map(c => `
-          <button class="collection-card" data-name="${c.name}">
-            ${c.image ? `<img src="${c.image}" alt="${c.name}" class="collection-img">` : '<div class="collection-img-empty"></div>'}
-            <div class="collection-name">${c.name}</div>
-          </button>
-        `).join('')}
+const YT_ICON_SVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path fill="#FF0000" d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805z"/>
+  <path fill="#fff" d="M9.609 15.601V8.408l6.264 3.602z"/>
+</svg>`;
+
+function renderHeroCarousel(slides, container, onCollectionClick) {
+  const N = slides.length;
+  if (!N) return;
+
+  function makeSlideHTML(s) {
+    const bgStyle = s.bgImage ? `style="background-image:url('${s.bgImage}')"` : '';
+    const href = s.href || '#';
+    const targetAttr = s.target ? `target="${s.target}"` : '';
+    const colAttr = s.type === 'collection' ? `data-col="${s.collectionName}"` : '';
+    return `<a class="hero-slide" href="${href}" ${targetAttr} ${bgStyle} ${colAttr}>
+      ${s.ytFallback ? `<div class="hero-yt-fallback">${YT_ICON_SVG}</div>` : ''}
+      <div class="hero-slide-footer">
+        ${s.badge ? `<span class="hero-slide-badge">${s.badge}</span>` : ''}
+        <div class="hero-slide-title">${s.title}</div>
       </div>
+    </a>`;
+  }
+
+  // Зацикливание через клонирование крайних слайдов
+  const trackSlides = N > 1 ? [slides[N - 1], ...slides, slides[0]] : slides;
+  let currentIdx = N > 1 ? 1 : 0;
+  const autoRotate = N > 3;
+
+  const dotsHTML = N > 1
+    ? `<div class="hero-dots">${slides.map((_, i) => `<button data-i="${i}"${i === 0 ? ' class="active"' : ''}></button>`).join('')}</div>`
+    : '';
+  const navHTML = N > 1
+    ? `<button class="hero-btn hero-prev" aria-label="Назад">‹</button>
+       <button class="hero-btn hero-next" aria-label="Вперёд">›</button>`
+    : '';
+
+  container.innerHTML = `
+    <div class="hero-carousel">
+      <div class="hero-track" style="transform:translateX(${N > 1 ? '-100%' : '0'})">
+        ${trackSlides.map(makeSlideHTML).join('')}
+      </div>
+      ${navHTML}
+      ${dotsHTML}
     </div>
   `;
 
-  container.querySelectorAll('.collection-card').forEach(card => {
-    card.addEventListener('click', () => onSelect(card.dataset.name));
-  });
+  const track = container.querySelector('.hero-track');
+  const dots = [...container.querySelectorAll('.hero-dots button')];
 
-  if (collections.length >= 3) {
-    const track = container.querySelector('.collections-track');
-    let idx = 0;
-    setInterval(() => {
-      idx++;
-      const card = track.querySelector('.collection-card');
-      if (!card) return;
-      const style = getComputedStyle(track);
-      const gap = parseFloat(style.gap) || 16;
-      const cardW = card.getBoundingClientRect().width + gap;
+  // Включаем анимацию после рендера (иначе начальный translateX тоже анимируется)
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    track.style.transition = 'transform 0.5s ease';
+  }));
 
-      if (idx >= collections.length) {
+  function realIdx(idx) {
+    return N > 1 ? ((idx - 1 + N) % N) : 0;
+  }
+
+  function updateDots() {
+    const ri = realIdx(currentIdx);
+    dots.forEach((d, i) => d.classList.toggle('active', i === ri));
+  }
+
+  function goTo(idx) {
+    currentIdx = idx;
+    track.style.transform = `translateX(${-currentIdx * 100}%)`;
+    updateDots();
+  }
+
+  if (N > 1) {
+    track.addEventListener('transitionend', () => {
+      if (currentIdx === 0) {
+        // Перепрыгнули до клона последнего — мгновенно возвращаем на реальный
         track.style.transition = 'none';
-        track.style.transform = 'translateX(0)';
+        currentIdx = N;
+        track.style.transform = `translateX(${-N * 100}%)`;
         track.getBoundingClientRect(); // force reflow
         track.style.transition = 'transform 0.5s ease';
-        idx = 0;
-      } else {
-        track.style.transform = `translateX(-${idx * cardW}px)`;
+        updateDots();
+      } else if (currentIdx === N + 1) {
+        // Перепрыгнули за клон первого — мгновенно на реальный
+        track.style.transition = 'none';
+        currentIdx = 1;
+        track.style.transform = 'translateX(-100%)';
+        track.getBoundingClientRect();
+        track.style.transition = 'transform 0.5s ease';
+        updateDots();
       }
-    }, 3000);
+    });
   }
+
+  const advance = () => goTo(currentIdx + 1);
+  const retreat = () => goTo(currentIdx - 1);
+
+  let autoTimer = null;
+
+  function startAuto() {
+    if (!autoRotate) return;
+    autoTimer = setInterval(advance, 10000);
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    startAuto();
+  }
+
+  container.querySelector('.hero-prev')?.addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation(); retreat(); resetAuto();
+  });
+  container.querySelector('.hero-next')?.addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation(); advance(); resetAuto();
+  });
+
+  dots.forEach((d, i) => {
+    d.addEventListener('click', e => {
+      e.stopPropagation(); goTo(i + 1); resetAuto();
+    });
+  });
+
+  // Клик на слайд-подборку → фильтр
+  container.querySelectorAll('.hero-slide[data-col]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      onCollectionClick(el.dataset.col);
+    });
+  });
+
+  startAuto();
 }
 
 // ── Product page ──────────────────────────────────────────────────────────────

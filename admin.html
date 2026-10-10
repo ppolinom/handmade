@@ -972,6 +972,9 @@ document.getElementById('btn-save').addEventListener('click', async () => {
       availability: document.getElementById('f-availability').value,
       visible: document.getElementById('f-visible').value === 'true'
     };
+    if (editingIndex === null) {
+      data.createdAt = new Date().toISOString();
+    }
 
     for (const img of removedImages) {
       await deleteFile(`products/${id}/images/${img.name}`, `remove image: ${img.name}`, img.sha);
