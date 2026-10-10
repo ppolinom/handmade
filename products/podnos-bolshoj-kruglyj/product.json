@@ -8,9 +8,17 @@
     "Подносы"
   ],
   "description": "Большой круглый гипсовый поднос ручной работы — подходит для свечей, косметики или как декор стола.",
-  "price": 600,
+  "price": 400,
   "availability": "on_order",
   "visible": true,
-  "imageOrder": [],
-  "createdAt": "2026-10-10T15:05:21.558Z"
+  "imageOrder": [
+    "IMG_2532.JPG",
+    "IMG_2561.JPEG",
+    "IMG_3119.JPEG",
+    "IMG_5322.JPEG",
+    "IMG_5323.JPEG",
+    "IMG_7757.JPG",
+    "photo_10@31-01-2026_18-17-44.jpg",
+    "photo_27@31-01-2026_19-50-06.jpg"
+  ]
 }
