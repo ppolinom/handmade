@@ -39,32 +39,23 @@ function imgSrc(productId, filename) {
 
 async function fetchYouTubeLatestVideo() {
   // Способ 1 (без ключа): RSS-лента через CORS-прокси
+  // Прямой fetch невозможен: YouTube не присылает Access-Control-Allow-Origin,
+  // поэтому браузер блокирует ответ даже если URL открывается вручную без проблем.
   if (YOUTUBE_CHANNEL_ID) {
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
-    let xmlText = null;
+    const SIG = AbortSignal.timeout(2000);
 
-    // allorigins.win — возвращает JSON-обёртку { contents, status }
-    if (!xmlText) {
-      try {
-        const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`, {
-          signal: AbortSignal.timeout(8000)
-        });
-        if (r.ok) {
-          const j = await r.json();
-          if (j.status?.http_code === 200 && j.contents) xmlText = j.contents;
-        }
-      } catch {}
-    }
-
-    // corsproxy.io — запасной вариант
-    if (!xmlText) {
-      try {
-        const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, {
-          signal: AbortSignal.timeout(6000)
-        });
-        if (r.ok) xmlText = await r.text();
-      } catch {}
-    }
+    // Оба прокси стартуют параллельно, берём первый успешный
+    const xmlText = await Promise.any([
+      fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`, { signal: SIG })
+        .then(r => r.json())
+        .then(j => {
+          if (j.status?.http_code !== 200 || !j.contents) throw new Error();
+          return j.contents;
+        }),
+      fetch(`https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, { signal: SIG })
+        .then(r => { if (!r.ok) throw new Error(); return r.text(); }),
+    ]).catch(() => null);
 
     if (xmlText) {
       const videoId = xmlText.match(/<yt:videoId>([\w-]+)<\/yt:videoId>/)?.[1]
