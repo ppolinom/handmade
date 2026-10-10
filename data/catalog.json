@@ -16,7 +16,9 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.662Z",
-    "images": []
+    "images": [
+      "Снимок экрана 2026-10-10 222422.png"
+    ]
   },
   {
     "id": "domik-novogodnij-dekor",
@@ -73,7 +75,15 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.658Z",
-    "images": []
+    "images": [
+      "IMG_1357.JPEG",
+      "IMG_1359.JPEG",
+      "IMG_1364.JPEG",
+      "IMG_1367.JPEG",
+      "IMG_1368.JPEG",
+      "IMG_1370.JPEG",
+      "IMG_1470.JPEG"
+    ]
   },
   {
     "id": "granenye-kh3-podsvechnik",
@@ -107,7 +117,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.619Z",
-    "images": []
+    "images": [
+      "IMG_2577.JPEG",
+      "IMG_4996.JPEG"
+    ]
   },
   {
     "id": "khogvarts-podsvechnik",
@@ -126,7 +139,12 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.670Z",
-    "images": []
+    "images": [
+      "Снимок экрана 2026-10-10 214111.png",
+      "Снимок экрана 2026-10-10 214118.png",
+      "Снимок экрана 2026-10-10 214127.png",
+      "Снимок экрана 2026-10-10 214134.png"
+    ]
   },
   {
     "id": "kotik-podsvechnik",
@@ -143,7 +161,12 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.650Z",
-    "images": []
+    "images": [
+      "photo_88@05-03-2026_19-28-25.jpg",
+      "photo_90@05-03-2026_19-28-25.jpg",
+      "photo_91@05-03-2026_19-28-25.jpg",
+      "photo_99@07-03-2026_13-27-48.jpg"
+    ]
   },
   {
     "id": "kruglye-kh3-podsvechnik",
@@ -160,7 +183,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.624Z",
-    "images": []
+    "images": [
+      "photo_11@31-01-2026_18-17-44.jpg",
+      "photo_9@31-01-2026_18-17-44.jpg"
+    ]
   },
   {
     "id": "kruglyj-granenyj-podsvechnik-sharik",
@@ -177,7 +203,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.666Z",
-    "images": []
+    "images": [
+      "IMG_2549.JPEG",
+      "Снимок экрана 2026-10-10 214705.png"
+    ]
   },
   {
     "id": "kruglyj-podnos-s-podsvechnikom-i-domikami",
@@ -196,7 +225,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.575Z",
-    "images": []
+    "images": [
+      "IMG_1471.JPEG",
+      "IMG_1472.JPEG",
+      "IMG_1473.JPEG"
+    ]
   },
   {
     "id": "kruglyj-podnos-s-podsvechnikom-i-domikami-2",
@@ -232,7 +265,9 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.634Z",
-    "images": []
+    "images": [
+      "photo_123@18-06-2026_14-06-22_thumb.jpg"
+    ]
   },
   {
     "id": "lotos-podsvechnik",
@@ -252,6 +287,7 @@
     "images": [
       "IMG_2573.JPEG",
       "IMG_2583.JPEG",
+      "IMG_2589.JPEG",
       "IMG_5037.JPEG"
     ]
   },
@@ -270,7 +306,16 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.558Z",
-    "images": []
+    "images": [
+      "IMG_2532.JPG",
+      "IMG_2561.JPEG",
+      "IMG_3119.JPEG",
+      "IMG_5322.JPEG",
+      "IMG_5323.JPEG",
+      "IMG_7757.JPG",
+      "photo_10@31-01-2026_18-17-44.jpg",
+      "photo_27@31-01-2026_19-50-06.jpg"
+    ]
   },
   {
     "id": "podnos-gora",
@@ -287,7 +332,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.570Z",
-    "images": []
+    "images": [
+      "photo_168@26-07-2026_00-07-34_thumb.jpg",
+      "photo_197@10-08-2026_17-33-25_thumb.jpg",
+      "photo_198@10-08-2026_17-33-25_thumb.jpg"
+    ]
   },
   {
     "id": "podnos-kruglyj-malenkij",
@@ -304,7 +353,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.541Z",
-    "images": []
+    "images": [
+      "IMG_7758.JPEG",
+      "IMG_7761.JPG",
+      "IMG_7766.JPEG"
+    ]
   },
   {
     "id": "podnos-malenkij-shestigrannyj",
@@ -321,7 +374,12 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.546Z",
-    "images": []
+    "images": [
+      "IMG_2590.JPEG",
+      "IMG_5244.JPEG",
+      "IMG_5319.JPEG",
+      "IMG_5330.JPEG"
+    ]
   },
   {
     "id": "podnos-oblako-s-bortikami",
@@ -338,7 +396,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.580Z",
-    "images": []
+    "images": [
+      "photo_121@18-06-2026_14-06-22.jpg",
+      "photo_165@26-07-2026_00-07-34_thumb.jpg"
+    ]
   },
   {
     "id": "podnos-ovalnyj",
@@ -355,7 +416,12 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.554Z",
-    "images": []
+    "images": [
+      "IMG_2549.JPEG",
+      "IMG_6296.JPG",
+      "IMG_7048.JPEG",
+      "photo_156@20-07-2026_22-45-22.jpg"
+    ]
   },
   {
     "id": "podnos-ovalnyj-malyj",
@@ -372,7 +438,12 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.551Z",
-    "images": []
+    "images": [
+      "IMG_2549.JPEG",
+      "IMG_6296.JPG",
+      "IMG_7048.JPEG",
+      "photo_156@20-07-2026_22-45-22.jpg"
+    ]
   },
   {
     "id": "podnos-tonkoe-oblako",
@@ -389,7 +460,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.565Z",
-    "images": []
+    "images": [
+      "photo_120@18-06-2026_14-06-22_thumb.jpg",
+      "photo_164@26-07-2026_00-07-34.jpg"
+    ]
   },
   {
     "id": "podstavka-dlya-telefona",
@@ -406,7 +480,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.709Z",
-    "images": []
+    "images": [
+      "photo_31@31-01-2026_19-51-01.jpg",
+      "photo_32@31-01-2026_19-51-01_thumb.jpg",
+      "photo_60@22-02-2026_17-51-56_thumb.jpg"
+    ]
   },
   {
     "id": "podsvechnik-kruglyj-glubokij",
@@ -423,7 +501,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.698Z",
-    "images": []
+    "images": [
+      "photo_28@31-01-2026_19-50-06.jpg",
+      "photo_29@31-01-2026_19-50-06.jpg"
+    ]
   },
   {
     "id": "podsvechnik-piramidka-s-kryshkoj",
@@ -440,7 +521,9 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.675Z",
-    "images": []
+    "images": [
+      "Снимок экрана 2026-10-10 222704.png"
+    ]
   },
   {
     "id": "podsvechnik-rebristyj-nizkij",
@@ -457,7 +540,12 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.691Z",
-    "images": []
+    "images": [
+      "IMG_5022.JPEG",
+      "IMG_5529.JPEG",
+      "photo_15@31-01-2026_18-18-25.jpg",
+      "photo_30@31-01-2026_19-50-06.jpg"
+    ]
   },
   {
     "id": "podsvechnik-zvezdy-s-kryshkoj",
@@ -474,7 +562,9 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.673Z",
-    "images": []
+    "images": [
+      "IMG_7262.JPEG"
+    ]
   },
   {
     "id": "pol-elki-podsvechnik",
@@ -493,7 +583,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.654Z",
-    "images": []
+    "images": [
+      "Снимок экрана 2026-10-10 222405.png",
+      "Снимок экрана 2026-10-10 222408.png"
+    ]
   },
   {
     "id": "rakushka-podsvechnik",
@@ -510,7 +603,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.622Z",
-    "images": []
+    "images": [
+      "photo_122@18-06-2026_14-06-22.jpg",
+      "photo_167@26-07-2026_00-07-34_thumb.jpg"
+    ]
   },
   {
     "id": "shkatulka-1-granenaya-bolshaya",
@@ -547,7 +643,9 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.590Z",
-    "images": []
+    "images": [
+      "photo_27@31-01-2026_19-50-06.jpg"
+    ]
   },
   {
     "id": "shkatulka-3-s-sharikom-rebristaya-nizkaya",
@@ -564,7 +662,12 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.594Z",
-    "images": []
+    "images": [
+      "IMG_4999.JPEG",
+      "IMG_5069.JPEG",
+      "IMG_5070.JPEG",
+      "photo_60@22-02-2026_17-51-56_thumb.jpg"
+    ]
   },
   {
     "id": "shkatulka-4-mini-serdtse-granenoe",
@@ -581,7 +684,12 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.584Z",
-    "images": []
+    "images": [
+      "IMG_5319.JPEG",
+      "IMG_5321.JPEG",
+      "photo_55@14-02-2026_23-35-30.jpg",
+      "photo_56@14-02-2026_23-35-30.jpg"
+    ]
   },
   {
     "id": "shkatulka-5-kruglaya-miska",
@@ -598,7 +706,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.597Z",
-    "images": []
+    "images": [
+      "photo_28@31-01-2026_19-50-06_thumb.jpg",
+      "photo_29@31-01-2026_19-50-06_thumb.jpg"
+    ]
   },
   {
     "id": "shkatulka-6-luna",
@@ -615,7 +726,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.608Z",
-    "images": []
+    "images": [
+      "photo_195@10-08-2026_17-33-25.jpg",
+      "photo_196@10-08-2026_17-33-25.jpg"
+    ]
   },
   {
     "id": "shkatulka-7-shlyapa-garri-potter",
@@ -632,7 +746,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.600Z",
-    "images": []
+    "images": [
+      "photo_92@06-03-2026_09-43-40_thumb.jpg",
+      "photo_93@06-03-2026_09-43-40_thumb.jpg",
+      "photo_96@07-03-2026_13-25-15_thumb.jpg"
+    ]
   },
   {
     "id": "stakan-gladkij-s-kryshkoj",
@@ -649,7 +767,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.611Z",
-    "images": []
+    "images": [
+      "IMG_6838.JPEG",
+      "IMG_7048.JPEG"
+    ]
   },
   {
     "id": "stakan-rebristyj-s-kryshkoj",
@@ -666,7 +787,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.614Z",
-    "images": []
+    "images": [
+      "IMG_2552.JPEG",
+      "IMG_2561.JPEG",
+      "IMG_5529.JPEG"
+    ]
   },
   {
     "id": "vanna-dekorativnaya",
@@ -683,7 +808,9 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.702Z",
-    "images": []
+    "images": [
+      "Снимок экрана 2026-10-10 222632.png"
+    ]
   },
   {
     "id": "vaza-granenaya-karandashnitsa",
@@ -700,7 +827,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.713Z",
-    "images": []
+    "images": [
+      "IMG_5067.JPEG",
+      "IMG_5323.JPEG",
+      "photo_10@31-01-2026_18-17-44.jpg"
+    ]
   },
   {
     "id": "vaza-uzkoe-gorlo",
@@ -717,7 +848,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.716Z",
-    "images": []
+    "images": [
+      "IMG_2553.JPEG",
+      "photo_5@31-01-2026_18-17-44.jpg",
+      "photo_6@31-01-2026_18-17-44.jpg"
+    ]
   },
   {
     "id": "vyazanyj-podsvechnik",
@@ -736,6 +871,8 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.679Z",
-    "images": []
+    "images": [
+      "Снимок экрана 2026-10-10 222223.png"
+    ]
   }
 ]
