@@ -2,9 +2,16 @@ const CATALOG_URL = 'data/catalog.json';
 const TAXONOMY_URL = 'data/taxonomy.json';
 const TELEGRAM_USERNAME = 'ppolinom';
 
-// YouTube: получите API ключ на https://console.cloud.google.com → YouTube Data API v3
-// Ограничьте ключ по HTTP referrer: ppolinom.ru/* (чтобы не было злоупотреблений)
+// ── YouTube настройки ─────────────────────────────────────────────────────────
+// Способ 1 (проще, без ключа): укажите Channel ID канала.
+// Найти его: YouTube Studio → Настройки → Канал → Расширенные настройки → Channel ID
+// Выглядит как: UCxxxxxxxxxxxxxxxxxxxx
+const YOUTUBE_CHANNEL_ID = '';
+
+// Способ 2 (резервный): YouTube Data API v3 ключ.
+// console.cloud.google.com → YouTube Data API v3 → ограничить referrer ppolinom.ru/*
 const YOUTUBE_API_KEY = '';
+
 const YOUTUBE_CHANNEL_HANDLE = 'ppolinom';
 const YOUTUBE_CHANNEL_URL = `https://www.youtube.com/@${YOUTUBE_CHANNEL_HANDLE}`;
 
@@ -31,36 +38,66 @@ function imgSrc(productId, filename) {
 // ── YouTube ────────────────────────────────────────────────────────────────────
 
 async function fetchYouTubeLatestVideo() {
-  if (!YOUTUBE_API_KEY) return null;
-  try {
-    // Шаг 1: получаем ID плейлиста загрузок канала
-    const chRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=${YOUTUBE_CHANNEL_HANDLE}&key=${YOUTUBE_API_KEY}`
-    );
-    if (!chRes.ok) return null;
-    const chData = await chRes.json();
-    const uploadsId = chData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
-    if (!uploadsId) return null;
-
-    // Шаг 2: первый элемент плейлиста = последнее видео
-    const plRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=${uploadsId}&key=${YOUTUBE_API_KEY}`
-    );
-    if (!plRes.ok) return null;
-    const plData = await plRes.json();
-    const snippet = plData.items?.[0]?.snippet;
-    if (!snippet) return null;
-
-    const videoId = snippet.resourceId?.videoId;
-    if (!videoId) return null;
-    const thumb = snippet.thumbnails?.maxres?.url
-      || snippet.thumbnails?.standard?.url
-      || snippet.thumbnails?.high?.url
-      || null;
-    return { videoId, thumb, url: `https://www.youtube.com/watch?v=${videoId}` };
-  } catch {
-    return null;
+  // Способ 1 (без ключа): RSS-лента + CORS-прокси corsproxy.io
+  // Аналогично тому, как мы тянем статус Twitch через их публичный API
+  if (YOUTUBE_CHANNEL_ID) {
+    try {
+      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
+      const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, {
+        signal: AbortSignal.timeout(6000)
+      });
+      if (!res.ok) throw new Error('rss fetch failed');
+      const text = await res.text();
+      const doc = new DOMParser().parseFromString(text, 'application/xml');
+      const entry = doc.querySelector('entry');
+      if (!entry) return null;
+      // <yt:videoId>xxxx</yt:videoId>  или  <id>yt:video:xxxx</id>
+      const videoId = entry.querySelector('videoId')?.textContent?.trim()
+        || entry.querySelector('id')?.textContent?.trim()?.split(':').pop();
+      if (!videoId || videoId.length < 5) return null;
+      // hqdefault.jpg (480×360) всегда есть; maxresdefault может отсутствовать у старых видео
+      return {
+        videoId,
+        thumb: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+        url: `https://www.youtube.com/watch?v=${videoId}`
+      };
+    } catch {
+      // если прокси недоступен — переходим к способу 2 или null
+    }
   }
+
+  // Способ 2 (с зарегистрированным ключом): YouTube Data API v3
+  if (YOUTUBE_API_KEY) {
+    try {
+      const chRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=${YOUTUBE_CHANNEL_HANDLE}&key=${YOUTUBE_API_KEY}`
+      );
+      if (!chRes.ok) return null;
+      const chData = await chRes.json();
+      const uploadsId = chData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+      if (!uploadsId) return null;
+
+      const plRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=${uploadsId}&key=${YOUTUBE_API_KEY}`
+      );
+      if (!plRes.ok) return null;
+      const plData = await plRes.json();
+      const snippet = plData.items?.[0]?.snippet;
+      if (!snippet) return null;
+
+      const videoId = snippet.resourceId?.videoId;
+      if (!videoId) return null;
+      const thumb = snippet.thumbnails?.maxres?.url
+        || snippet.thumbnails?.standard?.url
+        || snippet.thumbnails?.high?.url
+        || null;
+      return { videoId, thumb, url: `https://www.youtube.com/watch?v=${videoId}` };
+    } catch {
+      return null;
+    }
+  }
+
+  return null;
 }
 
 // ── Index page ────────────────────────────────────────────────────────────────
@@ -208,12 +245,20 @@ async function initIndex() {
   buildFilterRow('filter-collections', allCollectionNames, 'collection', 'Все подборки');
   buildFilterRow('filter-categories', allCategories, 'category', 'Все категории');
 
+  const PRODUCTS_PER_PAGE = 16;
+  const loadMoreWrap = document.getElementById('load-more-wrap');
+  let currentFilteredItems = [];
+
   function renderGrid(items) {
+    currentFilteredItems = items;
     if (!items.length) {
       grid.innerHTML = '<p class="empty">Нет товаров.</p>';
+      if (loadMoreWrap) loadMoreWrap.innerHTML = '';
       return;
     }
-    grid.innerHTML = items.map(product => {
+
+    const visible = items.slice(0, PRODUCTS_PER_PAGE);
+    grid.innerHTML = visible.map(product => {
       const thumb = product.images?.[0]
         ? `<img class="card-img" src="${imgSrc(product.id, product.images[0])}" alt="${product.name}" loading="lazy">`
         : `<div class="card-img-placeholder">🧶</div>`;
@@ -234,6 +279,44 @@ async function initIndex() {
         </a>
       `;
     }).join('');
+
+    renderLoadMore(items, PRODUCTS_PER_PAGE);
+  }
+
+  function renderLoadMore(allItems, shownCount) {
+    if (!loadMoreWrap) return;
+    const remaining = allItems.length - shownCount;
+    if (remaining <= 0) {
+      loadMoreWrap.innerHTML = '';
+      return;
+    }
+    loadMoreWrap.innerHTML = `<button class="btn-load-more">Показать ещё ${remaining}</button>`;
+    loadMoreWrap.querySelector('button').addEventListener('click', () => {
+      const newShown = shownCount + PRODUCTS_PER_PAGE;
+      const nextBatch = allItems.slice(shownCount, newShown);
+      grid.insertAdjacentHTML('beforeend', nextBatch.map(product => {
+        const thumb = product.images?.[0]
+          ? `<img class="card-img" src="${imgSrc(product.id, product.images[0])}" alt="${product.name}" loading="lazy">`
+          : `<div class="card-img-placeholder">🧶</div>`;
+        const avail = product.availability || (product.available === false ? 'unavailable' : 'available');
+        const unavailable = avail === 'unavailable'
+          ? '<span class="badge-unavailable">Нет в наличии</span>'
+          : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>' : '';
+        const label = getCardLabel(product);
+        return `
+          <a class="card" href="product.html?id=${product.id}">
+            ${thumb}
+            <div class="card-body">
+              ${label ? `<div class="card-category">${label}</div>` : ''}
+              <div class="card-name">${product.name}</div>
+              ${unavailable}
+              <div class="card-price">${product.price} ₽</div>
+            </div>
+          </a>
+        `;
+      }).join(''));
+      renderLoadMore(allItems, newShown);
+    });
   }
 
   applyFilters();

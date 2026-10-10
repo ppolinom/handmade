@@ -297,6 +297,20 @@ main {
 .back-link:hover { color: var(--text); }
 
 .empty { text-align: center; color: var(--text-muted); padding: 4rem 0; font-size: 1rem; }
+
+#load-more-wrap { text-align: center; margin-top: 2rem; }
+.btn-load-more {
+  padding: 0.65rem 2rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-load-more:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 .error { text-align: center; color: var(--text-muted); padding: 4rem 0; }
 .hidden { display: none !important; }
 
