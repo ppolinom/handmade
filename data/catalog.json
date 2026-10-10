@@ -55,8 +55,9 @@
     "price": 300,
     "availability": "on_order",
     "visible": true,
-    "createdAt": "2026-10-10T15:05:21.647Z",
-    "images": []
+    "images": [
+      "Снимок экрана 2026-10-10 222408.png"
+    ]
   },
   {
     "id": "elochnyj-sharik-podsvechnik",
