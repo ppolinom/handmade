@@ -13,6 +13,19 @@
     "images": []
   },
   {
+    "id": "shkatulka-luna",
+    "name": "Шкатулка Луна",
+    "categories": [
+      "Гипс",
+      "Хранение"
+    ],
+    "description": "",
+    "price": 600,
+    "availability": "on_order",
+    "visible": true,
+    "images": []
+  },
+  {
     "id": "wer",
     "name": "wer",
     "categories": [
