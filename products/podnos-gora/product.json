@@ -8,9 +8,12 @@
     "Подносы"
   ],
   "description": "Необычный гипсовый поднос в форме горы — арт-объект и практичный органайзер одновременно.",
-  "price": 600,
+  "price": 500,
   "availability": "on_order",
   "visible": true,
-  "imageOrder": [],
-  "createdAt": "2026-10-10T15:05:21.570Z"
+  "imageOrder": [
+    "photo_168@26-07-2026_00-07-34_thumb.jpg",
+    "photo_197@10-08-2026_17-33-25_thumb.jpg",
+    "photo_198@10-08-2026_17-33-25_thumb.jpg"
+  ]
 }
