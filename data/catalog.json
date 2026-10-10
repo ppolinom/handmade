@@ -21,10 +21,10 @@
     "description": "",
     "price": 0,
     "availability": "on_order",
-    "visible": true,
+    "visible": false,
     "images": [
-      "gold.jpg",
-      "400_Grove_Роща.webp"
+      "400_Grove_Роща.webp",
+      "gold.jpg"
     ]
   }
 ]
