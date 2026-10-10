@@ -30,11 +30,19 @@ for (const folder of folders) {
   const product = JSON.parse(fs.readFileSync(productJsonPath, 'utf8'));
 
   const imagesDir = path.join(productsDir, folder, 'images');
-  const images = fs.existsSync(imagesDir)
-    ? fs.readdirSync(imagesDir).filter(f => IMAGE_EXTENSIONS.test(f)).sort()
-    : [];
+  let images = [];
+  if (fs.existsSync(imagesDir)) {
+    const all = fs.readdirSync(imagesDir).filter(f => IMAGE_EXTENSIONS.test(f));
+    if (Array.isArray(product.imageOrder)) {
+      const ordered = product.imageOrder.filter(f => all.includes(f));
+      images = [...ordered, ...all.filter(f => !ordered.includes(f)).sort()];
+    } else {
+      images = all.sort();
+    }
+  }
 
-  products.push({ id: folder, ...product, images });
+  const { imageOrder: _io, ...productData } = product;
+  products.push({ id: folder, ...productData, images });
 }
 
 fs.writeFileSync(outputFile, JSON.stringify(products, null, 2));

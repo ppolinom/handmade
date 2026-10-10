@@ -25,7 +25,23 @@ async function initIndex() {
     return;
   }
 
-  const categories = ['Все', ...new Set(catalog.map(p => p.category).filter(Boolean))];
+  catalog = catalog.filter(p => p.visible !== false);
+
+  function getProductCategories(p) {
+    if (Array.isArray(p.categories)) return p.categories;
+    if (p.category) return [p.category];
+    return [];
+  }
+
+  const seenLower = new Set();
+  const uniqueCategories = [];
+  for (const p of catalog) {
+    for (const cat of getProductCategories(p)) {
+      const lower = cat.toLowerCase();
+      if (!seenLower.has(lower)) { seenLower.add(lower); uniqueCategories.push(cat); }
+    }
+  }
+  const categories = ['Все', ...uniqueCategories];
   let activeCategory = 'Все';
 
   categoriesEl.innerHTML = categories.map(cat => `
@@ -43,7 +59,7 @@ async function initIndex() {
   function renderGrid() {
     const filtered = activeCategory === 'Все'
       ? catalog
-      : catalog.filter(p => p.category === activeCategory);
+      : catalog.filter(p => getProductCategories(p).some(c => c.toLowerCase() === activeCategory.toLowerCase()));
 
     if (filtered.length === 0) {
       grid.innerHTML = '<p class="empty">Нет товаров в этой категории.</p>';
@@ -55,15 +71,16 @@ async function initIndex() {
         ? `<img class="card-img" src="${imgSrc(product.id, product.images[0])}" alt="${product.name}" loading="lazy">`
         : `<div class="card-img-placeholder">🧶</div>`;
 
-      const unavailable = product.available === false
+      const avail = product.availability || (product.available === false ? 'unavailable' : 'available');
+      const unavailable = avail === 'unavailable'
         ? '<span class="badge-unavailable">Нет в наличии</span>'
-        : '';
+        : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>' : '';
 
       return `
         <a class="card" href="/product.html?id=${product.id}">
           ${thumb}
           <div class="card-body">
-            <div class="card-category">${product.category || ''}</div>
+            <div class="card-category">${getProductCategories(product).join(', ')}</div>
             <div class="card-name">${product.name}</div>
             ${unavailable}
             <div class="card-price">${product.price} ₽</div>
@@ -101,16 +118,17 @@ async function initProduct() {
   const tgText = encodeURIComponent(`Хочу заказать: ${product.name} — ${product.price} ₽\n${location.href}`);
   const tgLink = `https://t.me/${TELEGRAM_USERNAME}?text=${tgText}`;
 
-  const orderBtn = product.available !== false
-    ? `<a class="btn-order" href="${tgLink}" target="_blank">Написать в Telegram</a>`
-    : `<span class="badge-unavailable" style="font-size:0.9rem;padding:0.5rem 1rem">Нет в наличии</span>`;
+  const avail = product.availability || (product.available === false ? 'unavailable' : 'available');
+  const orderBtn = avail === 'unavailable'
+    ? `<span class="badge-unavailable" style="font-size:0.9rem;padding:0.5rem 1rem">Нет в наличии</span>`
+    : `<a class="btn-order" href="${tgLink}" target="_blank">${avail === 'on_order' ? 'Заказать в Telegram' : 'Написать в Telegram'}</a>`;
 
   container.innerHTML = `
     <a class="back-link" href="./"><span>←</span> Все товары</a>
     <div class="product-layout">
       <div id="carousel"></div>
       <div class="product-info">
-        <div class="category">${product.category || ''}</div>
+        <div class="category">${(Array.isArray(product.categories) ? product.categories : product.category ? [product.category] : []).join(', ')}</div>
         <h1>${product.name}</h1>
         <div class="price">${product.price} ₽</div>
         <div class="description">${product.description || ''}</div>

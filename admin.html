@@ -168,6 +168,46 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .hidden { display: none !important; }
+
+    /* Tag input */
+    .tag-input-wrap {
+      border: 1.5px solid var(--border); border-radius: 8px;
+      padding: 0.35rem 0.5rem; min-height: 42px;
+      display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center;
+      background: var(--surface); cursor: text;
+      transition: border-color 0.15s;
+    }
+    .tag-input-wrap:focus-within { border-color: var(--accent); }
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.2rem;
+      background: var(--accent-soft); color: var(--accent);
+      border-radius: 999px; padding: 0.2rem 0.5rem 0.2rem 0.7rem;
+      font-size: 0.8rem; font-weight: 500; white-space: nowrap;
+    }
+    .tag button { background: none; border: none; color: inherit; cursor: pointer; padding: 0; line-height: 1; font-size: 1rem; opacity: 0.6; }
+    .tag button:hover { opacity: 1; }
+    .tag-input-row { position: relative; flex: 1; min-width: 140px; }
+    .tag-input-row input {
+      border: none; outline: none; padding: 0.25rem 0.4rem;
+      font-size: 0.9rem; width: 100%; background: transparent; font-family: inherit; color: var(--text);
+    }
+    .autocomplete-dropdown {
+      position: absolute; top: calc(100% + 4px); left: -6px; right: -6px;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      z-index: 50; overflow: hidden;
+    }
+    .autocomplete-item {
+      padding: 0.5rem 0.85rem; font-size: 0.875rem; cursor: pointer;
+    }
+    .autocomplete-item:hover, .autocomplete-item.focused { background: var(--accent-soft); }
+    .autocomplete-item.new-cat { color: var(--muted); }
+    .autocomplete-item.new-cat strong { color: var(--text); font-style: normal; }
+
+    /* Image drag-and-drop ordering */
+    .img-thumb { cursor: grab; }
+    .img-thumb.dragging { opacity: 0.4; cursor: grabbing; }
+    .img-thumb.drag-over { outline: 2px dashed var(--accent); outline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -214,16 +254,21 @@
     </div>
 
     <div class="field">
-      <label>ID папки (латиница, без пробелов)</label>
-      <input type="text" id="f-id" placeholder="braslet-vesna">
-    </div>
-    <div class="field">
       <label>Название</label>
       <input type="text" id="f-name" placeholder="Браслет «Весна»">
     </div>
     <div class="field">
-      <label>Категория</label>
-      <input type="text" id="f-category" placeholder="украшения">
+      <label>ID папки (латиница, заполняется автоматически)</label>
+      <input type="text" id="f-id" placeholder="braslet-vesna">
+    </div>
+    <div class="field">
+      <label>Категории</label>
+      <div class="tag-input-wrap" id="categories-wrap" onclick="document.getElementById('f-category-input').focus()">
+        <div class="tag-input-row" id="cat-input-row">
+          <input type="text" id="f-category-input" placeholder="Добавить категорию...">
+          <div class="autocomplete-dropdown hidden" id="cat-dropdown"></div>
+        </div>
+      </div>
     </div>
     <div class="field">
       <label>Описание</label>
@@ -234,10 +279,18 @@
       <input type="number" id="f-price" placeholder="500" min="0">
     </div>
     <div class="field">
-      <label>В наличии</label>
-      <select id="f-available">
-        <option value="true">Да</option>
-        <option value="false">Нет</option>
+      <label>Наличие</label>
+      <select id="f-availability">
+        <option value="on_order">На заказ</option>
+        <option value="available">В наличии</option>
+        <option value="unavailable">Нет в наличии</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Видимость на сайте</label>
+      <select id="f-visible">
+        <option value="true">Отображать</option>
+        <option value="false">Скрыть с сайта</option>
       </select>
     </div>
     <div class="field">
@@ -384,7 +437,7 @@ function renderProductList() {
         ${thumb}
         <div class="product-row-info">
           <div class="name">${p.data.name || p.id}</div>
-          <div class="meta">${p.data.category || '—'} · ${p.data.price || 0} ₽ · ${badge}</div>
+          <div class="meta">${(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : []).join(', ') || '—'} · ${p.data.price || 0} ₽ · ${badge}</div>
         </div>
         <div class="product-row-actions">
           <button class="btn btn-sm btn-secondary" onclick="openEdit(${i})">Изменить</button>
@@ -395,41 +448,47 @@ function renderProductList() {
 
 // ── Modal ─────────────────────────────────────────────────────────────────────
 
-let editingIndex = null; // null = new product
-let pendingImages = []; // { file, base64, name } — новые, ещё не загруженные
-let removedImages = []; // { name, sha } — помечены на удаление
+let editingIndex = null;
+let pendingImages = []; // { base64, name, preview } — новые
+let removedImages = []; // { name, sha } — на удаление
+let currentCategories = []; // текущий набор категорий товара
+let imageOrder = []; // ['existing:filename', 'pending:filename'] — итоговый порядок
 
 function openAdd() {
   editingIndex = null;
-  pendingImages = [];
-  removedImages = [];
+  pendingImages = []; removedImages = []; imageOrder = [];
+  currentCategories = [];
   document.getElementById('modal-title').textContent = 'Новый товар';
+  document.getElementById('f-name').value = '';
   document.getElementById('f-id').disabled = false;
   document.getElementById('f-id').value = '';
-  document.getElementById('f-name').value = '';
-  document.getElementById('f-category').value = '';
   document.getElementById('f-description').value = '';
   document.getElementById('f-price').value = '';
-  document.getElementById('f-available').value = 'true';
+  document.getElementById('f-availability').value = 'on_order';
+  document.getElementById('f-visible').value = 'true';
   document.getElementById('btn-delete').classList.add('hidden');
+  renderCategoryTags();
   renderImagesGrid([]);
   document.getElementById('modal-overlay').classList.remove('hidden');
 }
 
 function openEdit(i) {
   editingIndex = i;
-  pendingImages = [];
-  removedImages = [];
+  pendingImages = []; removedImages = [];
   const p = products[i];
+  const cats = Array.isArray(p.data.categories) ? p.data.categories : (p.data.category ? [p.data.category] : []);
+  currentCategories = [...cats];
+  imageOrder = p.images.map(img => `existing:${img.name}`);
   document.getElementById('modal-title').textContent = 'Редактировать товар';
+  document.getElementById('f-name').value = p.data.name || '';
   document.getElementById('f-id').disabled = true;
   document.getElementById('f-id').value = p.id;
-  document.getElementById('f-name').value = p.data.name || '';
-  document.getElementById('f-category').value = p.data.category || '';
   document.getElementById('f-description').value = p.data.description || '';
   document.getElementById('f-price').value = p.data.price || '';
-  document.getElementById('f-available').value = String(p.data.available !== false);
+  document.getElementById('f-availability').value = p.data.availability || (p.data.available === false ? 'unavailable' : 'available');
+  document.getElementById('f-visible').value = String(p.data.visible !== false);
   document.getElementById('btn-delete').classList.remove('hidden');
+  renderCategoryTags();
   renderImagesGrid(p.images);
   document.getElementById('modal-overlay').classList.remove('hidden');
 }
@@ -438,34 +497,90 @@ function closeModal() {
   document.getElementById('modal-overlay').classList.add('hidden');
 }
 
+function getExistingImages() {
+  if (editingIndex === null) return [];
+  return products[editingIndex].images.filter(img => !removedImages.find(r => r.name === img.name));
+}
+
 function renderImagesGrid(existingImages) {
   const grid = document.getElementById('images-grid');
-  const existing = existingImages.filter(img => !removedImages.find(r => r.name === img.name));
-  grid.innerHTML = [
-    ...existing.map(img => `
-      <div class="img-thumb">
-        <img src="https://raw.githubusercontent.com/${REPO}/${BRANCH}/products/${products[editingIndex]?.id}/images/${img.name}" alt="">
-        <button class="img-thumb-remove" onclick="removeExistingImage('${img.name}','${img.sha}')">×</button>
-      </div>`),
-    ...pendingImages.map((p, i) => `
-      <div class="img-thumb">
-        <img src="${p.preview}" alt="">
-        <button class="img-thumb-remove" onclick="removePendingImage(${i})">×</button>
-      </div>`),
-    `<div class="img-add" onclick="document.getElementById('file-input').click()">+</div>`
-  ].join('');
+  const existing = (existingImages || []).filter(img => !removedImages.find(r => r.name === img.name));
+
+  // Build order from imageOrder, appending any new items not yet there
+  const allKeys = [
+    ...existing.map(img => `existing:${img.name}`),
+    ...pendingImages.map(p => `pending:${p.name}`)
+  ];
+  // Remove stale keys from imageOrder, add new ones
+  imageOrder = [...imageOrder.filter(k => allKeys.includes(k)), ...allKeys.filter(k => !imageOrder.includes(k))];
+
+  const productId = products[editingIndex]?.id;
+
+  const thumbs = imageOrder.map(key => {
+    if (key.startsWith('existing:')) {
+      const name = key.slice(9);
+      const img = existing.find(i => i.name === name);
+      if (!img) return '';
+      return `<div class="img-thumb" draggable="true" data-key="${key}">
+        <img src="https://raw.githubusercontent.com/${REPO}/${BRANCH}/products/${productId}/images/${name}" alt="">
+        <button class="img-thumb-remove" onclick="removeExistingImage('${name}','${img.sha}')">×</button>
+      </div>`;
+    } else {
+      const name = key.slice(8);
+      const pi = pendingImages.find(p => p.name === name);
+      if (!pi) return '';
+      return `<div class="img-thumb" draggable="true" data-key="${key}">
+        <img src="${pi.preview}" alt="">
+        <button class="img-thumb-remove" onclick="removePendingImage('${name}')">×</button>
+      </div>`;
+    }
+  }).join('');
+
+  grid.innerHTML = thumbs + `<div class="img-add" onclick="document.getElementById('file-input').click()">+</div>`;
+  initDragDrop(grid);
+}
+
+let dragSrc = null;
+
+function initDragDrop(grid) {
+  grid.querySelectorAll('.img-thumb').forEach(el => {
+    el.addEventListener('dragstart', e => {
+      dragSrc = el.dataset.key;
+      el.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    el.addEventListener('dragend', () => {
+      el.classList.remove('dragging');
+      grid.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('drag-over'));
+    });
+    el.addEventListener('dragover', e => {
+      e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+      grid.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('drag-over'));
+      el.classList.add('drag-over');
+    });
+    el.addEventListener('drop', e => {
+      e.preventDefault();
+      const target = el.dataset.key;
+      if (!dragSrc || dragSrc === target) return;
+      const from = imageOrder.indexOf(dragSrc);
+      const to = imageOrder.indexOf(target);
+      imageOrder.splice(from, 1);
+      imageOrder.splice(to, 0, dragSrc);
+      renderImagesGrid(getExistingImages());
+    });
+  });
 }
 
 function removeExistingImage(name, sha) {
   removedImages.push({ name, sha });
-  const p = editingIndex !== null ? products[editingIndex] : { images: [] };
-  renderImagesGrid(p.images || []);
+  imageOrder = imageOrder.filter(k => k !== `existing:${name}`);
+  renderImagesGrid(getExistingImages());
 }
 
-function removePendingImage(i) {
-  pendingImages.splice(i, 1);
-  const p = editingIndex !== null ? products[editingIndex] : { images: [] };
-  renderImagesGrid(p.images || []);
+function removePendingImage(name) {
+  pendingImages = pendingImages.filter(p => p.name !== name);
+  imageOrder = imageOrder.filter(k => k !== `pending:${name}`);
+  renderImagesGrid(getExistingImages());
 }
 
 document.getElementById('file-input').addEventListener('change', e => {
@@ -475,13 +590,9 @@ document.getElementById('file-input').addEventListener('change', e => {
     const reader = new FileReader();
     reader.onload = ev => {
       const base64 = ev.target.result.split(',')[1];
-      const preview = ev.target.result;
-      pendingImages.push({ file, base64, name: file.name, preview });
+      pendingImages.push({ base64, name: file.name, preview: ev.target.result });
       loaded++;
-      if (loaded === files.length) {
-        const p = editingIndex !== null ? products[editingIndex] : { images: [] };
-        renderImagesGrid(p.images || []);
-      }
+      if (loaded === files.length) renderImagesGrid(getExistingImages());
     };
     reader.readAsDataURL(file);
   });
@@ -505,16 +616,12 @@ document.getElementById('btn-save').addEventListener('click', async () => {
 
     const data = {
       name: document.getElementById('f-name').value.trim(),
-      category: document.getElementById('f-category').value.trim(),
+      categories: currentCategories,
       description: document.getElementById('f-description').value.trim(),
       price: Number(document.getElementById('f-price').value) || 0,
-      available: document.getElementById('f-available').value === 'true'
+      availability: document.getElementById('f-availability').value,
+      visible: document.getElementById('f-visible').value === 'true'
     };
-
-    // Save product.json
-    const jsonPath = `products/${id}/product.json`;
-    const existing = editingIndex !== null ? await getFile(jsonPath) : null;
-    await putFile(jsonPath, JSON.stringify(data, null, 2), `${editingIndex !== null ? 'update' : 'add'} product: ${id}`, existing?.sha);
 
     // Delete removed images
     for (const img of removedImages) {
@@ -525,6 +632,14 @@ document.getElementById('btn-save').addEventListener('click', async () => {
     for (const img of pendingImages) {
       await putFileBinary(`products/${id}/images/${img.name}`, img.base64, `add image: ${img.name}`);
     }
+
+    // Save image order into product.json
+    data.imageOrder = imageOrder.filter(k => !removedImages.find(r => `existing:${r.name}` === k)).map(k => k.replace(/^(existing|pending):/, ''));
+
+    // Save product.json
+    const jsonPath = `products/${id}/product.json`;
+    const existingFile = editingIndex !== null ? await getFile(jsonPath) : null;
+    await putFile(jsonPath, JSON.stringify(data, null, 2), `${editingIndex !== null ? 'update' : 'add'} product: ${id}`, existingFile?.sha);
 
     toast('Сохранено! Сайт обновится через ~30 сек.');
     closeModal();
@@ -566,6 +681,84 @@ document.getElementById('btn-delete').addEventListener('click', async () => {
     btn.disabled = false; btn.textContent = 'Удалить';
   }
 });
+
+// ── Transliteration & ID autofill ────────────────────────────────────────────
+
+function transliterate(text) {
+  const map = {'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'kh','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'};
+  return text.toLowerCase().split('').map(c => map[c] !== undefined ? map[c] : /[a-z0-9]/.test(c) ? c : '-').join('').replace(/-+/g,'-').replace(/^-|-$/g,'');
+}
+
+document.getElementById('f-name').addEventListener('input', e => {
+  const idField = document.getElementById('f-id');
+  if (!idField.disabled) idField.value = transliterate(e.target.value);
+});
+
+// ── Category tag input ────────────────────────────────────────────────────────
+
+function getAllExistingCategories() {
+  const map = new Map();
+  for (const p of products) {
+    const cats = Array.isArray(p.data.categories) ? p.data.categories : (p.data.category ? [p.data.category] : []);
+    for (const c of cats) { const k = c.toLowerCase(); if (!map.has(k)) map.set(k, c); }
+  }
+  return [...map.values()];
+}
+
+function renderCategoryTags() {
+  const wrap = document.getElementById('categories-wrap');
+  const row = document.getElementById('cat-input-row');
+  wrap.querySelectorAll('.tag').forEach(t => t.remove());
+  currentCategories.forEach((cat, i) => {
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.innerHTML = `${cat} <button type="button" onclick="removeCategory(${i})">×</button>`;
+    wrap.insertBefore(tag, row);
+  });
+}
+
+function removeCategory(i) {
+  currentCategories.splice(i, 1);
+  renderCategoryTags();
+}
+
+function addCategory(cat) {
+  const trimmed = cat.trim();
+  if (!trimmed) return;
+  if (!currentCategories.some(c => c.toLowerCase() === trimmed.toLowerCase())) {
+    currentCategories.push(trimmed);
+    renderCategoryTags();
+  }
+  document.getElementById('f-category-input').value = '';
+  hideCatDropdown();
+}
+
+function hideCatDropdown() { document.getElementById('cat-dropdown').classList.add('hidden'); }
+
+function showCatDropdown(val) {
+  const dd = document.getElementById('cat-dropdown');
+  if (!val) { hideCatDropdown(); return; }
+  const all = getAllExistingCategories();
+  const matches = all.filter(c =>
+    c.toLowerCase().includes(val.toLowerCase()) &&
+    !currentCategories.some(cur => cur.toLowerCase() === c.toLowerCase())
+  );
+  const exactMatch = all.some(c => c.toLowerCase() === val.toLowerCase());
+  const items = [
+    ...matches.map(label => `<div class="autocomplete-item" onmousedown="addCategory('${label.replace(/'/g,"\\'")}')">✦ ${label}</div>`),
+    ...(!exactMatch ? [`<div class="autocomplete-item new-cat" onmousedown="addCategory('${val.replace(/'/g,"\\'")}')">Новая категория <strong>«${val}»</strong> — нажмите Enter</div>`] : [])
+  ];
+  if (!items.length) { hideCatDropdown(); return; }
+  dd.innerHTML = items.join('');
+  dd.classList.remove('hidden');
+}
+
+document.getElementById('f-category-input').addEventListener('input', e => showCatDropdown(e.target.value.trim()));
+document.getElementById('f-category-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); const v = e.target.value.trim(); if (v) addCategory(v); }
+  else if (e.key === 'Escape') hideCatDropdown();
+});
+document.getElementById('f-category-input').addEventListener('blur', () => setTimeout(hideCatDropdown, 150));
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
 
