@@ -204,6 +204,22 @@
     .autocomplete-item.new-cat { color: var(--muted); }
     .autocomplete-item.new-cat strong { color: var(--text); font-style: normal; }
 
+    /* Admin filters */
+    .admin-filters {
+      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: center;
+    }
+    .admin-filters select {
+      padding: 0.4rem 0.85rem; border-radius: 8px; border: 1.5px solid var(--border);
+      font-size: 0.875rem; font-family: inherit; color: var(--text); background: var(--surface);
+      cursor: pointer; outline: none;
+    }
+    .admin-filters select:focus { border-color: var(--accent); }
+
+    /* Hidden product dimming */
+    .product-row.is-hidden { opacity: 0.45; }
+    .product-row.is-hidden:hover { opacity: 0.7; }
+    .badge-hidden { background: #f0ebe5; color: var(--muted); }
+
     /* Image drag-and-drop ordering */
     .img-thumb { cursor: grab; }
     .img-thumb.dragging { opacity: 0.4; cursor: grabbing; }
@@ -238,6 +254,14 @@
     <div class="toolbar">
       <h2>Товары</h2>
       <button class="btn btn-primary" id="btn-add">+ Добавить товар</button>
+    </div>
+    <div class="admin-filters">
+      <select id="filter-category"><option value="">Все категории</option></select>
+      <select id="filter-visible">
+        <option value="">Все</option>
+        <option value="true">Отображаемые</option>
+        <option value="false">Скрытые</option>
+      </select>
     </div>
     <div class="product-list" id="product-list">
       <p style="color:var(--muted)">Загрузка...</p>
@@ -421,23 +445,57 @@ async function loadProducts() {
 
 function renderProductList() {
   const listEl = document.getElementById('product-list');
+
+  // Rebuild category filter options
+  const catSelect = document.getElementById('filter-category');
+  const activeCat = catSelect.value;
+  const allCats = [...new Map(products.flatMap(p =>
+    (Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
+    .map(c => [c.toLowerCase(), c])
+  ).values())];
+  catSelect.innerHTML = '<option value="">Все категории</option>' +
+    allCats.map(c => `<option value="${c}" ${activeCat === c ? 'selected' : ''}>${c}</option>`).join('');
+
+  const visFilter = document.getElementById('filter-visible').value;
+
+  const filtered = products.filter((p, _) => {
+    if (visFilter === 'true' && p.data.visible === false) return false;
+    if (visFilter === 'false' && p.data.visible !== false) return false;
+    if (activeCat) {
+      const cats = Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [];
+      if (!cats.some(c => c.toLowerCase() === activeCat.toLowerCase())) return false;
+    }
+    return true;
+  });
+
   if (!products.length) {
     listEl.innerHTML = '<p style="color:var(--muted)">Товаров пока нет. Добавьте первый!</p>';
     return;
   }
-  listEl.innerHTML = products.map((p, i) => {
+  if (!filtered.length) {
+    listEl.innerHTML = '<p style="color:var(--muted)">Нет товаров по выбранным фильтрам.</p>';
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(p => {
+    const i = products.indexOf(p);
+    const isHidden = p.data.visible === false;
     const thumb = p.images[0]
       ? `<img src="https://raw.githubusercontent.com/${REPO}/${BRANCH}/products/${p.id}/images/${p.images[0].name}" alt="">`
       : `<div class="product-row-placeholder">🧶</div>`;
-    const badge = p.data.available !== false
+    const avail = p.data.availability || (p.data.available === false ? 'unavailable' : 'available');
+    const availBadge = avail === 'available'
       ? '<span class="badge badge-on">В наличии</span>'
+      : avail === 'on_order' ? '<span class="badge badge-off">На заказ</span>'
       : '<span class="badge badge-off">Нет</span>';
+    const hiddenBadge = isHidden ? '<span class="badge badge-hidden">Скрыт</span>' : '';
+    const cats = (Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : []).join(', ') || '—';
     return `
-      <div class="product-row">
+      <div class="product-row${isHidden ? ' is-hidden' : ''}">
         ${thumb}
         <div class="product-row-info">
-          <div class="name">${p.data.name || p.id}</div>
-          <div class="meta">${(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : []).join(', ') || '—'} · ${p.data.price || 0} ₽ · ${badge}</div>
+          <div class="name">${p.data.name || p.id} ${hiddenBadge}</div>
+          <div class="meta">${cats} · ${p.data.price || 0} ₽ · ${availBadge}</div>
         </div>
         <div class="product-row-actions">
           <button class="btn btn-sm btn-secondary" onclick="openEdit(${i})">Изменить</button>
@@ -770,6 +828,11 @@ function toast(msg, error = false) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.className = '', 3500);
 }
+
+// ── Filters ───────────────────────────────────────────────────────────────────
+
+document.getElementById('filter-category').addEventListener('change', renderProductList);
+document.getElementById('filter-visible').addEventListener('change', renderProductList);
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
 
