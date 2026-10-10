@@ -118,10 +118,18 @@ async function initProduct() {
   const tgText = encodeURIComponent(`Хочу заказать: ${product.name} — ${product.price} ₽\n${location.href}`);
   const tgLink = `https://t.me/${TELEGRAM_USERNAME}?text=${tgText}`;
 
+  const isHidden = product.visible === false;
   const avail = product.availability || (product.available === false ? 'unavailable' : 'available');
-  const orderBtn = avail === 'unavailable'
-    ? `<span class="badge-unavailable" style="font-size:0.9rem;padding:0.5rem 1rem">Нет в наличии</span>`
-    : `<a class="btn-order" href="${tgLink}" target="_blank">${avail === 'on_order' ? 'Заказать в Telegram' : 'Написать в Telegram'}</a>`;
+
+  let orderBtn;
+  if (isHidden) {
+    orderBtn = `<div class="removed-notice">Этот товар снят с продажи</div>
+      <button class="btn-order btn-order-disabled" disabled>Написать в Telegram</button>`;
+  } else if (avail === 'unavailable') {
+    orderBtn = `<span class="badge-unavailable" style="font-size:0.9rem;padding:0.5rem 1rem">Нет в наличии</span>`;
+  } else {
+    orderBtn = `<a class="btn-order" href="${tgLink}" target="_blank">${avail === 'on_order' ? 'Заказать в Telegram' : 'Написать в Telegram'}</a>`;
+  }
 
   container.innerHTML = `
     <a class="back-link" href="./"><span>←</span> Все товары</a>

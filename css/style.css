@@ -267,6 +267,20 @@ main {
 
 .btn-order:hover { background: var(--accent-hover); }
 
+.removed-notice {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  background: var(--accent-soft);
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+}
+
+.btn-order-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .back-link {
   display: inline-flex;
   align-items: center;
