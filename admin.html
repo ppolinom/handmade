@@ -582,10 +582,10 @@ function renderProductList() {
 
   // Rebuild tag filter buttons from sections + categories
   const catRow = document.getElementById('filter-category-row');
-  const allTags = [...new Map(products.flatMap(p => [
-    ...(Array.isArray(p.data.sections) ? p.data.sections : []),
-    ...(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
-  ].filter(c => typeof c === 'string').map(c => [c.toLowerCase(), c]))).values()];
+  const allTags = [
+    ...(taxonomy.sections || []),
+    ...(taxonomy.categories || [])
+  ].filter(v => typeof v === 'string');
   catRow.innerHTML = `<button class="filter-btn${activeCatFilter === '' ? ' active' : ''}" data-cat="">Все теги</button>` +
     allTags.map(c => `<button class="filter-btn${activeCatFilter.toLowerCase() === c.toLowerCase() ? ' active' : ''}" data-cat="${c}">${c}</button>`).join('');
 
@@ -761,39 +761,21 @@ const sectionsInput = createTagInput({
   wrapId: 'sections-wrap',
   inputId: 'f-sections-input',
   dropdownId: 'sections-dropdown',
-  getOptions: () => {
-    const all = [
-      ...(taxonomy.sections || []),
-      ...products.flatMap(p => Array.isArray(p.data.sections) ? p.data.sections : [])
-    ].filter(v => typeof v === 'string');
-    return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
-  }
+  getOptions: () => (taxonomy.sections || []).filter(v => typeof v === 'string')
 });
 
 const collectionsInput = createTagInput({
   wrapId: 'collections-wrap',
   inputId: 'f-collections-input',
   dropdownId: 'collections-dropdown',
-  getOptions: () => {
-    const all = [
-      ...(taxonomy.collections || []).map(c => c.name),
-      ...products.flatMap(p => Array.isArray(p.data.collections) ? p.data.collections : [])
-    ].filter(v => typeof v === 'string');
-    return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
-  }
+  getOptions: () => (taxonomy.collections || []).map(c => c.name).filter(Boolean)
 });
 
 const categoriesInput = createTagInput({
   wrapId: 'categories-wrap',
   inputId: 'f-category-input',
   dropdownId: 'cat-dropdown',
-  getOptions: () => {
-    const all = [
-      ...(taxonomy.categories || []),
-      ...products.flatMap(p => Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
-    ].filter(v => typeof v === 'string');
-    return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
-  }
+  getOptions: () => (taxonomy.categories || []).filter(v => typeof v === 'string')
 });
 
 // ── Modal ─────────────────────────────────────────────────────────────────────
