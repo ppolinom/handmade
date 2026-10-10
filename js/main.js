@@ -48,12 +48,9 @@ async function fetchYouTubeLatestVideo() {
       });
       if (!res.ok) throw new Error('rss fetch failed');
       const text = await res.text();
-      const doc = new DOMParser().parseFromString(text, 'application/xml');
-      const entry = doc.querySelector('entry');
-      if (!entry) return null;
-      // <yt:videoId>xxxx</yt:videoId>  или  <id>yt:video:xxxx</id>
-      const videoId = entry.querySelector('videoId')?.textContent?.trim()
-        || entry.querySelector('id')?.textContent?.trim()?.split(':').pop();
+      // CSS-селекторы не поддерживают XML-namespace, поэтому парсим регуляркой
+      const videoId = text.match(/<yt:videoId>([\w-]+)<\/yt:videoId>/)?.[1]
+        || text.match(/<id>yt:video:([\w-]+)<\/id>/)?.[1];
       if (!videoId || videoId.length < 5) return null;
       // hqdefault.jpg (480×360) всегда есть; maxresdefault может отсутствовать у старых видео
       return {
@@ -146,18 +143,37 @@ async function initIndex() {
   }
 
   function setFilter(type, value) {
-    if (type === 'section') activeSection = value;
-    else if (type === 'collection') activeCollection = value;
-    else if (type === 'category') activeCategory = value;
-    document.querySelectorAll(`[data-filter-type="${type}"]`).forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.filterVal === value);
-    });
-    if (type === 'collection') {
-      document.querySelectorAll('.hero-slide[data-col]').forEach(el => {
-        el.classList.toggle('active', value !== '' && el.dataset.col === value);
-      });
+    // Сброс остальных фильтров при выборе нового типа
+    if (type === 'section') {
+      activeSection = value;
+      if (value !== '') { activeCollection = ''; activeCategory = ''; }
+    } else if (type === 'collection') {
+      activeCollection = value;
+      if (value !== '') { activeSection = ''; activeCategory = ''; }
+    } else if (type === 'category') {
+      activeCategory = value;
+      if (value !== '') { activeSection = ''; activeCollection = ''; }
     }
+
+    ['section', 'collection', 'category'].forEach(t => {
+      const active = t === 'section' ? activeSection : t === 'collection' ? activeCollection : activeCategory;
+      document.querySelectorAll(`[data-filter-type="${t}"]`).forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filterVal === active);
+      });
+    });
+
+    document.querySelectorAll('.hero-slide[data-col]').forEach(el => {
+      el.classList.toggle('active', activeCollection !== '' && el.dataset.col === activeCollection);
+    });
+
     applyFilters();
+  }
+
+  function scrollToFilters() {
+    const sect = document.querySelector('.filters-section');
+    if (!sect) return;
+    const headerH = document.querySelector('header')?.offsetHeight || 0;
+    window.scrollTo({ top: sect.getBoundingClientRect().top + window.scrollY - headerH, behavior: 'smooth' });
   }
 
   // ── Hero carousel ──────────────────────────────────────────────────────────
@@ -216,7 +232,7 @@ async function initIndex() {
     renderHeroCarousel(heroSlides, heroSection, collectionName => {
       const newVal = activeCollection === collectionName ? '' : collectionName;
       setFilter('collection', newVal);
-      grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      scrollToFilters();
     });
   }
 
@@ -238,6 +254,7 @@ async function initIndex() {
       const btn = e.target.closest('.filter-btn');
       if (!btn) return;
       setFilter(type, btn.dataset.filterVal);
+      scrollToFilters();
     });
   }
 
@@ -333,6 +350,12 @@ function renderHeroCarousel(slides, container, onCollectionClick) {
   const N = slides.length;
   if (!N) return;
 
+  const GAP = 16; // px — совпадает с gap: 1rem в CSS
+
+  function getVisible() {
+    return window.innerWidth < 600 ? 1 : Math.min(3, N);
+  }
+
   function makeSlideHTML(s) {
     const bgStyle = s.bgImage ? `style="background-image:url('${s.bgImage}')"` : '';
     const href = s.href || '#';
@@ -347,22 +370,30 @@ function renderHeroCarousel(slides, container, onCollectionClick) {
     </a>`;
   }
 
-  // Зацикливание через клонирование крайних слайдов
-  const trackSlides = N > 1 ? [slides[N - 1], ...slides, slides[0]] : slides;
-  let currentIdx = N > 1 ? 1 : 0;
-  const autoRotate = N > 3;
+  // Зацикливание: 1 клон слева (последний слайд) + VISIBLE клонов справа (первые слайды)
+  const VISIBLE_INIT = Math.min(3, N);
+  const useLoop = N > VISIBLE_INIT; // нужно только если слайдов больше, чем видно
 
-  const dotsHTML = N > 1
+  const prependSlides = useLoop ? [slides[N - 1]] : [];
+  const appendSlides  = useLoop ? slides.slice(0, VISIBLE_INIT) : [];
+  const trackSlides   = [...prependSlides, ...slides, ...appendSlides];
+  const CLONES_BEFORE = useLoop ? 1 : 0;
+  let currentIdx = CLONES_BEFORE;
+
+  const autoRotate = N > VISIBLE_INIT;
+  const showNav = N > VISIBLE_INIT;
+
+  const dotsHTML = showNav
     ? `<div class="hero-dots">${slides.map((_, i) => `<button data-i="${i}"${i === 0 ? ' class="active"' : ''}></button>`).join('')}</div>`
     : '';
-  const navHTML = N > 1
+  const navHTML = showNav
     ? `<button class="hero-btn hero-prev" aria-label="Назад">‹</button>
        <button class="hero-btn hero-next" aria-label="Вперёд">›</button>`
     : '';
 
   container.innerHTML = `
     <div class="hero-carousel">
-      <div class="hero-track" style="transform:translateX(${N > 1 ? '-100%' : '0'})">
+      <div class="hero-track">
         ${trackSlides.map(makeSlideHTML).join('')}
       </div>
       ${navHTML}
@@ -370,50 +401,68 @@ function renderHeroCarousel(slides, container, onCollectionClick) {
     </div>
   `;
 
-  const track = container.querySelector('.hero-track');
-  const dots = [...container.querySelectorAll('.hero-dots button')];
+  const carousel = container.querySelector('.hero-carousel');
+  const track    = container.querySelector('.hero-track');
+  const dots     = [...container.querySelectorAll('.hero-dots button')];
 
-  // Включаем анимацию после рендера (иначе начальный translateX тоже анимируется)
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    track.style.transition = 'transform 0.5s ease';
-  }));
+  function setSlideWidth() {
+    const vis = getVisible();
+    const sw  = (carousel.offsetWidth - (vis - 1) * GAP) / vis;
+    carousel.style.setProperty('--slide-w', sw + 'px');
+  }
 
-  function realIdx(idx) {
-    return N > 1 ? ((idx - 1 + N) % N) : 0;
+  function getOffset(idx) {
+    const sw = parseFloat(carousel.style.getPropertyValue('--slide-w'))
+             || carousel.offsetWidth / getVisible();
+    return idx * (sw + GAP);
   }
 
   function updateDots() {
-    const ri = realIdx(currentIdx);
+    const ri = ((currentIdx - CLONES_BEFORE) % N + N) % N;
     dots.forEach((d, i) => d.classList.toggle('active', i === ri));
   }
 
-  function goTo(idx) {
+  function goTo(idx, animate) {
     currentIdx = idx;
-    track.style.transform = `translateX(${-currentIdx * 100}%)`;
+    if (animate === false) {
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${getOffset(idx)}px)`;
+      track.getBoundingClientRect(); // force reflow
+      track.style.transition = 'transform 0.5s ease';
+    } else {
+      track.style.transform = `translateX(-${getOffset(idx)}px)`;
+    }
     updateDots();
   }
 
-  if (N > 1) {
+  // Начальная позиция без анимации
+  setSlideWidth();
+  track.style.transition = 'none';
+  track.style.transform = `translateX(-${getOffset(currentIdx)}px)`;
+  track.getBoundingClientRect();
+  track.style.transition = 'transform 0.5s ease';
+
+  if (useLoop) {
     track.addEventListener('transitionend', () => {
-      if (currentIdx === 0) {
-        // Перепрыгнули до клона последнего — мгновенно возвращаем на реальный
-        track.style.transition = 'none';
-        currentIdx = N;
-        track.style.transform = `translateX(${-N * 100}%)`;
-        track.getBoundingClientRect(); // force reflow
-        track.style.transition = 'transform 0.5s ease';
-        updateDots();
-      } else if (currentIdx === N + 1) {
-        // Перепрыгнули за клон первого — мгновенно на реальный
-        track.style.transition = 'none';
-        currentIdx = 1;
-        track.style.transform = 'translateX(-100%)';
-        track.getBoundingClientRect();
-        track.style.transition = 'transform 0.5s ease';
-        updateDots();
+      if (currentIdx < CLONES_BEFORE) {
+        goTo(currentIdx + N, false);
+      } else if (currentIdx >= CLONES_BEFORE + N) {
+        goTo(currentIdx - N, false);
       }
     });
   }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      setSlideWidth();
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${getOffset(currentIdx)}px)`;
+      track.getBoundingClientRect();
+      track.style.transition = 'transform 0.5s ease';
+    }, 80);
+  });
 
   const advance = () => goTo(currentIdx + 1);
   const retreat = () => goTo(currentIdx - 1);
@@ -439,7 +488,7 @@ function renderHeroCarousel(slides, container, onCollectionClick) {
 
   dots.forEach((d, i) => {
     d.addEventListener('click', e => {
-      e.stopPropagation(); goTo(i + 1); resetAuto();
+      e.stopPropagation(); goTo(i + CLONES_BEFORE); resetAuto();
     });
   });
 
