@@ -562,7 +562,7 @@ function renderProductList() {
   const allTags = [...new Map(products.flatMap(p => [
     ...(Array.isArray(p.data.sections) ? p.data.sections : []),
     ...(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
-  ].map(c => [c.toLowerCase(), c])).values())];
+  ].filter(c => typeof c === 'string').map(c => [c.toLowerCase(), c])).values())];
   catRow.innerHTML = `<button class="filter-btn${activeCatFilter === '' ? ' active' : ''}" data-cat="">Все теги</button>` +
     allTags.map(c => `<button class="filter-btn${activeCatFilter.toLowerCase() === c.toLowerCase() ? ' active' : ''}" data-cat="${c}">${c}</button>`).join('');
 
@@ -573,7 +573,7 @@ function renderProductList() {
       const tags = [
         ...(Array.isArray(p.data.sections) ? p.data.sections : []),
         ...(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
-      ];
+      ].filter(c => typeof c === 'string');
       if (!tags.some(c => c.toLowerCase() === activeCatFilter.toLowerCase())) return false;
     }
     return true;
