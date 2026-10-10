@@ -248,9 +248,31 @@
     .tx-toggle input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--accent); cursor: pointer; }
     .tx-collection-item input[type=text] { padding: 0.4rem 0.6rem; font-size: 0.85rem; }
     .tx-collection-name { flex: 1; min-width: 120px; }
-    .tx-collection-image { flex: 2; min-width: 160px; }
     .tx-add-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; }
     .tx-add-row input { flex: 1; }
+
+    .tx-col-img {
+      width: 72px; height: 46px; border-radius: 6px;
+      border: 1.5px dashed var(--border); background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0; overflow: hidden; position: relative;
+      transition: border-color 0.15s;
+    }
+    .tx-col-img:hover { border-color: var(--accent); }
+    .tx-col-img img { width: 100%; height: 100%; object-fit: cover; }
+    .tx-col-img-placeholder { font-size: 0.7rem; color: var(--muted); text-align: center; line-height: 1.3; padding: 0 4px; }
+    .tx-col-img-remove {
+      position: absolute; top: 2px; right: 2px;
+      background: rgba(0,0,0,0.55); color: #fff; border: none;
+      border-radius: 50%; width: 15px; height: 15px; font-size: 9px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Taxonomy drag-and-drop */
+    .tx-drag-handle { cursor: grab; color: var(--border); font-size: 0.85rem; padding: 0 2px; flex-shrink: 0; user-select: none; }
+    .tx-drag-handle:hover { color: var(--muted); }
+    .tx-item.tx-dragging, .tx-collection-item.tx-dragging { opacity: 0.4; }
+    .tx-item.tx-drag-over, .tx-collection-item.tx-drag-over { outline: 2px dashed var(--accent); outline-offset: 2px; border-radius: 6px; }
   </style>
 </head>
 <body>
@@ -423,6 +445,7 @@
   </div>
 </div>
 
+<input type="file" id="collection-image-input" accept="image/*" style="display:none">
 <div id="toast"></div>
 
 <script>
@@ -742,7 +765,7 @@ const sectionsInput = createTagInput({
     const all = [
       ...(taxonomy.sections || []),
       ...products.flatMap(p => Array.isArray(p.data.sections) ? p.data.sections : [])
-    ];
+    ].filter(v => typeof v === 'string');
     return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
   }
 });
@@ -755,7 +778,7 @@ const collectionsInput = createTagInput({
     const all = [
       ...(taxonomy.collections || []).map(c => c.name),
       ...products.flatMap(p => Array.isArray(p.data.collections) ? p.data.collections : [])
-    ];
+    ].filter(v => typeof v === 'string');
     return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
   }
 });
@@ -768,7 +791,7 @@ const categoriesInput = createTagInput({
     const all = [
       ...(taxonomy.categories || []),
       ...products.flatMap(p => Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
-    ];
+    ].filter(v => typeof v === 'string');
     return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
   }
 });
@@ -1067,7 +1090,8 @@ function renderTaxonomyModal() {
   const secList = document.getElementById('tx-sections-list');
   secList.innerHTML = editingTaxonomy.sections.length
     ? editingTaxonomy.sections.map((s, i) => `
-        <div class="tx-item">
+        <div class="tx-item" draggable="true" data-idx="${i}">
+          <span class="tx-drag-handle">⠿</span>
           <span class="tx-item-name">${s}</span>
           <button class="btn btn-sm btn-danger" onclick="removeTxSection(${i})">×</button>
         </div>`).join('')
@@ -1077,7 +1101,8 @@ function renderTaxonomyModal() {
   const catList = document.getElementById('tx-categories-list');
   catList.innerHTML = editingTaxonomy.categories.length
     ? editingTaxonomy.categories.map((c, i) => `
-        <div class="tx-item">
+        <div class="tx-item" draggable="true" data-idx="${i}">
+          <span class="tx-drag-handle">⠿</span>
           <span class="tx-item-name">${c}</span>
           <button class="btn btn-sm btn-danger" onclick="removeTxCategory(${i})">×</button>
         </div>`).join('')
@@ -1087,21 +1112,111 @@ function renderTaxonomyModal() {
   const colList = document.getElementById('tx-collections-list');
   colList.innerHTML = editingTaxonomy.collections.length
     ? editingTaxonomy.collections.map((c, i) => `
-        <div class="tx-collection-item">
+        <div class="tx-collection-item" draggable="true" data-idx="${i}">
+          <span class="tx-drag-handle">⠿</span>
           <label class="tx-toggle">
             <input type="checkbox" ${c.enabled ? 'checked' : ''} onchange="editingTaxonomy.collections[${i}].enabled = this.checked">
             вкл.
           </label>
           <input type="text" class="tx-collection-name" value="${c.name.replace(/"/g,'&quot;')}" oninput="editingTaxonomy.collections[${i}].name = this.value" placeholder="Название">
-          <input type="text" class="tx-collection-image" value="${(c.image||'').replace(/"/g,'&quot;')}" oninput="editingTaxonomy.collections[${i}].image = this.value" placeholder="URL изображения (необязательно)">
+          <div class="tx-col-img" onclick="triggerColImg(${i})">
+            ${c.image
+              ? `<img src="https://raw.githubusercontent.com/${REPO}/${BRANCH}/${c.image}" alt="">
+                 <button type="button" class="tx-col-img-remove" onclick="event.stopPropagation();removeColImg(${i})">×</button>`
+              : `<div class="tx-col-img-placeholder">+ фото</div>`}
+          </div>
           <button class="btn btn-sm btn-danger" onclick="removeTxCollection(${i})">×</button>
         </div>`).join('')
     : '<p style="color:var(--muted);font-size:0.85rem;padding:0.3rem 0">Нет подборок</p>';
+
+  initTaxonomyDragDrop();
 }
 
 function removeTxSection(i) { editingTaxonomy.sections.splice(i, 1); renderTaxonomyModal(); }
 function removeTxCategory(i) { editingTaxonomy.categories.splice(i, 1); renderTaxonomyModal(); }
 function removeTxCollection(i) { editingTaxonomy.collections.splice(i, 1); renderTaxonomyModal(); }
+
+// ── Collection image upload ────────────────────────────────────────────────────
+
+let uploadingColIdx = -1;
+
+function triggerColImg(idx) {
+  uploadingColIdx = idx;
+  document.getElementById('collection-image-input').click();
+}
+
+function removeColImg(idx) {
+  editingTaxonomy.collections[idx].image = '';
+  renderTaxonomyModal();
+}
+
+document.getElementById('collection-image-input').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  e.target.value = '';
+  if (!file || uploadingColIdx < 0) return;
+  const idx = uploadingColIdx;
+  uploadingColIdx = -1;
+
+  const reader = new FileReader();
+  reader.onload = async ev => {
+    const base64 = ev.target.result.split(',')[1];
+    const ext = file.name.split('.').pop().toLowerCase();
+    const colName = editingTaxonomy.collections[idx].name || `collection_${idx}`;
+    const safeName = colName.replace(/[^a-zA-Zа-яА-Я0-9-]/g, '_').toLowerCase();
+    const filename = `collections/${safeName}.${ext}`;
+    try {
+      const existing = await getFile(filename);
+      await putFileBinary(filename, base64, `add collection image: ${colName}`, existing?.sha);
+      editingTaxonomy.collections[idx].image = filename;
+      renderTaxonomyModal();
+      toast('Изображение загружено');
+    } catch(err) {
+      toast('Ошибка загрузки: ' + err.message, true);
+    }
+  };
+  reader.readAsDataURL(file);
+});
+
+// ── Taxonomy drag-and-drop ────────────────────────────────────────────────────
+
+let txDragSrc = null;
+let txDragType = null;
+
+function initTaxonomyDragDrop() {
+  function attachDrag(selector, type) {
+    document.querySelectorAll(selector).forEach(el => {
+      const idx = parseInt(el.dataset.idx);
+      el.addEventListener('dragstart', e => {
+        txDragSrc = idx;
+        txDragType = type;
+        el.classList.add('tx-dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      el.addEventListener('dragend', () => {
+        el.classList.remove('tx-dragging');
+        document.querySelectorAll('.tx-item, .tx-collection-item').forEach(x => x.classList.remove('tx-drag-over'));
+      });
+      el.addEventListener('dragover', e => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        document.querySelectorAll('.tx-item, .tx-collection-item').forEach(x => x.classList.remove('tx-drag-over'));
+        el.classList.add('tx-drag-over');
+      });
+      el.addEventListener('drop', e => {
+        e.preventDefault();
+        if (txDragSrc === null || txDragSrc === idx || txDragType !== type) return;
+        const arr = editingTaxonomy[type];
+        const item = arr.splice(txDragSrc, 1)[0];
+        arr.splice(idx, 0, item);
+        renderTaxonomyModal();
+      });
+    });
+  }
+
+  attachDrag('#tx-sections-list .tx-item', 'sections');
+  attachDrag('#tx-categories-list .tx-item', 'categories');
+  attachDrag('#tx-collections-list .tx-collection-item', 'collections');
+}
 
 function addTxItem(listKey, inputId, extra = {}) {
   const input = document.getElementById(inputId);
