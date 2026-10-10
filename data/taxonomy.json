@@ -1,5 +1,28 @@
 {
-  "sections": [],
-  "categories": [],
-  "collections": []
+  "sections": [
+    "Гипс",
+    "Бисер",
+    "Воск"
+  ],
+  "categories": [
+    "Браслеты",
+    "Кулоны"
+  ],
+  "collections": [
+    {
+      "name": "Новогодняя",
+      "enabled": true,
+      "image": ""
+    },
+    {
+      "name": "8 Марта",
+      "enabled": true,
+      "image": ""
+    },
+    {
+      "name": "9 Марта",
+      "enabled": true,
+      "image": ""
+    }
+  ]
 }
