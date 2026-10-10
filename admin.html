@@ -988,6 +988,10 @@ document.getElementById('btn-save').addEventListener('click', async () => {
       .filter(k => !removedImages.find(r => `existing:${r.name}` === k))
       .map(k => k.replace(/^(existing|pending):/, ''));
 
+    if (editingIndex === null) {
+      await putFile(`products/${id}/images/.gitkeep`, '', `add product: ${id}`);
+    }
+
     const jsonPath = `products/${id}/product.json`;
     const existingFile = editingIndex !== null ? await getFile(jsonPath) : null;
     await putFile(jsonPath, JSON.stringify(data, null, 2), `${editingIndex !== null ? 'update' : 'add'} product: ${id}`, existingFile?.sha);
