@@ -573,7 +573,8 @@ async function loadProducts() {
     }
     renderProductList();
   } catch(e) {
-    listEl.innerHTML = `<p style="color:var(--muted)">Ошибка загрузки: ${e.message}</p>`;
+    console.error('loadProducts error:', e);
+    listEl.innerHTML = `<p style="color:var(--muted)">Ошибка загрузки: ${e.message}<br><pre style="font-size:0.7rem;margin-top:0.5rem;white-space:pre-wrap">${e.stack}</pre></p>`;
   }
 }
 
