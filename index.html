@@ -12,13 +12,21 @@
       <h1><a href="./">ppolinom handmade</a></h1>
       <a id="twitch-status" class="twitch-status" href="https://www.twitch.tv/ppolinom" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M2.149 0L.537 4.119v16.836h5.731V24h3.224l3.045-3.045h4.657l6.269-6.269V0H2.149zm19.164 13.612l-3.582 3.582H12.87l-3.045 3.045v-3.045H4.537V2.149h16.776v11.463zm-3.582-7.343v6.262h-2.149V6.269h2.149zm-5.731 0v6.262H9.851V6.269H12z"/></svg>Канал Twitch</a>
     </div>
-    <a class="tg-link" href="https://t.me/ppolinom" target="_blank">
-      Сделать заказ
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
-    </a>
+    <nav class="header-nav">
+      <a class="nav-link" href="delivery.html">Доставка и упаковка</a>
+      <a class="tg-link" href="https://t.me/ppolinom" target="_blank">
+        Сделать заказ
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+      </a>
+    </nav>
   </header>
   <main>
-    <div id="categories" class="categories"></div>
+    <div id="collections-section" class="collections-section hidden"></div>
+    <div class="filters-section">
+      <div id="filter-sections" class="filter-row"></div>
+      <div id="filter-collections" class="filter-row"></div>
+      <div id="filter-categories" class="filter-row"></div>
+    </div>
     <div id="grid" class="grid"></div>
   </main>
   <script src="js/main.js"></script>

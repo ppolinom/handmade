@@ -133,7 +133,7 @@
     .images-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
     .img-thumb {
       position: relative; width: 72px; height: 72px; border-radius: 8px; overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border); cursor: grab;
     }
     .img-thumb img { width: 100%; height: 100%; object-fit: cover; }
     .img-thumb-remove {
@@ -221,9 +221,36 @@
     .badge-hidden { background: #f0ebe5; color: var(--muted); }
 
     /* Image drag-and-drop ordering */
-    .img-thumb { cursor: grab; }
     .img-thumb.dragging { opacity: 0.4; cursor: grabbing; }
     .img-thumb.drag-over { outline: 2px dashed var(--accent); outline-offset: 2px; }
+
+    /* Taxonomy modal */
+    .taxonomy-block {
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .taxonomy-block:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .taxonomy-block-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; }
+
+    .tx-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.3rem 0;
+    }
+    .tx-item-name { flex: 1; font-size: 0.9rem; }
+
+    .tx-collection-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 0;
+      flex-wrap: wrap;
+    }
+    .tx-toggle { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); white-space: nowrap; cursor: pointer; flex-shrink: 0; }
+    .tx-toggle input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--accent); cursor: pointer; }
+    .tx-collection-item input[type=text] { padding: 0.4rem 0.6rem; font-size: 0.85rem; }
+    .tx-collection-name { flex: 1; min-width: 120px; }
+    .tx-collection-image { flex: 2; min-width: 160px; }
+    .tx-add-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; }
+    .tx-add-row input { flex: 1; }
   </style>
 </head>
 <body>
@@ -253,7 +280,10 @@
   <div class="container">
     <div class="toolbar">
       <h2>Товары</h2>
-      <button class="btn btn-primary" id="btn-add">+ Добавить товар</button>
+      <div style="display:flex;gap:0.75rem">
+        <button class="btn btn-secondary" id="btn-taxonomy">Справочник</button>
+        <button class="btn btn-primary" id="btn-add">+ Добавить товар</button>
+      </div>
     </div>
     <div class="admin-filters">
       <div class="filter-row" id="filter-visible-row">
@@ -262,7 +292,7 @@
         <button class="filter-btn" data-vis="false">Скрытые</button>
       </div>
       <div class="filter-row" id="filter-category-row">
-        <button class="filter-btn active" data-cat="">Все категории</button>
+        <button class="filter-btn active" data-cat="">Все теги</button>
       </div>
     </div>
     <div class="product-list" id="product-list">
@@ -271,7 +301,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Product modal -->
 <div class="modal-overlay hidden" id="modal-overlay">
   <div class="modal">
     <div class="modal-header">
@@ -288,8 +318,26 @@
       <input type="text" id="f-id" placeholder="braslet-vesna">
     </div>
     <div class="field">
+      <label>Разделы</label>
+      <div class="tag-input-wrap" id="sections-wrap">
+        <div class="tag-input-row" id="sections-input-row">
+          <input type="text" id="f-sections-input" placeholder="Добавить раздел...">
+          <div class="autocomplete-dropdown hidden" id="sections-dropdown"></div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Подборки</label>
+      <div class="tag-input-wrap" id="collections-wrap">
+        <div class="tag-input-row" id="collections-input-row">
+          <input type="text" id="f-collections-input" placeholder="Добавить подборку...">
+          <div class="autocomplete-dropdown hidden" id="collections-dropdown"></div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
       <label>Категории</label>
-      <div class="tag-input-wrap" id="categories-wrap" onclick="document.getElementById('f-category-input').focus()">
+      <div class="tag-input-wrap" id="categories-wrap">
         <div class="tag-input-row" id="cat-input-row">
           <input type="text" id="f-category-input" placeholder="Добавить категорию...">
           <div class="autocomplete-dropdown hidden" id="cat-dropdown"></div>
@@ -329,6 +377,48 @@
       <button class="btn btn-danger" id="btn-delete" style="margin-right:auto">Удалить</button>
       <button class="btn btn-secondary" id="btn-cancel">Отмена</button>
       <button class="btn btn-primary" id="btn-save">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Taxonomy modal -->
+<div class="modal-overlay hidden" id="taxonomy-modal-overlay">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header">
+      <h2>Справочник</h2>
+      <button class="modal-close" id="taxonomy-modal-close">×</button>
+    </div>
+
+    <div class="taxonomy-block">
+      <div class="taxonomy-block-title">Разделы</div>
+      <div id="tx-sections-list"></div>
+      <div class="tx-add-row">
+        <input type="text" id="tx-sections-input" placeholder="Новый раздел...">
+        <button class="btn btn-secondary btn-sm" id="tx-sections-add">Добавить</button>
+      </div>
+    </div>
+
+    <div class="taxonomy-block">
+      <div class="taxonomy-block-title">Категории</div>
+      <div id="tx-categories-list"></div>
+      <div class="tx-add-row">
+        <input type="text" id="tx-categories-input" placeholder="Новая категория...">
+        <button class="btn btn-secondary btn-sm" id="tx-categories-add">Добавить</button>
+      </div>
+    </div>
+
+    <div class="taxonomy-block">
+      <div class="taxonomy-block-title">Подборки</div>
+      <div id="tx-collections-list"></div>
+      <div class="tx-add-row">
+        <input type="text" id="tx-collections-input" placeholder="Название новой подборки...">
+        <button class="btn btn-secondary btn-sm" id="tx-collections-add">Добавить</button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="taxonomy-cancel">Отмена</button>
+      <button class="btn btn-primary" id="taxonomy-save">Сохранить</button>
     </div>
   </div>
 </div>
@@ -413,6 +503,7 @@ document.getElementById('btn-token-save').addEventListener('click', async () => 
   if (!ok) { toast('Токен не подошёл', true); return; }
   localStorage.setItem('gh_token', token);
   showAdminScreen();
+  await loadTaxonomyAdmin();
   loadProducts();
 });
 
@@ -420,6 +511,22 @@ document.getElementById('btn-logout').addEventListener('click', () => {
   localStorage.removeItem('gh_token');
   showTokenScreen();
 });
+
+// ── Taxonomy (admin) ──────────────────────────────────────────────────────────
+
+let taxonomy = { sections: [], categories: [], collections: [] };
+let taxonomySha = null;
+
+async function loadTaxonomyAdmin() {
+  const f = await getFile('data/taxonomy.json');
+  if (!f) return;
+  try {
+    const binary = atob(f.content.replace(/\n/g, ''));
+    const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+    taxonomy = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+    taxonomySha = f.sha;
+  } catch {}
+}
 
 // ── Products list ─────────────────────────────────────────────────────────────
 
@@ -450,21 +557,24 @@ async function loadProducts() {
 function renderProductList() {
   const listEl = document.getElementById('product-list');
 
-  // Rebuild category filter buttons
+  // Rebuild tag filter buttons from sections + categories
   const catRow = document.getElementById('filter-category-row');
-  const allCats = [...new Map(products.flatMap(p =>
-    (Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
-    .map(c => [c.toLowerCase(), c])
-  ).values())];
-  catRow.innerHTML = `<button class="filter-btn${activeCatFilter === '' ? ' active' : ''}" data-cat="">Все категории</button>` +
-    allCats.map(c => `<button class="filter-btn${activeCatFilter === c ? ' active' : ''}" data-cat="${c}">${c}</button>`).join('');
+  const allTags = [...new Map(products.flatMap(p => [
+    ...(Array.isArray(p.data.sections) ? p.data.sections : []),
+    ...(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
+  ].map(c => [c.toLowerCase(), c])).values())];
+  catRow.innerHTML = `<button class="filter-btn${activeCatFilter === '' ? ' active' : ''}" data-cat="">Все теги</button>` +
+    allTags.map(c => `<button class="filter-btn${activeCatFilter.toLowerCase() === c.toLowerCase() ? ' active' : ''}" data-cat="${c}">${c}</button>`).join('');
 
   const filtered = products.filter(p => {
     if (activeVisFilter === 'true' && p.data.visible === false) return false;
     if (activeVisFilter === 'false' && p.data.visible !== false) return false;
     if (activeCatFilter) {
-      const cats = Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [];
-      if (!cats.some(c => c.toLowerCase() === activeCatFilter.toLowerCase())) return false;
+      const tags = [
+        ...(Array.isArray(p.data.sections) ? p.data.sections : []),
+        ...(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
+      ];
+      if (!tags.some(c => c.toLowerCase() === activeCatFilter.toLowerCase())) return false;
     }
     return true;
   });
@@ -490,16 +600,20 @@ function renderProductList() {
       : avail === 'on_order' ? '<span class="badge badge-off">На заказ</span>'
       : '<span class="badge badge-off">Нет</span>';
     const hiddenBadge = isHidden ? '<span class="badge badge-hidden">Скрыт</span>' : '';
-    const catList = (Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : []);
-    const catBadges = catList.length
-      ? catList.map(c => `<span class="tag" style="font-size:0.7rem;padding:0.1rem 0.5rem">${c}</span>`).join('')
+    const allProductTags = [
+      ...(Array.isArray(p.data.sections) ? p.data.sections : []),
+      ...(Array.isArray(p.data.collections) ? p.data.collections : []),
+      ...(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
+    ];
+    const tagBadges = allProductTags.length
+      ? allProductTags.map(c => `<span class="tag" style="font-size:0.7rem;padding:0.1rem 0.5rem">${c}</span>`).join('')
       : '<span style="color:var(--muted)">—</span>';
     return `
       <div class="product-row${isHidden ? ' is-hidden' : ''}">
         ${thumb}
         <div class="product-row-info">
           <div class="name">${p.data.name || p.id} ${hiddenBadge}</div>
-          <div class="meta" style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap">${catBadges} · ${p.data.price || 0} ₽ · ${availBadge}</div>
+          <div class="meta" style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap">${tagBadges} · ${p.data.price || 0} ₽ · ${availBadge}</div>
         </div>
         <div class="product-row-actions">
           <button class="btn btn-sm btn-secondary" onclick="openEdit(${i})">Изменить</button>
@@ -508,18 +622,167 @@ function renderProductList() {
   }).join('');
 }
 
+// ── Tag input factory ─────────────────────────────────────────────────────────
+
+function createTagInput(opts) {
+  // opts: { wrapId, inputId, dropdownId, getOptions }
+  const wrap = document.getElementById(opts.wrapId);
+  const input = document.getElementById(opts.inputId);
+  const dropdown = document.getElementById(opts.dropdownId);
+
+  let current = [];
+  let dropdownValues = [];
+  let focusIdx = -1;
+
+  function render() {
+    wrap.querySelectorAll('.tag').forEach(t => t.remove());
+    const row = wrap.querySelector('.tag-input-row');
+    current.forEach((val, i) => {
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.innerHTML = `${val} <button type="button">×</button>`;
+      tag.querySelector('button').addEventListener('click', e => {
+        e.stopPropagation();
+        current.splice(i, 1);
+        render();
+      });
+      wrap.insertBefore(tag, row);
+    });
+  }
+
+  function add(val) {
+    const v = val.trim();
+    if (!v) return;
+    if (!current.some(c => c.toLowerCase() === v.toLowerCase())) {
+      current.push(v);
+      render();
+    }
+    input.value = '';
+    hideDD();
+  }
+
+  function hideDD() {
+    dropdown.classList.add('hidden');
+    focusIdx = -1;
+  }
+
+  function showDD(val) {
+    if (!val) { hideDD(); return; }
+    const all = opts.getOptions();
+    const matches = all.filter(c =>
+      c.toLowerCase().includes(val.toLowerCase()) &&
+      !current.some(cur => cur.toLowerCase() === c.toLowerCase())
+    );
+    const exactMatch = all.some(c => c.toLowerCase() === val.toLowerCase()) ||
+      current.some(c => c.toLowerCase() === val.toLowerCase());
+
+    dropdownValues = [...matches, ...(!exactMatch ? [val] : [])];
+    if (!dropdownValues.length) { hideDD(); return; }
+
+    dropdown.innerHTML = [
+      ...matches.map(m => `<div class="autocomplete-item">✦ ${m}</div>`),
+      ...(!exactMatch ? [`<div class="autocomplete-item new-cat">Добавить <strong>«${val}»</strong></div>`] : [])
+    ].join('');
+
+    dropdown.querySelectorAll('.autocomplete-item').forEach((item, i) => {
+      item.addEventListener('mousedown', () => add(dropdownValues[i]));
+    });
+
+    focusIdx = -1;
+    dropdown.classList.remove('hidden');
+  }
+
+  function updateFocus(items, idx) {
+    focusIdx = Math.max(-1, Math.min(idx, items.length - 1));
+    items.forEach((el, i) => el.classList.toggle('focused', i === focusIdx));
+  }
+
+  wrap.addEventListener('click', () => input.focus());
+
+  input.addEventListener('input', e => showDD(e.target.value.trim()));
+
+  input.addEventListener('keydown', e => {
+    const items = [...dropdown.querySelectorAll('.autocomplete-item')];
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!dropdown.classList.contains('hidden') && items.length)
+        updateFocus(items, focusIdx + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!dropdown.classList.contains('hidden') && items.length)
+        updateFocus(items, focusIdx - 1);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (!dropdown.classList.contains('hidden') && focusIdx >= 0 && dropdownValues[focusIdx]) {
+        add(dropdownValues[focusIdx]);
+      } else {
+        const v = input.value.trim();
+        if (v) add(v);
+      }
+    } else if (e.key === 'Escape') {
+      hideDD();
+    }
+  });
+
+  input.addEventListener('blur', () => setTimeout(hideDD, 150));
+
+  return {
+    get: () => [...current],
+    set: vals => { current = Array.isArray(vals) ? [...vals] : []; render(); },
+    reset: () => { current = []; render(); }
+  };
+}
+
+// Create tag input instances
+const sectionsInput = createTagInput({
+  wrapId: 'sections-wrap',
+  inputId: 'f-sections-input',
+  dropdownId: 'sections-dropdown',
+  getOptions: () => {
+    const all = [
+      ...(taxonomy.sections || []),
+      ...products.flatMap(p => Array.isArray(p.data.sections) ? p.data.sections : [])
+    ];
+    return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
+  }
+});
+
+const collectionsInput = createTagInput({
+  wrapId: 'collections-wrap',
+  inputId: 'f-collections-input',
+  dropdownId: 'collections-dropdown',
+  getOptions: () => {
+    const all = [
+      ...(taxonomy.collections || []).map(c => c.name),
+      ...products.flatMap(p => Array.isArray(p.data.collections) ? p.data.collections : [])
+    ];
+    return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
+  }
+});
+
+const categoriesInput = createTagInput({
+  wrapId: 'categories-wrap',
+  inputId: 'f-category-input',
+  dropdownId: 'cat-dropdown',
+  getOptions: () => {
+    const all = [
+      ...(taxonomy.categories || []),
+      ...products.flatMap(p => Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
+    ];
+    return [...new Map(all.map(v => [v.toLowerCase(), v])).values()];
+  }
+});
+
 // ── Modal ─────────────────────────────────────────────────────────────────────
 
 let editingIndex = null;
-let pendingImages = []; // { base64, name, preview } — новые
-let removedImages = []; // { name, sha } — на удаление
-let currentCategories = []; // текущий набор категорий товара
-let imageOrder = []; // ['existing:filename', 'pending:filename'] — итоговый порядок
+let pendingImages = [];
+let removedImages = [];
+let imageOrder = [];
 
 function openAdd() {
   editingIndex = null;
   pendingImages = []; removedImages = []; imageOrder = [];
-  currentCategories = [];
   document.getElementById('modal-title').textContent = 'Новый товар';
   document.getElementById('f-name').value = '';
   document.getElementById('f-id').disabled = false;
@@ -529,7 +792,9 @@ function openAdd() {
   document.getElementById('f-availability').value = 'on_order';
   document.getElementById('f-visible').value = 'true';
   document.getElementById('btn-delete').classList.add('hidden');
-  renderCategoryTags();
+  sectionsInput.reset();
+  collectionsInput.reset();
+  categoriesInput.reset();
   renderImagesGrid([]);
   document.getElementById('modal-overlay').classList.remove('hidden');
 }
@@ -538,8 +803,6 @@ function openEdit(i) {
   editingIndex = i;
   pendingImages = []; removedImages = [];
   const p = products[i];
-  const cats = Array.isArray(p.data.categories) ? p.data.categories : (p.data.category ? [p.data.category] : []);
-  currentCategories = [...cats];
   imageOrder = p.images.map(img => `existing:${img.name}`);
   document.getElementById('modal-title').textContent = 'Редактировать товар';
   document.getElementById('f-name').value = p.data.name || '';
@@ -550,7 +813,9 @@ function openEdit(i) {
   document.getElementById('f-availability').value = p.data.availability || (p.data.available === false ? 'unavailable' : 'available');
   document.getElementById('f-visible').value = String(p.data.visible !== false);
   document.getElementById('btn-delete').classList.remove('hidden');
-  renderCategoryTags();
+  sectionsInput.set(Array.isArray(p.data.sections) ? p.data.sections : []);
+  collectionsInput.set(Array.isArray(p.data.collections) ? p.data.collections : []);
+  categoriesInput.set(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : []);
   renderImagesGrid(p.images);
   document.getElementById('modal-overlay').classList.remove('hidden');
 }
@@ -568,12 +833,10 @@ function renderImagesGrid(existingImages) {
   const grid = document.getElementById('images-grid');
   const existing = (existingImages || []).filter(img => !removedImages.find(r => r.name === img.name));
 
-  // Build order from imageOrder, appending any new items not yet there
   const allKeys = [
     ...existing.map(img => `existing:${img.name}`),
     ...pendingImages.map(p => `pending:${p.name}`)
   ];
-  // Remove stale keys from imageOrder, add new ones
   imageOrder = [...imageOrder.filter(k => allKeys.includes(k)), ...allKeys.filter(k => !imageOrder.includes(k))];
 
   const productId = products[editingIndex]?.id;
@@ -678,27 +941,27 @@ document.getElementById('btn-save').addEventListener('click', async () => {
 
     const data = {
       name: document.getElementById('f-name').value.trim(),
-      categories: currentCategories,
+      sections: sectionsInput.get(),
+      collections: collectionsInput.get(),
+      categories: categoriesInput.get(),
       description: document.getElementById('f-description').value.trim(),
       price: Number(document.getElementById('f-price').value) || 0,
       availability: document.getElementById('f-availability').value,
       visible: document.getElementById('f-visible').value === 'true'
     };
 
-    // Delete removed images
     for (const img of removedImages) {
       await deleteFile(`products/${id}/images/${img.name}`, `remove image: ${img.name}`, img.sha);
     }
 
-    // Upload new images
     for (const img of pendingImages) {
       await putFileBinary(`products/${id}/images/${img.name}`, img.base64, `add image: ${img.name}`);
     }
 
-    // Save image order into product.json
-    data.imageOrder = imageOrder.filter(k => !removedImages.find(r => `existing:${r.name}` === k)).map(k => k.replace(/^(existing|pending):/, ''));
+    data.imageOrder = imageOrder
+      .filter(k => !removedImages.find(r => `existing:${r.name}` === k))
+      .map(k => k.replace(/^(existing|pending):/, ''));
 
-    // Save product.json
     const jsonPath = `products/${id}/product.json`;
     const existingFile = editingIndex !== null ? await getFile(jsonPath) : null;
     await putFile(jsonPath, JSON.stringify(data, null, 2), `${editingIndex !== null ? 'update' : 'add'} product: ${id}`, existingFile?.sha);
@@ -724,14 +987,11 @@ document.getElementById('btn-delete').addEventListener('click', async () => {
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
 
   try {
-    // Delete all images
     for (const img of p.images) {
       await deleteFile(`products/${p.id}/images/${img.name}`, `remove image: ${img.name}`, img.sha);
     }
-    // Delete .gitkeep if exists
     const keepFile = await getFile(`products/${p.id}/images/.gitkeep`);
     if (keepFile) await deleteFile(`products/${p.id}/images/.gitkeep`, `remove product: ${p.id}`, keepFile.sha);
-    // Delete product.json
     await deleteFile(`products/${p.id}/product.json`, `remove product: ${p.id}`, p.jsonSha);
 
     toast('Товар удалён');
@@ -744,7 +1004,7 @@ document.getElementById('btn-delete').addEventListener('click', async () => {
   }
 });
 
-// ── Transliteration & ID autofill ────────────────────────────────────────────
+// ── Transliteration ───────────────────────────────────────────────────────────
 
 function transliterate(text) {
   const map = {'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'kh','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'};
@@ -754,109 +1014,6 @@ function transliterate(text) {
 document.getElementById('f-name').addEventListener('input', e => {
   const idField = document.getElementById('f-id');
   if (!idField.disabled) idField.value = transliterate(e.target.value);
-});
-
-// ── Category tag input ────────────────────────────────────────────────────────
-
-function getAllExistingCategories() {
-  const map = new Map();
-  for (const p of products) {
-    const cats = Array.isArray(p.data.categories) ? p.data.categories : (p.data.category ? [p.data.category] : []);
-    for (const c of cats) { const k = c.toLowerCase(); if (!map.has(k)) map.set(k, c); }
-  }
-  return [...map.values()];
-}
-
-function renderCategoryTags() {
-  const wrap = document.getElementById('categories-wrap');
-  const row = document.getElementById('cat-input-row');
-  wrap.querySelectorAll('.tag').forEach(t => t.remove());
-  currentCategories.forEach((cat, i) => {
-    const tag = document.createElement('span');
-    tag.className = 'tag';
-    tag.innerHTML = `${cat} <button type="button" onclick="removeCategory(${i})">×</button>`;
-    wrap.insertBefore(tag, row);
-  });
-}
-
-function removeCategory(i) {
-  currentCategories.splice(i, 1);
-  renderCategoryTags();
-}
-
-function addCategory(cat) {
-  const trimmed = cat.trim();
-  if (!trimmed) return;
-  if (!currentCategories.some(c => c.toLowerCase() === trimmed.toLowerCase())) {
-    currentCategories.push(trimmed);
-    renderCategoryTags();
-  }
-  document.getElementById('f-category-input').value = '';
-  hideCatDropdown();
-}
-
-function hideCatDropdown() { document.getElementById('cat-dropdown').classList.add('hidden'); }
-
-function showCatDropdown(val) {
-  const dd = document.getElementById('cat-dropdown');
-  if (!val) { hideCatDropdown(); return; }
-  const all = getAllExistingCategories();
-  const matches = all.filter(c =>
-    c.toLowerCase().includes(val.toLowerCase()) &&
-    !currentCategories.some(cur => cur.toLowerCase() === c.toLowerCase())
-  );
-  const exactMatch = all.some(c => c.toLowerCase() === val.toLowerCase());
-  const items = [
-    ...matches.map(label => `<div class="autocomplete-item" onmousedown="addCategory('${label.replace(/'/g,"\\'")}')">✦ ${label}</div>`),
-    ...(!exactMatch ? [`<div class="autocomplete-item new-cat" onmousedown="addCategory('${val.replace(/'/g,"\\'")}')">Новая категория <strong>«${val}»</strong> — нажмите Enter</div>`] : [])
-  ];
-  if (!items.length) { hideCatDropdown(); return; }
-  dd.innerHTML = items.join('');
-  dd.classList.remove('hidden');
-}
-
-let catFocusIndex = -1;
-
-function updateCatFocus(items, idx) {
-  catFocusIndex = idx;
-  items.forEach((el, i) => el.classList.toggle('focused', i === catFocusIndex));
-}
-
-document.getElementById('f-category-input').addEventListener('input', e => {
-  catFocusIndex = -1;
-  showCatDropdown(e.target.value.trim());
-});
-
-document.getElementById('f-category-input').addEventListener('keydown', e => {
-  const dd = document.getElementById('cat-dropdown');
-  const items = [...dd.querySelectorAll('.autocomplete-item')];
-
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    if (!dd.classList.contains('hidden') && items.length) {
-      updateCatFocus(items, Math.min(catFocusIndex + 1, items.length - 1));
-    }
-  } else if (e.key === 'ArrowUp') {
-    e.preventDefault();
-    if (!dd.classList.contains('hidden') && items.length) {
-      updateCatFocus(items, Math.max(catFocusIndex - 1, 0));
-    }
-  } else if (e.key === 'Enter') {
-    e.preventDefault();
-    if (!dd.classList.contains('hidden') && catFocusIndex >= 0 && items[catFocusIndex]) {
-      items[catFocusIndex].dispatchEvent(new MouseEvent('mousedown'));
-    } else {
-      const v = e.target.value.trim();
-      if (v) addCategory(v);
-    }
-  } else if (e.key === 'Escape') {
-    hideCatDropdown();
-  }
-});
-
-document.getElementById('f-category-input').addEventListener('blur', () => {
-  catFocusIndex = -1;
-  setTimeout(hideCatDropdown, 150);
 });
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
@@ -870,7 +1027,7 @@ function toast(msg, error = false) {
   toastTimer = setTimeout(() => el.className = '', 3500);
 }
 
-// ── Filters ───────────────────────────────────────────────────────────────────
+// ── Admin filters ─────────────────────────────────────────────────────────────
 
 let activeVisFilter = '';
 let activeCatFilter = '';
@@ -891,12 +1048,122 @@ document.getElementById('filter-category-row').addEventListener('click', e => {
   renderProductList();
 });
 
+// ── Taxonomy modal ────────────────────────────────────────────────────────────
+
+let editingTaxonomy = null;
+
+function openTaxonomyModal() {
+  editingTaxonomy = JSON.parse(JSON.stringify(taxonomy));
+  renderTaxonomyModal();
+  document.getElementById('taxonomy-modal-overlay').classList.remove('hidden');
+}
+
+function closeTaxonomyModal() {
+  document.getElementById('taxonomy-modal-overlay').classList.add('hidden');
+}
+
+function renderTaxonomyModal() {
+  // Sections
+  const secList = document.getElementById('tx-sections-list');
+  secList.innerHTML = editingTaxonomy.sections.length
+    ? editingTaxonomy.sections.map((s, i) => `
+        <div class="tx-item">
+          <span class="tx-item-name">${s}</span>
+          <button class="btn btn-sm btn-danger" onclick="removeTxSection(${i})">×</button>
+        </div>`).join('')
+    : '<p style="color:var(--muted);font-size:0.85rem;padding:0.3rem 0">Нет разделов</p>';
+
+  // Categories
+  const catList = document.getElementById('tx-categories-list');
+  catList.innerHTML = editingTaxonomy.categories.length
+    ? editingTaxonomy.categories.map((c, i) => `
+        <div class="tx-item">
+          <span class="tx-item-name">${c}</span>
+          <button class="btn btn-sm btn-danger" onclick="removeTxCategory(${i})">×</button>
+        </div>`).join('')
+    : '<p style="color:var(--muted);font-size:0.85rem;padding:0.3rem 0">Нет категорий</p>';
+
+  // Collections
+  const colList = document.getElementById('tx-collections-list');
+  colList.innerHTML = editingTaxonomy.collections.length
+    ? editingTaxonomy.collections.map((c, i) => `
+        <div class="tx-collection-item">
+          <label class="tx-toggle">
+            <input type="checkbox" ${c.enabled ? 'checked' : ''} onchange="editingTaxonomy.collections[${i}].enabled = this.checked">
+            вкл.
+          </label>
+          <input type="text" class="tx-collection-name" value="${c.name.replace(/"/g,'&quot;')}" oninput="editingTaxonomy.collections[${i}].name = this.value" placeholder="Название">
+          <input type="text" class="tx-collection-image" value="${(c.image||'').replace(/"/g,'&quot;')}" oninput="editingTaxonomy.collections[${i}].image = this.value" placeholder="URL изображения (необязательно)">
+          <button class="btn btn-sm btn-danger" onclick="removeTxCollection(${i})">×</button>
+        </div>`).join('')
+    : '<p style="color:var(--muted);font-size:0.85rem;padding:0.3rem 0">Нет подборок</p>';
+}
+
+function removeTxSection(i) { editingTaxonomy.sections.splice(i, 1); renderTaxonomyModal(); }
+function removeTxCategory(i) { editingTaxonomy.categories.splice(i, 1); renderTaxonomyModal(); }
+function removeTxCollection(i) { editingTaxonomy.collections.splice(i, 1); renderTaxonomyModal(); }
+
+function addTxItem(listKey, inputId, extra = {}) {
+  const input = document.getElementById(inputId);
+  const v = input.value.trim();
+  if (!v) return;
+  if (listKey === 'collections') {
+    if (!editingTaxonomy.collections.some(c => c.name.toLowerCase() === v.toLowerCase())) {
+      editingTaxonomy.collections.push({ name: v, enabled: true, image: '', ...extra });
+      renderTaxonomyModal();
+    }
+  } else {
+    if (!editingTaxonomy[listKey].some(s => s.toLowerCase() === v.toLowerCase())) {
+      editingTaxonomy[listKey].push(v);
+      renderTaxonomyModal();
+    }
+  }
+  input.value = '';
+}
+
+document.getElementById('tx-sections-add').addEventListener('click', () => addTxItem('sections', 'tx-sections-input'));
+document.getElementById('tx-categories-add').addEventListener('click', () => addTxItem('categories', 'tx-categories-input'));
+document.getElementById('tx-collections-add').addEventListener('click', () => addTxItem('collections', 'tx-collections-input'));
+
+// Allow Enter key in taxonomy add inputs
+['tx-sections-input', 'tx-categories-input', 'tx-collections-input'].forEach((id, idx) => {
+  const keys = ['sections', 'categories', 'collections'];
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); addTxItem(keys[idx], id); }
+  });
+});
+
+document.getElementById('taxonomy-save').addEventListener('click', async () => {
+  const btn = document.getElementById('taxonomy-save');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Сохранение...';
+  try {
+    await putFile('data/taxonomy.json', JSON.stringify(editingTaxonomy, null, 2), 'update taxonomy', taxonomySha);
+    taxonomy = editingTaxonomy;
+    const f = await getFile('data/taxonomy.json');
+    if (f) taxonomySha = f.sha;
+    toast('Справочник сохранён');
+    closeTaxonomyModal();
+  } catch(e) {
+    toast(e.message, true);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Сохранить';
+  }
+});
+
+document.getElementById('taxonomy-cancel').addEventListener('click', closeTaxonomyModal);
+document.getElementById('taxonomy-modal-close').addEventListener('click', closeTaxonomyModal);
+document.getElementById('taxonomy-modal-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('taxonomy-modal-overlay')) closeTaxonomyModal();
+});
+document.getElementById('btn-taxonomy').addEventListener('click', openTaxonomyModal);
+
 // ── Boot ──────────────────────────────────────────────────────────────────────
 
 (async () => {
   const token = getToken();
   if (token && await checkToken(token).catch(() => false)) {
     showAdminScreen();
+    await loadTaxonomyAdmin();
     loadProducts();
   } else {
     showTokenScreen();

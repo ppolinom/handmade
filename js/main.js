@@ -1,10 +1,21 @@
 const CATALOG_URL = 'data/catalog.json';
-const TELEGRAM_USERNAME = 'ppolinom'; // поменяй на свой username в Telegram
+const TAXONOMY_URL = 'data/taxonomy.json';
+const TELEGRAM_USERNAME = 'ppolinom';
 
 async function loadCatalog() {
   const res = await fetch(CATALOG_URL);
   if (!res.ok) throw new Error('catalog not found');
   return res.json();
+}
+
+async function loadTaxonomy() {
+  try {
+    const res = await fetch(TAXONOMY_URL);
+    if (!res.ok) return { sections: [], categories: [], collections: [] };
+    return res.json();
+  } catch {
+    return { sections: [], categories: [], collections: [] };
+  }
 }
 
 function imgSrc(productId, filename) {
@@ -15,11 +26,11 @@ function imgSrc(productId, filename) {
 
 async function initIndex() {
   const grid = document.getElementById('grid');
-  const categoriesEl = document.getElementById('categories');
+  const collectionsSection = document.getElementById('collections-section');
 
-  let catalog;
+  let catalog, taxonomy;
   try {
-    catalog = await loadCatalog();
+    [catalog, taxonomy] = await Promise.all([loadCatalog(), loadTaxonomy()]);
   } catch {
     grid.innerHTML = '<p class="error">Не удалось загрузить каталог.</p>';
     return;
@@ -27,60 +38,105 @@ async function initIndex() {
 
   catalog = catalog.filter(p => p.visible !== false);
 
+  function getProductSections(p) { return Array.isArray(p.sections) ? p.sections : []; }
+  function getProductCollections(p) { return Array.isArray(p.collections) ? p.collections : []; }
   function getProductCategories(p) {
     if (Array.isArray(p.categories)) return p.categories;
     if (p.category) return [p.category];
     return [];
   }
-
-  const seenLower = new Set();
-  const uniqueCategories = [];
-  for (const p of catalog) {
-    for (const cat of getProductCategories(p)) {
-      const lower = cat.toLowerCase();
-      if (!seenLower.has(lower)) { seenLower.add(lower); uniqueCategories.push(cat); }
-    }
+  function getCardLabel(p) {
+    const s = getProductSections(p);
+    if (s.length) return s.join(', ');
+    const c = getProductCategories(p);
+    if (c.length) return c.join(', ');
+    return '';
   }
-  const categories = ['Все', ...uniqueCategories];
-  let activeCategory = 'Все';
 
-  categoriesEl.innerHTML = categories.map(cat => `
-    <button class="category-btn${cat === activeCategory ? ' active' : ''}" data-cat="${cat}">${cat}</button>
-  `).join('');
+  let activeSection = '';
+  let activeCollection = '';
+  let activeCategory = '';
 
-  categoriesEl.addEventListener('click', e => {
-    const btn = e.target.closest('.category-btn');
-    if (!btn) return;
-    activeCategory = btn.dataset.cat;
-    categoriesEl.querySelectorAll('.category-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === activeCategory));
-    renderGrid();
-  });
+  function applyFilters() {
+    const filtered = catalog.filter(p => {
+      if (activeSection && !getProductSections(p).some(s => s.toLowerCase() === activeSection.toLowerCase())) return false;
+      if (activeCollection && !getProductCollections(p).some(c => c.toLowerCase() === activeCollection.toLowerCase())) return false;
+      if (activeCategory && !getProductCategories(p).some(c => c.toLowerCase() === activeCategory.toLowerCase())) return false;
+      return true;
+    });
+    renderGrid(filtered);
+  }
 
-  function renderGrid() {
-    const filtered = activeCategory === 'Все'
-      ? catalog
-      : catalog.filter(p => getProductCategories(p).some(c => c.toLowerCase() === activeCategory.toLowerCase()));
+  function setFilter(type, value) {
+    if (type === 'section') activeSection = value;
+    else if (type === 'collection') activeCollection = value;
+    else if (type === 'category') activeCategory = value;
+    document.querySelectorAll(`[data-filter-type="${type}"]`).forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filterVal === value);
+    });
+    if (type === 'collection') {
+      document.querySelectorAll('.collection-card').forEach(c => {
+        c.classList.toggle('active', value !== '' && c.dataset.name === value);
+      });
+    }
+    applyFilters();
+  }
 
-    if (filtered.length === 0) {
-      grid.innerHTML = '<p class="empty">Нет товаров в этой категории.</p>';
+  // ── Collections carousel ──────────────────────────────────────────────
+  const enabledCollections = (taxonomy.collections || []).filter(c => c.enabled);
+  if (enabledCollections.length > 0 && collectionsSection) {
+    collectionsSection.classList.remove('hidden');
+    renderCollectionsCarousel(enabledCollections, collectionsSection, name => {
+      const newVal = activeCollection === name ? '' : name;
+      setFilter('collection', newVal);
+      grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  // ── Filter rows ───────────────────────────────────────────────────────
+  const allSections = [...new Set([...(taxonomy.sections || []), ...catalog.flatMap(getProductSections)])];
+  const allCollectionNames = [...new Set([
+    ...(taxonomy.collections || []).filter(c => c.enabled).map(c => c.name),
+    ...catalog.flatMap(getProductCollections)
+  ])];
+  const allCategories = [...new Set([...(taxonomy.categories || []), ...catalog.flatMap(getProductCategories)])];
+
+  function buildFilterRow(elId, items, type, labelAll) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    if (!items.length) { el.classList.add('hidden'); return; }
+    el.innerHTML = `<button class="filter-btn active" data-filter-type="${type}" data-filter-val="">${labelAll}</button>` +
+      items.map(v => `<button class="filter-btn" data-filter-type="${type}" data-filter-val="${v}">${v}</button>`).join('');
+    el.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      setFilter(type, btn.dataset.filterVal);
+    });
+  }
+
+  buildFilterRow('filter-sections', allSections, 'section', 'Все разделы');
+  buildFilterRow('filter-collections', allCollectionNames, 'collection', 'Все подборки');
+  buildFilterRow('filter-categories', allCategories, 'category', 'Все категории');
+
+  function renderGrid(items) {
+    if (!items.length) {
+      grid.innerHTML = '<p class="empty">Нет товаров.</p>';
       return;
     }
-
-    grid.innerHTML = filtered.map(product => {
+    grid.innerHTML = items.map(product => {
       const thumb = product.images?.[0]
         ? `<img class="card-img" src="${imgSrc(product.id, product.images[0])}" alt="${product.name}" loading="lazy">`
         : `<div class="card-img-placeholder">🧶</div>`;
-
       const avail = product.availability || (product.available === false ? 'unavailable' : 'available');
       const unavailable = avail === 'unavailable'
         ? '<span class="badge-unavailable">Нет в наличии</span>'
         : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>' : '';
-
+      const label = getCardLabel(product);
       return `
-        <a class="card" href="/product.html?id=${product.id}">
+        <a class="card" href="product.html?id=${product.id}">
           ${thumb}
           <div class="card-body">
-            <div class="card-category">${getProductCategories(product).join(', ')}</div>
+            ${label ? `<div class="card-category">${label}</div>` : ''}
             <div class="card-name">${product.name}</div>
             ${unavailable}
             <div class="card-price">${product.price} ₽</div>
@@ -90,7 +146,51 @@ async function initIndex() {
     }).join('');
   }
 
-  renderGrid();
+  applyFilters();
+}
+
+// ── Collections carousel ──────────────────────────────────────────────────────
+
+function renderCollectionsCarousel(collections, container, onSelect) {
+  container.innerHTML = `
+    <div class="collections-carousel">
+      <div class="collections-track">
+        ${collections.map(c => `
+          <button class="collection-card" data-name="${c.name}">
+            ${c.image ? `<img src="${c.image}" alt="${c.name}" class="collection-img">` : '<div class="collection-img-empty"></div>'}
+            <div class="collection-name">${c.name}</div>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  container.querySelectorAll('.collection-card').forEach(card => {
+    card.addEventListener('click', () => onSelect(card.dataset.name));
+  });
+
+  if (collections.length >= 3) {
+    const track = container.querySelector('.collections-track');
+    let idx = 0;
+    setInterval(() => {
+      idx++;
+      const card = track.querySelector('.collection-card');
+      if (!card) return;
+      const style = getComputedStyle(track);
+      const gap = parseFloat(style.gap) || 16;
+      const cardW = card.getBoundingClientRect().width + gap;
+
+      if (idx >= collections.length) {
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(0)';
+        track.getBoundingClientRect(); // force reflow
+        track.style.transition = 'transform 0.5s ease';
+        idx = 0;
+      } else {
+        track.style.transform = `translateX(-${idx * cardW}px)`;
+      }
+    }, 3000);
+  }
 }
 
 // ── Product page ──────────────────────────────────────────────────────────────
@@ -114,7 +214,6 @@ async function initProduct() {
 
   document.title = `${product.name} — ppolinom handmade`;
 
-  const pageUrl = encodeURIComponent(location.href);
   const tgText = encodeURIComponent(`Хочу заказать: ${product.name} — ${product.price} ₽\n${location.href}`);
   const tgLink = `https://t.me/${TELEGRAM_USERNAME}?text=${tgText}`;
 
@@ -131,12 +230,16 @@ async function initProduct() {
     orderBtn = `<a class="btn-order" href="${tgLink}" target="_blank">${avail === 'on_order' ? 'Заказать в Telegram' : 'Написать в Telegram'}</a>`;
   }
 
+  const cats = Array.isArray(product.sections) && product.sections.length ? product.sections
+    : Array.isArray(product.categories) ? product.categories
+    : product.category ? [product.category] : [];
+
   container.innerHTML = `
     <a class="back-link" href="./"><span>←</span> Все товары</a>
     <div class="product-layout">
       <div id="carousel"></div>
       <div class="product-info">
-        <div class="category">${(Array.isArray(product.categories) ? product.categories : product.category ? [product.category] : []).join(', ')}</div>
+        <div class="category">${cats.join(', ')}</div>
         <h1>${product.name}</h1>
         <div class="price">${product.price} ₽</div>
         <div class="description">${product.description || ''}</div>
