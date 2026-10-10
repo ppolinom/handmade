@@ -249,7 +249,11 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.640Z",
-    "images": []
+    "images": [
+      "IMG_2573.JPEG",
+      "IMG_2583.JPEG",
+      "IMG_5037.JPEG"
+    ]
   },
   {
     "id": "podnos-bolshoj-kruglyj",
@@ -523,7 +527,10 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.603Z",
-    "images": []
+    "images": [
+      "IMG_2575.JPEG",
+      "IMG_3124.JPEG"
+    ]
   },
   {
     "id": "shkatulka-2-kruglaya",
