@@ -1,0 +1,14 @@
+{
+  "name": "wer",
+  "categories": [
+    "украшения"
+  ],
+  "description": "",
+  "price": 0,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "gold.jpg",
+    "400_Grove_Роща.webp"
+  ]
+}
