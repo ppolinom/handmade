@@ -1,4 +1,4 @@
-const CATALOG_URL = '/data/catalog.json';
+const CATALOG_URL = 'data/catalog.json';
 const TELEGRAM_USERNAME = 'ppolinom'; // поменяй на свой username в Telegram
 
 async function loadCatalog() {
@@ -8,7 +8,7 @@ async function loadCatalog() {
 }
 
 function imgSrc(productId, filename) {
-  return `/products/${productId}/images/${filename}`;
+  return `products/${productId}/images/${filename}`;
 }
 
 // ── Index page ────────────────────────────────────────────────────────────────
@@ -106,7 +106,7 @@ async function initProduct() {
     : `<span class="badge-unavailable" style="font-size:0.9rem;padding:0.5rem 1rem">Нет в наличии</span>`;
 
   container.innerHTML = `
-    <a class="back-link" href="/"><span>←</span> Все товары</a>
+    <a class="back-link" href="./"><span>←</span> Все товары</a>
     <div class="product-layout">
       <div id="carousel"></div>
       <div class="product-info">
