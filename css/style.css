@@ -52,8 +52,10 @@ header p {
   font-size: 0.875rem;
   font-weight: 600;
   white-space: nowrap;
+  line-height: 1;
   transition: background 0.15s;
 }
+.tg-link svg { display: block; flex-shrink: 0; }
 .tg-link:hover { background: #1a8bbf; }
 
 main {
