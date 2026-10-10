@@ -2,10 +2,9 @@
   {
     "id": "braslet-vesna",
     "name": "Браслет «Весна»",
-    "categories": [
-      "украшения",
-      "браслеты"
-    ],
+    "sections": [],
+    "collections": [],
+    "categories": [],
     "description": "Нежный браслет ручной работы из японского бисера Miyuki. Мягкие пастельные тона — розовый, белый, мятный. Регулируемая застёжка, подходит на любой размер запястья.",
     "price": 650,
     "availability": "available",
@@ -15,10 +14,9 @@
   {
     "id": "shkatulka-luna",
     "name": "Шкатулка Луна",
-    "categories": [
-      "Гипс",
-      "Хранение"
-    ],
+    "sections": [],
+    "collections": [],
+    "categories": [],
     "description": "",
     "price": 600,
     "availability": "on_order",
@@ -28,9 +26,9 @@
   {
     "id": "wer",
     "name": "wer",
-    "categories": [
-      "украшения"
-    ],
+    "sections": [],
+    "collections": [],
+    "categories": [],
     "description": "",
     "price": 0,
     "availability": "on_order",
