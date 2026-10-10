@@ -188,7 +188,35 @@ function renderCarousel(product) {
   if (product.images.length > 1) update();
 }
 
+// ── Twitch status ─────────────────────────────────────────────────────────────
+
+const TWITCH_LOGIN = 'ppolinom';
+const TWITCH_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M2.149 0L.537 4.119v16.836h5.731V24h3.224l3.045-3.045h4.657l6.269-6.269V0H2.149zm19.164 13.612l-3.582 3.582H12.87l-3.045 3.045v-3.045H4.537V2.149h16.776v11.463zm-3.582-7.343v6.262h-2.149V6.269h2.149zm-5.731 0v6.262H9.851V6.269H12z"/></svg>`;
+
+async function initTwitchStatus() {
+  const el = document.getElementById('twitch-status');
+  if (!el) return;
+  try {
+    const res = await fetch('https://gql.twitch.tv/gql', {
+      method: 'POST',
+      headers: { 'Client-ID': 'kimne78kx3ncx6brgo4mv6wki5h1ko', 'Content-Type': 'application/json' },
+      body: JSON.stringify([{ query: `{ user(login: "${TWITCH_LOGIN}") { stream { id } } }` }])
+    });
+    const data = await res.json();
+    const isLive = !!data[0]?.data?.user?.stream;
+    if (isLive) {
+      el.classList.add('is-live');
+      el.innerHTML = `<span class="twitch-dot"></span>${TWITCH_ICON}Мастер онлайн`;
+    } else {
+      el.innerHTML = `${TWITCH_ICON}Канал Twitch`;
+    }
+  } catch {
+    el.innerHTML = `${TWITCH_ICON}Канал Twitch`;
+  }
+}
+
 // ── Boot ──────────────────────────────────────────────────────────────────────
 
 if (document.getElementById('grid')) initIndex();
 if (document.getElementById('product-container')) initProduct();
+initTwitchStatus();

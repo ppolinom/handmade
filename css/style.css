@@ -43,6 +43,29 @@ header p {
   font-size: 0.875rem;
 }
 
+/* Twitch status */
+.twitch-status {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  text-decoration: none; font-size: 0.8rem; font-weight: 500;
+  color: var(--text-muted); transition: color 0.15s;
+  min-height: 1.2em;
+}
+.twitch-status:hover { color: var(--text); }
+.twitch-status svg { flex-shrink: 0; display: block; }
+
+.twitch-status.is-live { color: #bf94ff; }
+.twitch-status.is-live:hover { color: #a970ff; }
+
+.twitch-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #bf94ff; flex-shrink: 0;
+  animation: twitch-pulse 1.8s ease-in-out infinite;
+}
+@keyframes twitch-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
 .tg-link {
   display: inline-flex;
   align-items: center;

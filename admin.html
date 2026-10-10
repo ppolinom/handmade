@@ -435,7 +435,9 @@ async function loadProducts() {
     for (const dir of dirs) {
       const jsonFile = await getFile(`products/${dir.name}/product.json`);
       if (!jsonFile) continue;
-      const data = JSON.parse(decodeURIComponent(escape(atob(jsonFile.content.replace(/\n/g, '')))));
+      const binary = atob(jsonFile.content.replace(/\n/g, ''));
+      const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+      const data = JSON.parse(new TextDecoder('utf-8').decode(bytes));
       const imgFiles = (await listDir(`products/${dir.name}/images`)).filter(f => /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name));
       products.push({ id: dir.name, jsonSha: jsonFile.sha, data, images: imgFiles });
     }
