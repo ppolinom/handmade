@@ -13,6 +13,7 @@
   "price": 300,
   "availability": "on_order",
   "visible": true,
-  "imageOrder": [],
-  "createdAt": "2026-10-10T15:05:21.647Z"
+  "imageOrder": [
+    "Снимок экрана 2026-10-10 222408.png"
+  ]
 }
