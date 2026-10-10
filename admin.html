@@ -573,8 +573,7 @@ async function loadProducts() {
     }
     renderProductList();
   } catch(e) {
-    console.error('loadProducts error:', e);
-    listEl.innerHTML = `<p style="color:var(--muted)">Ошибка загрузки: ${e.message}<br><pre style="font-size:0.7rem;margin-top:0.5rem;white-space:pre-wrap">${e.stack}</pre></p>`;
+    listEl.innerHTML = `<p style="color:var(--muted)">Ошибка загрузки: ${e.message}</p>`;
   }
 }
 
@@ -586,7 +585,7 @@ function renderProductList() {
   const allTags = [...new Map(products.flatMap(p => [
     ...(Array.isArray(p.data.sections) ? p.data.sections : []),
     ...(Array.isArray(p.data.categories) ? p.data.categories : p.data.category ? [p.data.category] : [])
-  ].filter(c => typeof c === 'string').map(c => [c.toLowerCase(), c])).values())];
+  ].filter(c => typeof c === 'string').map(c => [c.toLowerCase(), c]))).values()];
   catRow.innerHTML = `<button class="filter-btn${activeCatFilter === '' ? ' active' : ''}" data-cat="">Все теги</button>` +
     allTags.map(c => `<button class="filter-btn${activeCatFilter.toLowerCase() === c.toLowerCase() ? ' active' : ''}" data-cat="${c}">${c}</button>`).join('');
 
