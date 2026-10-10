@@ -1,41 +1,734 @@
 [
   {
-    "id": "braslet-vesna",
-    "name": "Браслет «Весна»",
-    "sections": [],
-    "collections": [],
-    "categories": [],
-    "description": "Нежный браслет ручной работы из японского бисера Miyuki. Мягкие пастельные тона — розовый, белый, мятный. Регулируемая застёжка, подходит на любой размер запястья.",
-    "price": 650,
-    "availability": "available",
+    "id": "dom-podsvechnik",
+    "name": "Дом подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Гипсовый подсвечник в виде уютного домика — праздничный огонёк для новогоднего стола.",
+    "price": 300,
+    "availability": "on_order",
     "visible": true,
+    "createdAt": "2026-10-10T15:05:21.662Z",
     "images": []
   },
   {
-    "id": "shkatulka-luna",
-    "name": "Шкатулка Луна",
-    "sections": [],
+    "id": "domik-novogodnij-dekor",
+    "name": "Домик новогодний декор",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Гипсовый новогодний домик — праздничный декор для создания зимней сказки на полке или столе.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.706Z",
+    "images": []
+  },
+  {
+    "id": "elka-podsvechnik-piramida",
+    "name": "Елка подсвечник пирамида",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Новогодний гипсовый подсвечник в форме ёлки-пирамиды — праздничный огонёк на вашем столе.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.647Z",
+    "images": []
+  },
+  {
+    "id": "elochnyj-sharik-podsvechnik",
+    "name": "Елочный шарик подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Гипсовый подсвечник в форме ёлочного шарика — создаёт новогоднее настроение.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.658Z",
+    "images": []
+  },
+  {
+    "id": "granenye-kh3-podsvechnik",
+    "name": "Граненые х3 подсвечник",
+    "sections": [
+      "Гипс"
+    ],
     "collections": [],
-    "categories": [],
-    "description": "",
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Комплект из трёх граненых гипсовых подсвечников — изысканный акцент для стола или полки.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.629Z",
+    "images": []
+  },
+  {
+    "id": "granenyj-malenkij-podsvechnik",
+    "name": "Граненый маленький подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Маленький граненый гипсовый подсвечник ручной работы — уютный огонёк для домашнего декора.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.619Z",
+    "images": []
+  },
+  {
+    "id": "khogvarts-podsvechnik",
+    "name": "Хогвартс подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Гипсовый подсвечник с силуэтом Хогвартса — волшебный подарок для фанатов Гарри Поттера.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.670Z",
+    "images": []
+  },
+  {
+    "id": "kotik-podsvechnik",
+    "name": "Котик подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Гипсовый подсвечник в виде котика — милый декор для уютного вечера.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.650Z",
+    "images": []
+  },
+  {
+    "id": "kruglye-kh3-podsvechnik",
+    "name": "Круглые х3 подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Набор из трёх круглых гипсовых подсвечников — создаёт тёплую атмосферу дома.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.624Z",
+    "images": []
+  },
+  {
+    "id": "kruglyj-granenyj-podsvechnik-sharik",
+    "name": "Круглый граненый подсвечник шарик",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Круглый граненый гипсовый подсвечник-шарик — лаконичный и элегантный декор.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.666Z",
+    "images": []
+  },
+  {
+    "id": "kruglyj-podnos-s-podsvechnikom-i-domikami",
+    "name": "Круглый поднос с подсвечником и домиками",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Праздничный гипсовый поднос с рельефными домиками и подсвечником — новогодняя атмосфера на вашем столе.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.575Z",
+    "images": []
+  },
+  {
+    "id": "kruglyj-podnos-s-podsvechnikom-i-domikami-2",
+    "name": "Круглый поднос с подсвечником и домиками",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Праздничный гипсовый поднос с рельефными домиками и подсвечником — новогодняя атмосфера на вашем столе.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.684Z",
+    "images": []
+  },
+  {
+    "id": "live-love-hope-4-shtuki",
+    "name": "Live love hope 4 штуки",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Набор из четырёх гипсовых подсвечников с тиснением live, love, hope — тёплое послание близким.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.634Z",
+    "images": []
+  },
+  {
+    "id": "lotos-podsvechnik",
+    "name": "Лотос подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Гипсовый подсвечник в форме лотоса — изящный символ чистоты и спокойствия.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.640Z",
+    "images": []
+  },
+  {
+    "id": "podnos-bolshoj-kruglyj",
+    "name": "Поднос большой круглый",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Большой круглый гипсовый поднос ручной работы — подходит для свечей, косметики или как декор стола.",
     "price": 600,
     "availability": "on_order",
     "visible": true,
+    "createdAt": "2026-10-10T15:05:21.558Z",
     "images": []
   },
   {
-    "id": "wer",
-    "name": "wer",
-    "sections": [],
+    "id": "podnos-gora",
+    "name": "Поднос гора",
+    "sections": [
+      "Гипс"
+    ],
     "collections": [],
-    "categories": [],
-    "description": "",
-    "price": 0,
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Необычный гипсовый поднос в форме горы — арт-объект и практичный органайзер одновременно.",
+    "price": 600,
     "availability": "on_order",
-    "visible": false,
-    "images": [
-      "400_Grove_Роща.webp",
-      "gold.jpg"
-    ]
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.570Z",
+    "images": []
+  },
+  {
+    "id": "podnos-kruglyj-malenkij",
+    "name": "Поднос круглый маленький",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Небольшой круглый гипсовый поднос ручной работы — изящный органайзер для украшений или парфюма.",
+    "price": 500,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.541Z",
+    "images": []
+  },
+  {
+    "id": "podnos-malenkij-shestigrannyj",
+    "name": "Поднос маленький шестигранный",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Миниатюрный шестигранный гипсовый поднос — стильная подставка для мелочей на столе или в ванной.",
+    "price": 200,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.546Z",
+    "images": []
+  },
+  {
+    "id": "podnos-oblako-s-bortikami",
+    "name": "Поднос Облако с бортиками",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Гипсовый поднос в форме облака с бортиками — надёжно удерживает мелкие предметы.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.580Z",
+    "images": []
+  },
+  {
+    "id": "podnos-ovalnyj",
+    "name": "Поднос овальный",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Элегантный гипсовый поднос овальной формы — идеально для украшений и декора.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.554Z",
+    "images": []
+  },
+  {
+    "id": "podnos-ovalnyj-malyj",
+    "name": "Поднос овальный малый",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Аккуратный овальный поднос малого размера из гипса ручного литья.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.551Z",
+    "images": []
+  },
+  {
+    "id": "podnos-tonkoe-oblako",
+    "name": "Поднос Тонкое облако",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "Гипсовый поднос в форме тонкого облака — лёгкий и воздушный декор для любого интерьера.",
+    "price": 700,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.565Z",
+    "images": []
+  },
+  {
+    "id": "podstavka-dlya-telefona",
+    "name": "Подставка для телефона",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Удобная гипсовая подставка для телефона ручного литья — стильный аксессуар для рабочего стола.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.709Z",
+    "images": []
+  },
+  {
+    "id": "podsvechnik-kruglyj-glubokij",
+    "name": "Подсвечник круглый глубокий",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Глубокий круглый гипсовый подсвечник — подходит для высоких и стандартных свечей.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.698Z",
+    "images": []
+  },
+  {
+    "id": "podsvechnik-piramidka-s-kryshkoj",
+    "name": "Подсвечник пирамидка с крышкой",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Элегантный гипсовый подсвечник-пирамидка с крышкой ручной работы.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.675Z",
+    "images": []
+  },
+  {
+    "id": "podsvechnik-rebristyj-nizkij",
+    "name": "Подсвечник ребристый низкий",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Низкий ребристый гипсовый подсвечник — стильный и практичный декор для чайных свечей.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.691Z",
+    "images": []
+  },
+  {
+    "id": "podsvechnik-zvezdy-s-kryshkoj",
+    "name": "Подсвечник звезды с крышкой",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Гипсовый подсвечник со звёздным орнаментом и крышкой — защищает огонь и украшает интерьер.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.673Z",
+    "images": []
+  },
+  {
+    "id": "pol-elki-podsvechnik",
+    "name": "Пол елки подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Новогодний гипсовый подсвечник в форме половинки ёлки — оригинальный праздничный декор.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.654Z",
+    "images": []
+  },
+  {
+    "id": "rakushka-podsvechnik",
+    "name": "Ракушка подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Гипсовый подсвечник в форме ракушки — морское настроение в вашем интерьере.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.622Z",
+    "images": []
+  },
+  {
+    "id": "shkatulka-1-granenaya-bolshaya",
+    "name": "Шкатулка 1 граненая большая",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "Большая граненая гипсовая шкатулка с крышкой — вместительное и стильное украшение интерьера.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.603Z",
+    "images": []
+  },
+  {
+    "id": "shkatulka-2-kruglaya",
+    "name": "Шкатулка 2 круглая",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "Круглая гипсовая шкатулка ручного литья — изящное хранилище для бижутерии.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.590Z",
+    "images": []
+  },
+  {
+    "id": "shkatulka-3-s-sharikom-rebristaya-nizkaya",
+    "name": "Шкатулка 3 с шариком ребристая низкая",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "Приземистая ребристая гипсовая шкатулка с шариком на крышке — стильная и функциональная.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.594Z",
+    "images": []
+  },
+  {
+    "id": "shkatulka-4-mini-serdtse-granenoe",
+    "name": "Шкатулка 4 мини сердце граненое",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "Маленькая граненая гипсовая шкатулка в форме сердца — нежный подарок для украшений.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.584Z",
+    "images": []
+  },
+  {
+    "id": "shkatulka-5-kruglaya-miska",
+    "name": "Шкатулка 5 круглая миска",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "Гипсовая шкатулка в форме круглой миски — минималистичный декор для дома.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.597Z",
+    "images": []
+  },
+  {
+    "id": "shkatulka-6-luna",
+    "name": "Шкатулка 6 Луна",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "Гипсовая шкатулка в форме луны — загадочный и романтичный декор ручной работы.",
+    "price": 500,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.608Z",
+    "images": []
+  },
+  {
+    "id": "shkatulka-7-shlyapa-garri-potter",
+    "name": "Шкатулка 7 Шляпа Гарри Поттер",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "Гипсовая шкатулка в виде шляпы Гарри Поттера — волшебный подарок для фанатов серии.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.600Z",
+    "images": []
+  },
+  {
+    "id": "stakan-gladkij-s-kryshkoj",
+    "name": "Стакан гладкий с крышкой",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Стаканы"
+    ],
+    "description": "Гладкий гипсовый стакан с крышкой — оригинальный органайзер для ручек, кистей или мелочей.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.611Z",
+    "images": []
+  },
+  {
+    "id": "stakan-rebristyj-s-kryshkoj",
+    "name": "Стакан ребристый с крышкой",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Стаканы"
+    ],
+    "description": "Ребристый гипсовый стакан с крышкой — практичный и стильный декор для рабочего стола.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.614Z",
+    "images": []
+  },
+  {
+    "id": "vanna-dekorativnaya",
+    "name": "Ванна декоративная",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Миниатюрная гипсовая ванночка — декоративный органайзер или необычное кашпо для суккулентов.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.702Z",
+    "images": []
+  },
+  {
+    "id": "vaza-granenaya-karandashnitsa",
+    "name": "Ваза граненая карандашница",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Граненая гипсовая ваза-карандашница — элегантный органайзер для стола или украшение интерьера.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.713Z",
+    "images": []
+  },
+  {
+    "id": "vaza-uzkoe-gorlo",
+    "name": "Ваза узкое горло",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Гипсовая ваза с узким горлом — минималистичный декор для одного цветка или сухоцвета.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.716Z",
+    "images": []
+  },
+  {
+    "id": "vyazanyj-podsvechnik",
+    "name": "Вязаный подсвечник",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Гипсовый подсвечник с рельефным вязаным узором — уютный декор для новогоднего вечера.",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-10T15:05:21.679Z",
+    "images": []
   }
 ]
