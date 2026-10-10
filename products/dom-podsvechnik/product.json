@@ -1,0 +1,18 @@
+{
+  "name": "Дом подсвечник",
+  "sections": [
+    "Гипс"
+  ],
+  "collections": [
+    "Новогодняя"
+  ],
+  "categories": [
+    "Подсвечники"
+  ],
+  "description": "Гипсовый подсвечник в виде уютного домика — праздничный огонёк для новогоднего стола.",
+  "price": 300,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [],
+  "createdAt": "2026-10-10T15:05:21.662Z"
+}
