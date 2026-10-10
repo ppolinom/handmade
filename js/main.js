@@ -38,28 +38,44 @@ function imgSrc(productId, filename) {
 // ── YouTube ────────────────────────────────────────────────────────────────────
 
 async function fetchYouTubeLatestVideo() {
-  // Способ 1 (без ключа): RSS-лента + CORS-прокси corsproxy.io
-  // Аналогично тому, как мы тянем статус Twitch через их публичный API
+  // Способ 1 (без ключа): RSS-лента через CORS-прокси
   if (YOUTUBE_CHANNEL_ID) {
-    try {
-      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
-      const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, {
-        signal: AbortSignal.timeout(6000)
-      });
-      if (!res.ok) throw new Error('rss fetch failed');
-      const text = await res.text();
-      // CSS-селекторы не поддерживают XML-namespace, поэтому парсим регуляркой
-      const videoId = text.match(/<yt:videoId>([\w-]+)<\/yt:videoId>/)?.[1]
-        || text.match(/<id>yt:video:([\w-]+)<\/id>/)?.[1];
-      if (!videoId || videoId.length < 5) return null;
-      // hqdefault.jpg (480×360) всегда есть; maxresdefault может отсутствовать у старых видео
-      return {
-        videoId,
-        thumb: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
-        url: `https://www.youtube.com/watch?v=${videoId}`
-      };
-    } catch {
-      // если прокси недоступен — переходим к способу 2 или null
+    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
+    let xmlText = null;
+
+    // allorigins.win — возвращает JSON-обёртку { contents, status }
+    if (!xmlText) {
+      try {
+        const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`, {
+          signal: AbortSignal.timeout(8000)
+        });
+        if (r.ok) {
+          const j = await r.json();
+          if (j.status?.http_code === 200 && j.contents) xmlText = j.contents;
+        }
+      } catch {}
+    }
+
+    // corsproxy.io — запасной вариант
+    if (!xmlText) {
+      try {
+        const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, {
+          signal: AbortSignal.timeout(6000)
+        });
+        if (r.ok) xmlText = await r.text();
+      } catch {}
+    }
+
+    if (xmlText) {
+      const videoId = xmlText.match(/<yt:videoId>([\w-]+)<\/yt:videoId>/)?.[1]
+        || xmlText.match(/<id>yt:video:([\w-]+)<\/id>/)?.[1];
+      if (videoId && videoId.length >= 5) {
+        return {
+          videoId,
+          thumb: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+          url: `https://www.youtube.com/watch?v=${videoId}`
+        };
+      }
     }
   }
 
