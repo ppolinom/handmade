@@ -89,7 +89,7 @@
   },
   {
     "id": "elochnyj-sharik-podsvechnik-svecha",
-    "name": "Елочный шарик подсвечник",
+    "name": "Свеча Елочный шарик",
     "sections": [
       "Свечи"
     ],
@@ -151,7 +151,7 @@
   },
   {
     "id": "granenyj-malenkij-podsvechnik-svecha",
-    "name": "Граненый маленький подсвечник",
+    "name": "Граненая маленькая свеча",
     "sections": [
       "Свечи"
     ],
@@ -193,7 +193,7 @@
   },
   {
     "id": "khogvarts-podsvechnik-svecha",
-    "name": "Хогвартс подсвечник",
+    "name": "Свеча Хогвартс",
     "sections": [
       "Свечи"
     ],
@@ -257,7 +257,7 @@
   },
   {
     "id": "kruglye-kh3-podsvechnik-svecha",
-    "name": "Круглые х3 подсвечник",
+    "name": "Круглые свечи х3",
     "sections": [
       "Свечи"
     ],
@@ -296,7 +296,7 @@
   },
   {
     "id": "kruglyj-granenyj-podsvechnik-sharik-svecha",
-    "name": "Круглый граненый подсвечник / шарик",
+    "name": "Круглая граненая свеча / шарик",
     "sections": [
       "Свечи"
     ],
@@ -357,7 +357,7 @@
   },
   {
     "id": "live-love-hope-4-shtuki-svecha",
-    "name": "live love hope 4 штуки",
+    "name": "Свечи live love hope 4 штуки",
     "sections": [
       "Свечи"
     ],
@@ -397,7 +397,7 @@
   },
   {
     "id": "lotos-podsvechnik-svecha",
-    "name": "Лотос подсвечник",
+    "name": "Свеча Лотос",
     "sections": [
       "Свечи"
     ],
@@ -594,7 +594,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Вазы и декор"
     ],
@@ -631,7 +633,7 @@
   },
   {
     "id": "podsvechnik-kruglyj-glubokij-svecha",
-    "name": "Подсвечник круглый глубокий",
+    "name": "Свеча круглая глубокая",
     "sections": [
       "Свечи"
     ],
@@ -670,7 +672,7 @@
   },
   {
     "id": "podsvechnik-piramidka-s-kryshkoj-svecha",
-    "name": "Подсвечник пирамидка с крышкой",
+    "name": "Свеча пирамидка с крышкой",
     "sections": [
       "Свечи"
     ],
@@ -711,7 +713,7 @@
   },
   {
     "id": "podsvechnik-rebristyj-nizkij-svecha",
-    "name": "Подсвечник ребристый низкий",
+    "name": "Свеча ребристая низкая",
     "sections": [
       "Свечи"
     ],
@@ -737,7 +739,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Подсвечники",
       "Шкатулки"
@@ -753,14 +757,13 @@
   },
   {
     "id": "podsvechnik-zvezdy-s-kryshkoj-svecha",
-    "name": "Подсвечник звезды с крышкой",
+    "name": "Свеча звезды с крышкой",
     "sections": [
       "Свечи"
     ],
     "collections": [],
     "categories": [
-      "Подсвечники",
-      "Шкатулки"
+      "Подсвечники"
     ],
     "description": "Гипсовый подсвечник со звёздным орнаментом и крышкой — защищает огонь и украшает интерьер.",
     "price": 700,
@@ -799,7 +802,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Подсвечники",
       "Шкатулки"
@@ -820,7 +825,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Подсвечники",
       "Шкатулки"
@@ -837,14 +844,13 @@
   },
   {
     "id": "shkatulka-1-granenaya-bolshaya-svecha",
-    "name": "Шкатулка 1 граненая большая",
+    "name": "Свеча 1 граненая большая",
     "sections": [
       "Свечи"
     ],
     "collections": [],
     "categories": [
-      "Подсвечники",
-      "Шкатулки"
+      "Подсвечники"
     ],
     "description": "Большая граненая гипсовая шкатулка с крышкой — вместительное и стильное украшение интерьера.",
     "price": 700,
@@ -862,7 +868,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Подсвечники",
       "Шкатулки"
@@ -877,14 +885,13 @@
   },
   {
     "id": "shkatulka-2-kruglaya-svecha",
-    "name": "Шкатулка круглая",
+    "name": "Свеча круглая",
     "sections": [
       "Свечи"
     ],
     "collections": [],
     "categories": [
-      "Подсвечники",
-      "Шкатулки"
+      "Подсвечники"
     ],
     "description": "Круглая гипсовая шкатулка ручного литья — изящное хранилище для бижутерии.",
     "price": 800,
@@ -900,7 +907,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Подсвечники",
       "Шкатулки"
@@ -919,14 +928,13 @@
   },
   {
     "id": "shkatulka-3-s-sharikom-rebristaya-nizkaya-svecha",
-    "name": "Шкатулка 3 с шариком ребристая низкая",
+    "name": "Свеча 3 с шариком ребристая низкая",
     "sections": [
       "Свечи"
     ],
     "collections": [],
     "categories": [
-      "Подсвечники",
-      "Шкатулки"
+      "Подсвечники"
     ],
     "description": "Приземистая ребристая гипсовая шкатулка с шариком на крышке — стильная и функциональная.",
     "price": 800,
@@ -946,7 +954,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Шкатулки"
     ],
@@ -968,7 +978,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Подсвечники",
       "Шкатулки"
@@ -985,14 +997,13 @@
   },
   {
     "id": "shkatulka-5-kruglaya-miska-svecha",
-    "name": "Шкатулка 5 круглая миска",
+    "name": "Свеча 5 круглая миска",
     "sections": [
       "Свечи"
     ],
     "collections": [],
     "categories": [
-      "Подсвечники",
-      "Шкатулки"
+      "Подсвечники"
     ],
     "description": "Гипсовая шкатулка в форме круглой миски — минималистичный декор для дома.",
     "price": 700,
@@ -1010,7 +1021,9 @@
     "sections": [
       "Гипс"
     ],
-    "collections": [],
+    "collections": [
+      "В офис"
+    ],
     "categories": [
       "Подсвечники",
       "Шкатулки"
@@ -1027,14 +1040,13 @@
   },
   {
     "id": "shkatulka-6-luna-svecha",
-    "name": "Шкатулка 6 Луна",
+    "name": "Свеча 6 Луна",
     "sections": [
       "Свечи"
     ],
     "collections": [],
     "categories": [
-      "Подсвечники",
-      "Шкатулки"
+      "Подсвечники"
     ],
     "description": "Гипсовая шкатулка в форме луны — загадочный и романтичный декор ручной работы.",
     "price": 900,
@@ -1072,7 +1084,7 @@
   },
   {
     "id": "shkatulka-7-shlyapa-garri-potter-svecha",
-    "name": "Шкатулка Распределяющая Шляпа Гарри Поттер",
+    "name": "Свеча Распределяющая Шляпа Гарри Поттер",
     "sections": [
       "Свечи"
     ],
@@ -1081,7 +1093,6 @@
       "В офис"
     ],
     "categories": [
-      "Шкатулки",
       "Подсвечники"
     ],
     "description": "Гипсовая шкатулка в виде Распределяющей шляпы из Гарри Поттера — волшебный подарок для фанатов серии.",
@@ -1117,7 +1128,7 @@
   },
   {
     "id": "stakan-gladkij-s-kryshkoj-svecha",
-    "name": "Стакан гладкий с крышкой",
+    "name": "Свеча в гладком стакане с крышкой",
     "sections": [
       "Свечи"
     ],
@@ -1160,7 +1171,7 @@
   },
   {
     "id": "stakan-rebristyj-s-kryshkoj-svecha",
-    "name": "Стакан ребристый с крышкой",
+    "name": "Свеча в ребристом стакане с крышкой",
     "sections": [
       "Свечи"
     ],
@@ -1265,7 +1276,7 @@
   },
   {
     "id": "vyazanyj-podsvechnik-svecha",
-    "name": "Вязаный подсвечник",
+    "name": "Вязаная свеча",
     "sections": [
       "Свечи"
     ],
