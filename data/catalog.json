@@ -1163,6 +1163,31 @@
     ]
   },
   {
+    "id": "svechi-idoly",
+    "name": "Свечи идолы",
+    "sections": [
+      "Свечи"
+    ],
+    "collections": [
+      "В офис"
+    ],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Братишки-Идолы украсят ваш дом\n700 р - цена за комплект из всех братишек\nКаждый отдельно по 200 р",
+    "price": 700,
+    "availability": "on_order",
+    "visible": true,
+    "priority": 4,
+    "createdAt": "2026-10-11T13:01:50.880Z",
+    "images": [
+      "photo_74@01-03-2026_19-12-02.jpg",
+      "photo_76@01-03-2026_19-12-02.jpg",
+      "photo_73@01-03-2026_19-12-02.jpg",
+      "photo_75@01-03-2026_19-12-02.jpg"
+    ]
+  },
+  {
     "id": "vanna-dekorativnaya",
     "name": "Ванна декоративная",
     "sections": [
