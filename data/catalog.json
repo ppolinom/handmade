@@ -420,6 +420,29 @@
     ]
   },
   {
+    "id": "mylo-serdechko-3d",
+    "name": "Мыло Сердечко 3d",
+    "sections": [
+      "Мыло"
+    ],
+    "collections": [
+      "К 8 Марта"
+    ],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Мыло с уходовым маслом, цвет на ваш выбор. Можно добавить кофе или семена для скрабирования вашей красивой моськи",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "priority": 5,
+    "createdAt": "2026-10-11T13:08:18.667Z",
+    "images": [
+      "photo_78@03-03-2026_11-19-47_thumb.jpg",
+      "photo_83@03-03-2026_11-19-47.jpg"
+    ]
+  },
+  {
     "id": "podnos-bolshoj-kruglyj",
     "name": "Поднос большой круглый",
     "sections": [
