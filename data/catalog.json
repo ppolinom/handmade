@@ -996,26 +996,6 @@
     ]
   },
   {
-    "id": "shkatulka-5-kruglaya-miska-svecha",
-    "name": "Свеча 5 круглая миска",
-    "sections": [
-      "Свечи"
-    ],
-    "collections": [],
-    "categories": [
-      "Подсвечники"
-    ],
-    "description": "Гипсовая шкатулка в форме круглой миски — минималистичный декор для дома.",
-    "price": 700,
-    "availability": "on_order",
-    "visible": true,
-    "createdAt": "2026-10-10T15:05:21.597Z",
-    "images": [
-      "photo_28@31-01-2026_19-50-06_thumb.jpg",
-      "photo_29@31-01-2026_19-50-06_thumb.jpg"
-    ]
-  },
-  {
     "id": "shkatulka-6-luna",
     "name": "Шкатулка 6 Луна",
     "sections": [
