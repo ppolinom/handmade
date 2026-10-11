@@ -1,0 +1,18 @@
+{
+  "name": "Шкатулка круглая",
+  "sections": [
+    "Свечи"
+  ],
+  "collections": [],
+  "categories": [
+    "Подсвечники",
+    "Шкатулки"
+  ],
+  "description": "Круглая гипсовая шкатулка ручного литья — изящное хранилище для бижутерии.",
+  "price": 800,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "photo_27@31-01-2026_19-50-06.jpg"
+  ]
+}
