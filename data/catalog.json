@@ -120,10 +120,9 @@
     "price": 300,
     "availability": "on_order",
     "visible": true,
-    "createdAt": "2026-10-10T15:05:21.619Z",
     "images": [
-      "IMG_2577.JPEG",
-      "IMG_4996.JPEG"
+      "IMG_4996.JPEG",
+      "IMG_2577.JPEG"
     ]
   },
   {
