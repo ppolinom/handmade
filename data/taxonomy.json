@@ -17,17 +17,17 @@
     {
       "name": "Новогодняя",
       "enabled": true,
-      "image": ""
+      "image": "collections/новогодняя.avif"
     },
     {
       "name": "К 8 Марта",
-      "enabled": true,
+      "enabled": false,
       "image": ""
     },
     {
       "name": "В офис",
       "enabled": true,
-      "image": ""
+      "image": "collections/в_офис.png"
     }
   ]
 }
