@@ -1,7 +1,8 @@
 {
   "name": "Елочный шарик подсвечник",
   "sections": [
-    "Гипс"
+    "Гипс",
+    "Свечи"
   ],
   "collections": [
     "Новогодняя"
@@ -13,6 +14,13 @@
   "price": 300,
   "availability": "on_order",
   "visible": true,
-  "imageOrder": [],
-  "createdAt": "2026-10-10T15:05:21.658Z"
+  "imageOrder": [
+    "IMG_1357.JPEG",
+    "IMG_1359.JPEG",
+    "IMG_1364.JPEG",
+    "IMG_1367.JPEG",
+    "IMG_1368.JPEG",
+    "IMG_1370.JPEG",
+    "IMG_1470.JPEG"
+  ]
 }
