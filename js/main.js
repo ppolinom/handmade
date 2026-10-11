@@ -119,6 +119,11 @@ async function initIndex() {
   }
 
   catalog = catalog.filter(p => p.visible !== false);
+  const priorityOf = p => Number.isFinite(p.priority) ? p.priority : Infinity;
+  catalog = catalog
+    .map((p, i) => ({ p, i }))
+    .sort((a, b) => (priorityOf(a.p) - priorityOf(b.p)) || (a.i - b.i))
+    .map(x => x.p);
 
   function getProductSections(p) { return Array.isArray(p.sections) ? p.sections : []; }
   function getProductCollections(p) { return Array.isArray(p.collections) ? p.collections : []; }

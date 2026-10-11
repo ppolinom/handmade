@@ -390,6 +390,10 @@
       </select>
     </div>
     <div class="field">
+      <label>Приоритет на главной (меньше — выше; пусто — в конце)</label>
+      <input type="number" id="f-priority" min="1" step="1" placeholder="например, 1">
+    </div>
+    <div class="field">
       <label>Фотографии</label>
       <div class="images-grid" id="images-grid"></div>
       <input type="file" id="file-input" accept="image/*" multiple style="display:none">
@@ -794,6 +798,7 @@ function openAdd() {
   document.getElementById('f-id').value = '';
   document.getElementById('f-description').value = '';
   document.getElementById('f-price').value = '';
+  document.getElementById('f-priority').value = '';
   document.getElementById('f-availability').value = 'on_order';
   document.getElementById('f-visible').value = 'true';
   document.getElementById('btn-delete').classList.add('hidden');
@@ -817,6 +822,7 @@ function openEdit(i) {
   document.getElementById('f-price').value = p.data.price || '';
   document.getElementById('f-availability').value = p.data.availability || (p.data.available === false ? 'unavailable' : 'available');
   document.getElementById('f-visible').value = String(p.data.visible !== false);
+  document.getElementById('f-priority').value = p.data.priority ?? '';
   document.getElementById('btn-delete').classList.remove('hidden');
   sectionsInput.set(Array.isArray(p.data.sections) ? p.data.sections : []);
   collectionsInput.set(Array.isArray(p.data.collections) ? p.data.collections : []);
@@ -954,8 +960,12 @@ document.getElementById('btn-save').addEventListener('click', async () => {
       availability: document.getElementById('f-availability').value,
       visible: document.getElementById('f-visible').value === 'true'
     };
+    const priority = parseInt(document.getElementById('f-priority').value, 10);
+    if (Number.isFinite(priority)) data.priority = priority;
     if (editingIndex === null) {
       data.createdAt = new Date().toISOString();
+    } else if (products[editingIndex].data.createdAt) {
+      data.createdAt = products[editingIndex].data.createdAt;
     }
 
     for (const img of removedImages) {

@@ -103,6 +103,7 @@
     "price": 800,
     "availability": "on_order",
     "visible": true,
+    "priority": 3,
     "images": [
       "IMG_1357.JPEG",
       "IMG_1359.JPEG",
@@ -207,6 +208,7 @@
     "price": 700,
     "availability": "on_order",
     "visible": true,
+    "priority": 1,
     "images": [
       "Снимок экрана 2026-10-10 214134.png",
       "Снимок экрана 2026-10-10 214127.png",
@@ -431,6 +433,7 @@
     "price": 400,
     "availability": "on_order",
     "visible": true,
+    "priority": 7,
     "images": [
       "IMG_2532.JPG",
       "IMG_2561.JPEG",
@@ -456,6 +459,7 @@
     "price": 500,
     "availability": "on_order",
     "visible": true,
+    "priority": 4,
     "images": [
       "photo_168@26-07-2026_00-07-34_thumb.jpg",
       "photo_197@10-08-2026_17-33-25_thumb.jpg",
@@ -519,6 +523,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.580Z",
+    "priority": 6,
     "images": [
       "photo_121@18-06-2026_14-06-22.jpg",
       "photo_165@26-07-2026_00-07-34_thumb.jpg"
@@ -581,6 +586,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.565Z",
+    "priority": 5,
     "images": [
       "photo_120@18-06-2026_14-06-22_thumb.jpg",
       "photo_164@26-07-2026_00-07-34.jpg"
@@ -683,6 +689,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.675Z",
+    "priority": 8,
     "images": [
       "Снимок экрана 2026-10-10 222704.png"
     ]
@@ -749,6 +756,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.673Z",
+    "priority": 10,
     "images": [
       "IMG_7262.JPEG"
     ]
@@ -812,6 +820,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.622Z",
+    "priority": 10,
     "images": [
       "photo_122@18-06-2026_14-06-22.jpg",
       "photo_167@26-07-2026_00-07-34_thumb.jpg"
@@ -835,6 +844,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.603Z",
+    "priority": 10,
     "images": [
       "IMG_2575.JPEG",
       "IMG_3124.JPEG"
@@ -877,6 +887,7 @@
     "price": 300,
     "availability": "on_order",
     "visible": true,
+    "priority": 10,
     "images": [
       "photo_27@31-01-2026_19-50-06.jpg"
     ]
@@ -917,6 +928,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.594Z",
+    "priority": 10,
     "images": [
       "IMG_4999.JPEG",
       "IMG_5069.JPEG",
@@ -963,6 +975,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.584Z",
+    "priority": 10,
     "images": [
       "IMG_5319.JPEG",
       "IMG_5321.JPEG",
@@ -988,6 +1001,7 @@
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.608Z",
+    "priority": 9,
     "images": [
       "photo_195@10-08-2026_17-33-25.jpg",
       "photo_196@10-08-2026_17-33-25.jpg"
@@ -1031,6 +1045,7 @@
     "price": 400,
     "availability": "on_order",
     "visible": true,
+    "priority": 10,
     "images": [
       "photo_92@06-03-2026_09-43-40_thumb.jpg",
       "photo_93@06-03-2026_09-43-40_thumb.jpg",
@@ -1054,6 +1069,7 @@
     "price": 700,
     "availability": "on_order",
     "visible": true,
+    "priority": 2,
     "images": [
       "photo_92@06-03-2026_09-43-40_thumb.jpg",
       "photo_93@06-03-2026_09-43-40_thumb.jpg",

@@ -15,5 +15,6 @@
   "availability": "on_order",
   "visible": true,
   "imageOrder": [],
-  "createdAt": "2026-10-10T15:05:21.673Z"
+  "createdAt": "2026-10-10T15:05:21.673Z",
+  "priority": 10
 }
