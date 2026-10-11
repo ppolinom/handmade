@@ -65,7 +65,8 @@
     "id": "elochnyj-sharik-podsvechnik",
     "name": "Елочный шарик подсвечник",
     "sections": [
-      "Гипс"
+      "Гипс",
+      "Свечи"
     ],
     "collections": [
       "Новогодняя"
@@ -77,7 +78,6 @@
     "price": 300,
     "availability": "on_order",
     "visible": true,
-    "createdAt": "2026-10-10T15:05:21.658Z",
     "images": [
       "IMG_1357.JPEG",
       "IMG_1359.JPEG",
