@@ -1,0 +1,18 @@
+{
+  "name": "Интерьерная свеча Пупырка большая и маленькая",
+  "sections": [
+    "Свечи"
+  ],
+  "collections": [],
+  "categories": [
+    "Вазы и декор"
+  ],
+  "description": "Могут быть в разных цветах и ароматах. Большая 400р, маленькая 100р.",
+  "price": 400,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "pupyrka.jpg"
+  ],
+  "createdAt": "2026-10-12T07:49:08.000Z"
+}

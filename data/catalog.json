@@ -193,6 +193,25 @@
     ]
   },
   {
+    "id": "intererna-svecha-pupyrka",
+    "name": "Интерьерная свеча Пупырка большая и маленькая",
+    "sections": [
+      "Свечи"
+    ],
+    "collections": [],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Могут быть в разных цветах и ароматах. Большая 400р, маленькая 100р.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T07:49:08.000Z",
+    "images": [
+      "pupyrka.jpg"
+    ]
+  },
+  {
     "id": "khogvarts-podsvechnik",
     "name": "Хогвартс подсвечник",
     "sections": [
@@ -443,6 +462,43 @@
     ]
   },
   {
+    "id": "mylo-alehandro",
+    "name": "Мыло Алехандро",
+    "sections": [
+      "Мыло"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "",
+    "price": 300,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T07:59:58.000Z",
+    "images": [
+      "alehandro.jpg"
+    ]
+  },
+  {
+    "id": "mylo-pirozhnoe-serdechko",
+    "name": "Мыло Пирожное сердечко",
+    "sections": [
+      "Мыло"
+    ],
+    "collections": [
+      "К 8 Марта"
+    ],
+    "categories": [],
+    "description": "Могут быть разных запахов и цветов.",
+    "price": 100,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T07:56:34.000Z",
+    "images": [
+      "mylo-1.jpg",
+      "mylo-2.jpg"
+    ]
+  },
+  {
     "id": "mylo-pupyrka-bolshaya-i-malenkaya",
     "name": "Мыло Пупырка большая и маленькая",
     "sections": [
@@ -459,6 +515,23 @@
     "createdAt": "2026-10-12T07:45:12.302Z",
     "images": [
       "мыло пупырка.jpg"
+    ]
+  },
+  {
+    "id": "mylo-russkie-uzory",
+    "name": "Мыло Русские узоры",
+    "sections": [
+      "Мыло"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "",
+    "price": 200,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T08:01:39.000Z",
+    "images": [
+      "uzory.jpg"
     ]
   },
   {
@@ -482,6 +555,25 @@
     "images": [
       "photo_78@03-03-2026_11-19-47_thumb.jpg",
       "photo_83@03-03-2026_11-19-47.jpg"
+    ]
+  },
+  {
+    "id": "mylo-snezhinki",
+    "name": "Мыло Снежинки",
+    "sections": [
+      "Мыло"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [],
+    "description": "",
+    "price": 100,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T08:00:50.000Z",
+    "images": [
+      "snezhinki.jpg"
     ]
   },
   {
@@ -890,6 +982,27 @@
     "images": [
       "photo_122@18-06-2026_14-06-22.jpg",
       "photo_167@26-07-2026_00-07-34_thumb.jpg"
+    ]
+  },
+  {
+    "id": "sashe-dlya-aromata-pion",
+    "name": "Саше для аромата Пион",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "В офис"
+    ],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Саше для ароматизации ваших пространств. Капните любимых эфирных масел или духов, и ваш любимый аромат будет с вами.",
+    "price": 100,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T07:54:00.000Z",
+    "images": [
+      "pion.jpg"
     ]
   },
   {

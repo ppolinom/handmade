@@ -1,0 +1,19 @@
+{
+  "name": "Мыло Пирожное сердечко",
+  "sections": [
+    "Мыло"
+  ],
+  "collections": [
+    "К 8 Марта"
+  ],
+  "categories": [],
+  "description": "Могут быть разных запахов и цветов.",
+  "price": 100,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "mylo-1.jpg",
+    "mylo-2.jpg"
+  ],
+  "createdAt": "2026-10-12T07:56:34.000Z"
+}

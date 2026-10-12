@@ -1,0 +1,16 @@
+{
+  "name": "Мыло Русские узоры",
+  "sections": [
+    "Мыло"
+  ],
+  "collections": [],
+  "categories": [],
+  "description": "",
+  "price": 200,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "uzory.jpg"
+  ],
+  "createdAt": "2026-10-12T08:01:39.000Z"
+}
