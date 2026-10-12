@@ -11,9 +11,10 @@
   "price": 400,
   "availability": "on_order",
   "visible": true,
+  "createdAt": "2026-10-12T09:31:38.000Z",
   "imageOrder": [
     "choker-1.jpg",
+    "photo_146@08-07-2026_21-59-05_thumb.jpg",
     "choker-2.jpg"
-  ],
-  "createdAt": "2026-10-12T09:31:38.000Z"
+  ]
 }
