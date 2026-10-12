@@ -256,7 +256,7 @@ main {
 .product-info .category { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
 .product-info h1 { font-size: 1.75rem; font-weight: 700; line-height: 1.2; }
 .product-info .price { font-size: 1.75rem; font-weight: 700; color: var(--accent); }
-.product-info .description { color: var(--text-muted); line-height: 1.65; font-size: 0.95rem; }
+.product-info .description { color: var(--text-muted); line-height: 1.65; white-space: pre-line; font-size: 0.95rem; }
 
 .btn-order {
   display: inline-block;

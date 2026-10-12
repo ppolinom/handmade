@@ -23,6 +23,86 @@
     ]
   },
   {
+    "id": "brelok-alehandro",
+    "name": "Брелок Алехандро",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T09:26:48.000Z",
+    "images": [
+      "brelok.jpg"
+    ]
+  },
+  {
+    "id": "brelok-bukva-s-obvesom",
+    "name": "Брелок с буковкой и обвесом",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [
+      "К 8 Марта"
+    ],
+    "categories": [],
+    "description": "",
+    "price": 600,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T09:25:39.000Z",
+    "images": [
+      "brelok-1.jpg",
+      "brelok-2.jpg",
+      "brelok-3.jpg"
+    ]
+  },
+  {
+    "id": "bukvy-dlya-dekora",
+    "name": "Буквы для декора, украшения на ёлку. Хрустальные или акриловые",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Любая буква, эскиз буквы согласуем",
+    "price": 600,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T09:22:21.000Z",
+    "images": [
+      "bukvy-1.jpg",
+      "bukvy-2.jpg"
+    ]
+  },
+  {
+    "id": "choker-hrustal",
+    "name": "Чокер из хрустальных бусин",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [
+      "К 8 Марта"
+    ],
+    "categories": [],
+    "description": "Без подвески - 400р.\nС подвесом 600р.\nПодвес может быть разный. Можете даже использовать свой, если лежит без дела, я с ним сделаю)",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T09:31:38.000Z",
+    "images": [
+      "choker-1.jpg",
+      "choker-2.jpg"
+    ]
+  },
+  {
     "id": "choker-zhemchug",
     "name": "Чокер на шею из легких акриловых жемчужных бусин",
     "sections": [
@@ -620,6 +700,36 @@
       "igrushki-5.jpg",
       "igrushki-6.jpg",
       "igrushki-7.jpg"
+    ]
+  },
+  {
+    "id": "nabory-izdelij",
+    "name": "Наборы изделий",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "В офис",
+      "К 8 Марта"
+    ],
+    "categories": [],
+    "description": "Цена рассчитывается индивидуально из цены каждого изделия отдельно + скидка (~15%). \nДизайн по вашему выбору. Помните, что дизайн всегда будет немного отличаться от задумки в связи с технологией",
+    "price": 500,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T09:36:14.000Z",
+    "images": [
+      "nabor-1.jpg",
+      "nabor-2.jpg",
+      "nabor-3.jpg",
+      "nabor-4.jpg",
+      "nabor-5.jpg",
+      "nabor-6.jpg",
+      "nabor-7.jpg",
+      "nabor-8.jpg",
+      "nabor-9.jpg",
+      "nabor-10.jpg",
+      "nabor-11.jpg"
     ]
   },
   {

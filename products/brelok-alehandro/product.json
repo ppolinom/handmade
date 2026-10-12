@@ -1,0 +1,16 @@
+{
+  "name": "Брелок Алехандро",
+  "sections": [
+    "Изделия из бусин"
+  ],
+  "collections": [],
+  "categories": [],
+  "description": "",
+  "price": 400,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "brelok.jpg"
+  ],
+  "createdAt": "2026-10-12T09:26:48.000Z"
+}

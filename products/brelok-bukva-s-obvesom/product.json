@@ -1,0 +1,20 @@
+{
+  "name": "Брелок с буковкой и обвесом",
+  "sections": [
+    "Изделия из бусин"
+  ],
+  "collections": [
+    "К 8 Марта"
+  ],
+  "categories": [],
+  "description": "",
+  "price": 600,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "brelok-1.jpg",
+    "brelok-2.jpg",
+    "brelok-3.jpg"
+  ],
+  "createdAt": "2026-10-12T09:25:39.000Z"
+}
