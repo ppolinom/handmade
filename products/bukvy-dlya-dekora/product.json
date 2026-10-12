@@ -13,9 +13,9 @@
   "price": 600,
   "availability": "on_order",
   "visible": true,
+  "createdAt": "2026-10-12T09:22:21.000Z",
   "imageOrder": [
-    "bukvy-1.jpg",
-    "bukvy-2.jpg"
-  ],
-  "createdAt": "2026-10-12T09:22:21.000Z"
+    "bukvy-2.jpg",
+    "bukvy-1.jpg"
+  ]
 }
