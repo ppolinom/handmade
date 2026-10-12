@@ -442,6 +442,25 @@
     ]
   },
   {
+    "id": "mylo-pupyrka-bolshaya-i-malenkaya",
+    "name": "Мыло Пупырка большая и маленькая",
+    "sections": [
+      "Мыло"
+    ],
+    "collections": [
+      "К 8 Марта"
+    ],
+    "categories": [],
+    "description": "Может быть в разных цветах\nБольшая пупырка 400 р\nМаленькая 100 р",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T07:45:12.302Z",
+    "images": [
+      "мыло пупырка.jpg"
+    ]
+  },
+  {
     "id": "mylo-serdechko-3d",
     "name": "Мыло Сердечко 3d",
     "sections": [
