@@ -12,6 +12,11 @@
   "price": 500,
   "availability": "on_order",
   "visible": true,
-  "imageOrder": [],
-  "createdAt": "2026-10-10T15:05:21.614Z"
+  "createdAt": "2026-10-10T15:05:21.614Z",
+  "imageOrder": [
+    "IMG_4877 — копия.JPEG",
+    "IMG_2552.JPEG",
+    "IMG_2561.JPEG",
+    "IMG_5529.JPEG"
+  ]
 }
