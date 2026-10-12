@@ -1,0 +1,20 @@
+{
+  "name": "Украшения на свечи",
+  "sections": [
+    "Свечи"
+  ],
+  "collections": [],
+  "categories": [],
+  "description": "В любые свечи вы можете добавить украшения: сердечки, цветы, снежинки, малины...",
+  "price": 0,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "svechi-1.jpg",
+    "svechi-2.jpg",
+    "svechi-3.jpg",
+    "svechi-4.jpg",
+    "svechi-5.jpg"
+  ],
+  "createdAt": "2026-10-12T10:04:03.000Z"
+}
