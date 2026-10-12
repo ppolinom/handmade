@@ -564,6 +564,29 @@
     ]
   },
   {
+    "id": "mikrodomiki-dlya-dekora",
+    "name": "Микродомики для декора",
+    "sections": [
+      "Гипс"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Цена за комплект, можно по одному. Можно в разных цветах и с украшениями типа блесток. Картинка с лампочками не моя. Вариант использования декора.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T12:41:49.000Z",
+    "images": [
+      "domiki-1.jpg",
+      "domiki-2.jpg",
+      "domiki-3.jpg"
+    ]
+  },
+  {
     "id": "mylo-alehandro",
     "name": "Мыло Алехандро",
     "sections": [
