@@ -712,7 +712,9 @@
       "В офис",
       "К 8 Марта"
     ],
-    "categories": [],
+    "categories": [
+      "Вазы и декор"
+    ],
     "description": "Цена рассчитывается индивидуально из цены каждого изделия отдельно + скидка (~15%). \nДизайн по вашему выбору. Помните, что дизайн всегда будет немного отличаться от задумки в связи с технологией",
     "price": 500,
     "availability": "on_order",
@@ -721,6 +723,8 @@
     "images": [
       "nabor-1.jpg",
       "nabor-2.jpg",
+      "nabor-10.jpg",
+      "nabor-11.jpg",
       "nabor-3.jpg",
       "nabor-4.jpg",
       "nabor-5.jpg",
@@ -728,8 +732,7 @@
       "nabor-7.jpg",
       "nabor-8.jpg",
       "nabor-9.jpg",
-      "nabor-10.jpg",
-      "nabor-11.jpg"
+      "IMG_1369.JPEG"
     ]
   },
   {
