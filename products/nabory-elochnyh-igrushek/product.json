@@ -11,14 +11,14 @@
   "price": 600,
   "availability": "on_order",
   "visible": true,
+  "createdAt": "2026-10-12T08:41:05.000Z",
   "imageOrder": [
     "igrushki-1.jpg",
-    "igrushki-2.jpg",
-    "igrushki-3.jpg",
-    "igrushki-4.jpg",
     "igrushki-5.jpg",
+    "igrushki-4.jpg",
     "igrushki-6.jpg",
-    "igrushki-7.jpg"
-  ],
-  "createdAt": "2026-10-12T08:41:05.000Z"
+    "igrushki-7.jpg",
+    "igrushki-3.jpg",
+    "igrushki-2.jpg"
+  ]
 }
