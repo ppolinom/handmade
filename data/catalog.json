@@ -23,6 +23,27 @@
     ]
   },
   {
+    "id": "choker-zhemchug",
+    "name": "Чокер на шею из легких акриловых жемчужных бусин",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [
+      "К 8 Марта"
+    ],
+    "categories": [],
+    "description": "Дизайн может быть доработан по вашим пожеланиям",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T08:25:28.000Z",
+    "images": [
+      "choker-1.jpg",
+      "choker-2.jpg",
+      "choker-3.jpg"
+    ]
+  },
+  {
     "id": "dom-podsvechnik",
     "name": "Дом подсвечник",
     "sections": [
@@ -489,7 +510,7 @@
     ],
     "categories": [],
     "description": "Могут быть разных запахов и цветов.",
-    "price": 100,
+    "price": 200,
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-12T07:56:34.000Z",
@@ -526,7 +547,7 @@
     "collections": [],
     "categories": [],
     "description": "",
-    "price": 200,
+    "price": 250,
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-12T08:01:39.000Z",
@@ -568,12 +589,98 @@
     ],
     "categories": [],
     "description": "",
-    "price": 100,
+    "price": 150,
     "availability": "on_order",
     "visible": true,
     "createdAt": "2026-10-12T08:00:50.000Z",
     "images": [
       "snezhinki.jpg"
+    ]
+  },
+  {
+    "id": "nabory-elochnyh-igrushek",
+    "name": "Наборы Ёлочных Игрушек из хрусталя или акрила",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [
+      "Новогодняя"
+    ],
+    "categories": [],
+    "description": "Цена набора от 600р. Маленькие игрушки (звездочка, месяц) по 200р, остальные по 400. При заказе набора из 3 игрушек и более - скидки))",
+    "price": 600,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T08:41:05.000Z",
+    "images": [
+      "igrushki-1.jpg",
+      "igrushki-2.jpg",
+      "igrushki-3.jpg",
+      "igrushki-4.jpg",
+      "igrushki-5.jpg",
+      "igrushki-6.jpg",
+      "igrushki-7.jpg"
+    ]
+  },
+  {
+    "id": "obves-na-sumku-ploskoe-serdce",
+    "name": "Обвес на сумку Плоское Сердце, хрусталь",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "Брелок/обвес на сумку. Может быть выполнен из разных бусин, с разным карабином",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T08:28:18.000Z",
+    "images": [
+      "serdce.jpg"
+    ]
+  },
+  {
+    "id": "obves-na-sumku-serdce",
+    "name": "Обвес на сумку Объемное Ажурное Сердце, хрусталь",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "Брелок/обвес на сумку. Может быть выполнен из разных бусин",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T08:27:32.000Z",
+    "images": [
+      "serdce.jpg",
+      "serdce-2.jpg",
+      "serdce-3.jpg",
+      "serdce-4.jpg"
+    ]
+  },
+  {
+    "id": "obves-na-telefon",
+    "name": "Обвес на телефон",
+    "sections": [
+      "Изделия из бусин"
+    ],
+    "collections": [
+      "К 8 Марта",
+      "В офис",
+      "Новогодняя"
+    ],
+    "categories": [],
+    "description": "Обвес на телефон или сумку с зашифрованным посланием. Ваше имя, слово-символ, знак зодиака, что пожелаете. В ваших любимых цветах.",
+    "price": 400,
+    "availability": "on_order",
+    "visible": true,
+    "createdAt": "2026-10-12T08:23:04.000Z",
+    "images": [
+      "obves-1.jpg",
+      "obves-2.jpg",
+      "obves-3.jpg",
+      "obves-4.jpg"
     ]
   },
   {

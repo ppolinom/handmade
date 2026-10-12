@@ -1,0 +1,19 @@
+{
+  "name": "Обвес на сумку Объемное Ажурное Сердце, хрусталь",
+  "sections": [
+    "Изделия из бусин"
+  ],
+  "collections": [],
+  "categories": [],
+  "description": "Брелок/обвес на сумку. Может быть выполнен из разных бусин",
+  "price": 400,
+  "availability": "on_order",
+  "visible": true,
+  "imageOrder": [
+    "serdce.jpg",
+    "serdce-2.jpg",
+    "serdce-3.jpg",
+    "serdce-4.jpg"
+  ],
+  "createdAt": "2026-10-12T08:27:32.000Z"
+}
