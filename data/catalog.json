@@ -788,6 +788,7 @@
     "price": 400,
     "availability": "on_order",
     "visible": true,
+    "priority": 3,
     "createdAt": "2026-10-12T08:23:04.000Z",
     "images": [
       "obves-1.jpg",
