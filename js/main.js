@@ -15,15 +15,19 @@ const YOUTUBE_API_KEY = '';
 const YOUTUBE_CHANNEL_HANDLE = 'ppolinom';
 const YOUTUBE_CHANNEL_URL = `https://www.youtube.com/@${YOUTUBE_CHANNEL_HANDLE}`;
 
+// Данные всегда запрашиваются свежими: GitHub Pages кэширует файлы на 10 минут
+const noCache = url => `${url}?v=${Date.now()}`;
+const FRESH = { cache: 'no-store' };
+
 async function loadCatalog() {
-  const res = await fetch(CATALOG_URL);
+  const res = await fetch(noCache(CATALOG_URL), FRESH);
   if (!res.ok) throw new Error('catalog not found');
   return res.json();
 }
 
 async function loadTaxonomy() {
   try {
-    const res = await fetch(TAXONOMY_URL);
+    const res = await fetch(noCache(TAXONOMY_URL), FRESH);
     if (!res.ok) return { sections: [], categories: [], collections: [] };
     return res.json();
   } catch {
