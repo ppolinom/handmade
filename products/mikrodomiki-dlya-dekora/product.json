@@ -13,10 +13,10 @@
   "price": 400,
   "availability": "on_order",
   "visible": true,
+  "createdAt": "2026-10-12T12:41:49.000Z",
   "imageOrder": [
-    "domiki-1.jpg",
     "domiki-2.jpg",
+    "domiki-1.jpg",
     "domiki-3.jpg"
-  ],
-  "createdAt": "2026-10-12T12:41:49.000Z"
+  ]
 }
