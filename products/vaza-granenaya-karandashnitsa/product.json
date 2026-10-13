@@ -13,6 +13,7 @@
   "price": 400,
   "availability": "on_order",
   "visible": true,
+  "priority": 9,
   "imageOrder": [
     "IMG_5067.JPEG",
     "IMG_5323.JPEG",
