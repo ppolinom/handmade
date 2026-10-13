@@ -1312,7 +1312,6 @@
     "price": 300,
     "availability": "on_order",
     "visible": true,
-    "priority": 10,
     "images": [
       "photo_27@31-01-2026_19-50-06.jpg"
     ]
