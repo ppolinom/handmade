@@ -2,6 +2,11 @@ const CATALOG_URL = 'data/catalog.json';
 const TAXONOMY_URL = 'data/taxonomy.json';
 const TELEGRAM_USERNAME = 'ppolinom';
 
+// Страница /nocost: тот же каталог без цен
+const NOCOST = document.body?.dataset.nocost === '1' || new URLSearchParams(location.search).get('nocost') === '1';
+const PRODUCT_HREF_SUFFIX = NOCOST ? '&nocost=1' : '';
+const priceText = p => NOCOST ? '' : ` — ${p.price} ₽`;
+
 // ── YouTube настройки ─────────────────────────────────────────────────────────
 // Способ 1 (проще, без ключа): укажите Channel ID канала.
 // Найти его: YouTube Studio → Настройки → Канал → Расширенные настройки → Channel ID
@@ -301,13 +306,13 @@ async function initIndex() {
         : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>' : '';
       const label = getCardLabel(product);
       return `
-        <a class="card" href="product.html?id=${product.id}">
+        <a class="card" href="product.html?id=${product.id}${PRODUCT_HREF_SUFFIX}">
           ${thumb}
           <div class="card-body">
             ${label ? `<div class="card-category">${label}</div>` : ''}
             <div class="card-name">${product.name}</div>
             ${unavailable}
-            <div class="card-price">${product.price} ₽</div>
+            ${NOCOST ? '' : `<div class="card-price">${product.price} ₽</div>`}
           </div>
         </a>
       `;
@@ -337,13 +342,13 @@ async function initIndex() {
           : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>' : '';
         const label = getCardLabel(product);
         return `
-          <a class="card" href="product.html?id=${product.id}">
+          <a class="card" href="product.html?id=${product.id}${PRODUCT_HREF_SUFFIX}">
             ${thumb}
             <div class="card-body">
               ${label ? `<div class="card-category">${label}</div>` : ''}
               <div class="card-name">${product.name}</div>
               ${unavailable}
-              <div class="card-price">${product.price} ₽</div>
+              ${NOCOST ? '' : `<div class="card-price">${product.price} ₽</div>`}
             </div>
           </a>
         `;
@@ -540,7 +545,7 @@ async function initProduct() {
 
   document.title = `${product.name} — ppolinom handmade`;
 
-  const tgText = encodeURIComponent(`Хочу заказать: ${product.name} — ${product.price} ₽\n${location.href}`);
+  const tgText = encodeURIComponent(`Хочу заказать: ${product.name}${priceText(product)}\n${location.href}`);
   const tgLink = `https://t.me/${TELEGRAM_USERNAME}?text=${tgText}`;
 
   const isHidden = product.visible === false;
@@ -561,13 +566,13 @@ async function initProduct() {
     : product.category ? [product.category] : [];
 
   container.innerHTML = `
-    <a class="back-link" href="./"><span>←</span> Все товары</a>
+    <a class="back-link" href="${NOCOST ? 'nocost' : './'}"><span>←</span> Все товары</a>
     <div class="product-layout">
       <div id="carousel"></div>
       <div class="product-info">
         <div class="category">${cats.join(', ')}</div>
         <h1>${product.name}</h1>
-        <div class="price">${product.price} ₽</div>
+        ${NOCOST ? '' : `<div class="price">${product.price} ₽</div>`}
         <div class="description">${product.description || ''}</div>
         ${orderBtn}
       </div>
