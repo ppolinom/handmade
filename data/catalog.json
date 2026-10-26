@@ -1602,6 +1602,7 @@
     "availability": "available",
     "visible": true,
     "createdAt": "2026-10-26T09:00:00.000Z",
+    "priority": 1,
     "images": [
       "sumka-1.jpg",
       "sumka-2.jpg"

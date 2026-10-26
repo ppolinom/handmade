@@ -305,7 +305,8 @@ async function initIndex() {
       const avail = product.availability || (product.available === false ? 'unavailable' : 'available');
       const unavailable = avail === 'unavailable'
         ? '<span class="badge-unavailable">Нет в наличии</span>'
-        : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>' : '';
+        : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>'
+        : '<span class="badge-unavailable">В наличии</span>';
       const label = getCardLabel(product);
       return `
         <a class="card" href="product.html?id=${product.id}${PRODUCT_HREF_SUFFIX}">
@@ -341,7 +342,8 @@ async function initIndex() {
         const avail = product.availability || (product.available === false ? 'unavailable' : 'available');
         const unavailable = avail === 'unavailable'
           ? '<span class="badge-unavailable">Нет в наличии</span>'
-          : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>' : '';
+          : avail === 'on_order' ? '<span class="badge-unavailable">На заказ</span>'
+          : '<span class="badge-unavailable">В наличии</span>';
         const label = getCardLabel(product);
         return `
           <a class="card" href="product.html?id=${product.id}${PRODUCT_HREF_SUFFIX}">
