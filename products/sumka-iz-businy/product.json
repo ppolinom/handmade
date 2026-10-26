@@ -1,0 +1,19 @@
+{
+  "name": "Сумка из бусин",
+  "sections": [
+    "Изделия из бусин"
+  ],
+  "collections": [
+    "К 8 Марта"
+  ],
+  "categories": [],
+  "description": "",
+  "price": 4000,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-10-26T09:00:00.000Z",
+  "imageOrder": [
+    "sumka-1.jpg",
+    "sumka-2.jpg"
+  ]
+}
