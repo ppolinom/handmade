@@ -1,0 +1,20 @@
+{
+  "name": "Микродомики",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Вазы и декор"
+  ],
+  "description": "Гипсовые микродомики-подсвечники.\nПередний ряд (бежевые) - 400 р за комплект.\nЗадний ряд (белые) - с небольшим браком по фасаду, 100 р за комплект.",
+  "price": 400,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T09:00:00.000Z",
+  "imageOrder": [
+    "mikrodomiki-komplekt-1.jpg",
+    "mikrodomiki-komplekt-2.jpg"
+  ]
+}

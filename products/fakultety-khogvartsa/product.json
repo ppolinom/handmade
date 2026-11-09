@@ -1,0 +1,19 @@
+{
+  "name": "Факультеты Хогвартса",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Подсвечники"
+  ],
+  "description": "Цветные домики-подсвечники с сердечками: Гриффиндор, Когтевран, Пуффендуй и Слизерин.\nЦена за один домик.",
+  "price": 200,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T09:00:00.000Z",
+  "imageOrder": [
+    "fakultety-khogvartsa-1.jpg"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Свечи идолы (комплект)",
+  "sections": [
+    "Свечи",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [],
+  "description": "Свечи-идолы с абстрактными лицами, молочный цвет.\n500 р - цена за комплект.",
+  "price": 500,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T09:00:00.000Z",
+  "imageOrder": [
+    "svechi-idoly-komplekt-1.jpg",
+    "svechi-idoly-komplekt-2.jpg"
+  ]
+}

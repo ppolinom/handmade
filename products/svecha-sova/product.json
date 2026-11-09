@@ -1,0 +1,18 @@
+{
+  "name": "Свеча Сова",
+  "sections": [
+    "Свечи",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [],
+  "description": "Белая фигурная свеча в виде совы.",
+  "price": 100,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T09:00:00.000Z",
+  "imageOrder": [
+    "svecha-sova-1.jpg",
+    "svecha-sova-2.jpg"
+  ]
+}

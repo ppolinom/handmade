@@ -1,0 +1,17 @@
+{
+  "name": "Свечи-шарики",
+  "sections": [
+    "Свечи",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [],
+  "description": "Две гладкие свечи-шара с голубым оттенком: большая и маленькая.\nЦена за одну свечу.",
+  "price": 250,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T09:00:00.000Z",
+  "imageOrder": [
+    "svechi-shariki-1.jpg"
+  ]
+}

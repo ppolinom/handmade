@@ -240,6 +240,26 @@
     ]
   },
   {
+    "id": "fakultety-khogvartsa",
+    "name": "Факультеты Хогвартса",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Цветные домики-подсвечники с сердечками: Гриффиндор, Когтевран, Пуффендуй и Слизерин.\nЦена за один домик.",
+    "price": 200,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T09:00:00.000Z",
+    "images": [
+      "fakultety-khogvartsa-1.jpg"
+    ]
+  },
+  {
     "id": "granenye-kh3-podsvechnik",
     "name": "Граненые х3 подсвечник",
     "sections": [
@@ -584,6 +604,48 @@
       "domiki-2.jpg",
       "domiki-1.jpg",
       "domiki-3.jpg"
+    ]
+  },
+  {
+    "id": "mikrodomiki-komplekt",
+    "name": "Микродомики",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "Гипсовые микродомики-подсвечники.\nПередний ряд (бежевые) - 400 р за комплект.\nЗадний ряд (белые) - с небольшим браком по фасаду, 100 р за комплект.",
+    "price": 400,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T09:00:00.000Z",
+    "images": [
+      "mikrodomiki-komplekt-1.jpg",
+      "mikrodomiki-komplekt-2.jpg"
+    ]
+  },
+  {
+    "id": "mramornye-rebristye-podsvechniki",
+    "name": "Мраморные ребристые подсвечники",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Ребристые подсвечники с мраморным узором: серо-чёрный и розовые.\nЦена за один подсвечник.",
+    "price": 200,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T09:00:00.000Z",
+    "images": [
+      "mramornye-rebristye-podsvechniki-1.jpg",
+      "mramornye-rebristye-podsvechniki-2.jpg"
     ]
   },
   {
@@ -1609,6 +1671,25 @@
     ]
   },
   {
+    "id": "svecha-sova",
+    "name": "Свеча Сова",
+    "sections": [
+      "Свечи",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "Белая фигурная свеча в виде совы.",
+    "price": 100,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T09:00:00.000Z",
+    "images": [
+      "svecha-sova-1.jpg",
+      "svecha-sova-2.jpg"
+    ]
+  },
+  {
     "id": "svechi-idoly",
     "name": "Свечи идолы",
     "sections": [
@@ -1631,6 +1712,43 @@
       "photo_76@01-03-2026_19-12-02.jpg",
       "photo_73@01-03-2026_19-12-02.jpg",
       "photo_75@01-03-2026_19-12-02.jpg"
+    ]
+  },
+  {
+    "id": "svechi-idoly-komplekt",
+    "name": "Свечи идолы (комплект)",
+    "sections": [
+      "Свечи",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "Свечи-идолы с абстрактными лицами, молочный цвет.\n500 р - цена за комплект.",
+    "price": 500,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T09:00:00.000Z",
+    "images": [
+      "svechi-idoly-komplekt-1.jpg",
+      "svechi-idoly-komplekt-2.jpg"
+    ]
+  },
+  {
+    "id": "svechi-shariki",
+    "name": "Свечи-шарики",
+    "sections": [
+      "Свечи",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "Две гладкие свечи-шара с голубым оттенком: большая и маленькая.\nЦена за одну свечу.",
+    "price": 250,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T09:00:00.000Z",
+    "images": [
+      "svechi-shariki-1.jpg"
     ]
   },
   {
