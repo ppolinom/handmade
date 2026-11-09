@@ -11,7 +11,7 @@
       "Стаканы"
     ],
     "description": "",
-    "price": 300,
+    "price": 200,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -332,7 +332,7 @@
       "Подсвечники"
     ],
     "description": "Белая и розовая мраморные граненые чаши со свечой.\nЦена за одну свечу.",
-    "price": 500,
+    "price": 150,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -479,7 +479,7 @@
       "Подсвечники"
     ],
     "description": "",
-    "price": 300,
+    "price": 200,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -639,7 +639,7 @@
       "Шкатулки"
     ],
     "description": "Цена за один предмет.",
-    "price": 300,
+    "price": 100,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -761,7 +761,7 @@
   },
   {
     "id": "mramornyj-podnos-s-rebristoj-chashej",
-    "name": "Мраморный овальный поднос с ребристой чашей",
+    "name": "Мраморный овальный поднос с Лунами и с ребристой шкатулкой",
     "sections": [
       "Гипс",
       "В наличии"
@@ -1096,7 +1096,7 @@
       "Подносы"
     ],
     "description": "",
-    "price": 400,
+    "price": 200,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -1172,7 +1172,7 @@
   },
   {
     "id": "podnos-ovalnyj-luna",
-    "name": "Овальный поднос и банка с принтом Луна",
+    "name": "Овальный поднос и гладкий стакан с принтом Луна",
     "sections": [
       "Гипс",
       "В наличии"
@@ -1225,7 +1225,7 @@
       "Подсвечники"
     ],
     "description": "Зелёно-белый овальный поднос и два стаканчика.",
-    "price": 600,
+    "price": 500,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -1249,7 +1249,7 @@
       "Подносы"
     ],
     "description": "",
-    "price": 500,
+    "price": 400,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -1314,7 +1314,7 @@
       "Вазы и декор"
     ],
     "description": "",
-    "price": 300,
+    "price": 200,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -1547,8 +1547,8 @@
       "Шкатулки",
       "Подсвечники"
     ],
-    "description": "Две розовые ребристые шкатулки с крышками-шишечками: большая и маленькая.",
-    "price": 400,
+    "description": "Две розовые ребристые шкатулки с крышками-шишечками: большая и маленькая.\nЕсть небольшой брак.",
+    "price": 200,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -1841,8 +1841,8 @@
       "Шкатулки",
       "Подсвечники"
     ],
-    "description": "",
-    "price": 400,
+    "description": "Есть небольшой брак.",
+    "price": 200,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -1865,7 +1865,7 @@
       "Шкатулки"
     ],
     "description": "Две расцветки: коричнево-розовая и бело-мятная.\nЦена за одну шкатулку.",
-    "price": 300,
+    "price": 150,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
@@ -2073,8 +2073,8 @@
     ],
     "collections": [],
     "categories": [],
-    "description": "",
-    "price": 500,
+    "description": "Цена за комплект.",
+    "price": 300,
     "availability": "available",
     "visible": true,
     "createdAt": "2026-11-09T12:00:00.000Z",
