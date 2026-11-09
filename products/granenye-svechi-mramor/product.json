@@ -1,0 +1,20 @@
+{
+  "name": "Граненые свечи в мраморном гипсе",
+  "sections": [
+    "Свечи",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Подсвечники"
+  ],
+  "description": "Белая и розовая мраморные граненые чаши со свечой.\nЦена за одну свечу.",
+  "price": 500,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T12:00:00.000Z",
+  "imageOrder": [
+    "granenye-svechi-mramor-1.jpg",
+    "granenye-svechi-mramor-2.jpg"
+  ]
+}

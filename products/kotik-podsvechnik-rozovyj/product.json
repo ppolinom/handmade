@@ -1,0 +1,21 @@
+{
+  "name": "Котик подсвечник розово-коричневый",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Подсвечники"
+  ],
+  "description": "",
+  "price": 300,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T12:00:00.000Z",
+  "imageOrder": [
+    "kotik-podsvechnik-rozovyj-1.jpg",
+    "kotik-podsvechnik-rozovyj-2.jpg",
+    "kotik-podsvechnik-rozovyj-3.jpg"
+  ]
+}

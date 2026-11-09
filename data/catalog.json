@@ -1,5 +1,27 @@
 [
   {
+    "id": "banka-s-kryshkoj-serosinyaya",
+    "name": "Банка с крышкой серо-синяя",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Стаканы"
+    ],
+    "description": "",
+    "price": 300,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "banka-s-kryshkoj-serosinyaya-1.jpg",
+      "banka-s-kryshkoj-serosinyaya-2.jpg",
+      "banka-s-kryshkoj-serosinyaya-3.jpg"
+    ]
+  },
+  {
     "id": "bolshoy-kub-myla-vkusnogo-krasivogo",
     "name": "Большой куб мыла вкусного красивого",
     "sections": [
@@ -260,6 +282,28 @@
     ]
   },
   {
+    "id": "granenaya-shkatulka-belaya",
+    "name": "Граненая шкатулка с крышкой, белая",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "",
+    "price": 400,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "granenaya-shkatulka-belaya-1.jpg",
+      "granenaya-shkatulka-belaya-2.jpg",
+      "granenaya-shkatulka-belaya-3.jpg"
+    ]
+  },
+  {
     "id": "granenye-kh3-podsvechnik",
     "name": "Граненые х3 подсвечник",
     "sections": [
@@ -275,6 +319,27 @@
     "visible": true,
     "createdAt": "2026-10-10T15:05:21.629Z",
     "images": []
+  },
+  {
+    "id": "granenye-svechi-mramor",
+    "name": "Граненые свечи в мраморном гипсе",
+    "sections": [
+      "Свечи",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "Белая и розовая мраморные граненые чаши со свечой.\nЦена за одну свечу.",
+    "price": 500,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "granenye-svechi-mramor-1.jpg",
+      "granenye-svechi-mramor-2.jpg"
+    ]
   },
   {
     "id": "granenyj-malenkij-podsvechnik",
@@ -400,6 +465,28 @@
       "photo_90@05-03-2026_19-28-25.jpg",
       "photo_91@05-03-2026_19-28-25.jpg",
       "photo_99@07-03-2026_13-27-48.jpg"
+    ]
+  },
+  {
+    "id": "kotik-podsvechnik-rozovyj",
+    "name": "Котик подсвечник розово-коричневый",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники"
+    ],
+    "description": "",
+    "price": 300,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "kotik-podsvechnik-rozovyj-1.jpg",
+      "kotik-podsvechnik-rozovyj-2.jpg",
+      "kotik-podsvechnik-rozovyj-3.jpg"
     ]
   },
   {
@@ -540,6 +627,28 @@
     ]
   },
   {
+    "id": "lotos-i-shkatulka-goluboj-mramor",
+    "name": "Лотос подсвечник и круглая шкатулка с голубым мрамором",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подсвечники",
+      "Шкатулки"
+    ],
+    "description": "Цена за один предмет.",
+    "price": 300,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "lotos-i-shkatulka-goluboj-mramor-1.jpg",
+      "lotos-i-shkatulka-goluboj-mramor-2.jpg"
+    ]
+  },
+  {
     "id": "lotos-podsvechnik",
     "name": "Лотос подсвечник",
     "sections": [
@@ -624,7 +733,8 @@
     "createdAt": "2026-11-09T09:00:00.000Z",
     "images": [
       "mikrodomiki-komplekt-1.jpg",
-      "mikrodomiki-komplekt-2.jpg"
+      "mikrodomiki-komplekt-2.jpg",
+      "mikrodomiki-komplekt-3.jpg"
     ]
   },
   {
@@ -645,7 +755,31 @@
     "createdAt": "2026-11-09T09:00:00.000Z",
     "images": [
       "mramornye-rebristye-podsvechniki-1.jpg",
-      "mramornye-rebristye-podsvechniki-2.jpg"
+      "mramornye-rebristye-podsvechniki-2.jpg",
+      "mramornye-rebristye-podsvechniki-3.jpg"
+    ]
+  },
+  {
+    "id": "mramornyj-podnos-s-rebristoj-chashej",
+    "name": "Мраморный овальный поднос с ребристой чашей",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы",
+      "Подсвечники"
+    ],
+    "description": "",
+    "price": 500,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "mramornyj-podnos-s-rebristoj-chashej-1.jpg",
+      "mramornyj-podnos-s-rebristoj-chashej-2.jpg",
+      "mramornyj-podnos-s-rebristoj-chashej-3.jpg"
     ]
   },
   {
@@ -951,6 +1085,27 @@
     ]
   },
   {
+    "id": "podnos-kruglyj-zelenyj",
+    "name": "Поднос круглый зелёно-белый",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "",
+    "price": 400,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "podnos-kruglyj-zelenyj-1.jpg",
+      "podnos-kruglyj-zelenyj-2.jpg"
+    ]
+  },
+  {
     "id": "podnos-malenkij-shestigrannyj",
     "name": "Поднос маленький шестигранный",
     "sections": [
@@ -1016,6 +1171,28 @@
     ]
   },
   {
+    "id": "podnos-ovalnyj-luna",
+    "name": "Овальный поднос и банка с принтом Луна",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы",
+      "Шкатулки"
+    ],
+    "description": "",
+    "price": 600,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "podnos-ovalnyj-luna-1.jpg",
+      "podnos-ovalnyj-luna-2.jpg"
+    ]
+  },
+  {
     "id": "podnos-ovalnyj-malyj",
     "name": "Поднос овальный малый",
     "sections": [
@@ -1033,6 +1210,52 @@
       "IMG_7048.JPEG",
       "IMG_6296.JPG",
       "photo_156@20-07-2026_22-45-22.jpg"
+    ]
+  },
+  {
+    "id": "podnos-ovalnyj-zelenyj-so-stakanchikami",
+    "name": "Овальный поднос с двумя стаканчиками, зелёный",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы",
+      "Подсвечники"
+    ],
+    "description": "Зелёно-белый овальный поднос и два стаканчика.",
+    "price": 600,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "podnos-ovalnyj-zelenyj-so-stakanchikami-1.jpg",
+      "podnos-ovalnyj-zelenyj-so-stakanchikami-2.jpg",
+      "podnos-ovalnyj-zelenyj-so-stakanchikami-3.jpg",
+      "podnos-ovalnyj-zelenyj-so-stakanchikami-4.jpg",
+      "podnos-ovalnyj-zelenyj-so-stakanchikami-5.jpg"
+    ]
+  },
+  {
+    "id": "podnos-rozovyj-s-miskoj",
+    "name": "Розовый круглый поднос с овальной чашей",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Подносы"
+    ],
+    "description": "",
+    "price": 500,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "podnos-rozovyj-s-miskoj-1.jpg",
+      "podnos-rozovyj-s-miskoj-2.jpg"
     ]
   },
   {
@@ -1077,6 +1300,27 @@
       "photo_31@31-01-2026_19-51-01.jpg",
       "photo_32@31-01-2026_19-51-01_thumb.jpg",
       "photo_60@22-02-2026_17-51-56_thumb.jpg"
+    ]
+  },
+  {
+    "id": "podstavka-dlya-telefona-rozovaya",
+    "name": "Подставка для телефона розовая с чёрными брызгами",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Вазы и декор"
+    ],
+    "description": "",
+    "price": 300,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "podstavka-dlya-telefona-rozovaya-1.jpg",
+      "podstavka-dlya-telefona-rozovaya-2.jpg"
     ]
   },
   {
@@ -1289,6 +1533,29 @@
     "images": [
       "photo_122@18-06-2026_14-06-22.jpg",
       "photo_167@26-07-2026_00-07-34_thumb.jpg"
+    ]
+  },
+  {
+    "id": "rebristye-shkatulki-rozovye",
+    "name": "Ребристые шкатулки с крышкой, розовые",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки",
+      "Подсвечники"
+    ],
+    "description": "Две розовые ребристые шкатулки с крышками-шишечками: большая и маленькая.",
+    "price": 400,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "rebristye-shkatulki-rozovye-1.jpg",
+      "rebristye-shkatulki-rozovye-2.jpg",
+      "rebristye-shkatulki-rozovye-3.jpg"
     ]
   },
   {
@@ -1563,6 +1830,52 @@
     ]
   },
   {
+    "id": "shkatulka-shlyapa-garri-potter-v-nalichii",
+    "name": "Шкатулка Шляпа Гарри Поттер",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки",
+      "Подсвечники"
+    ],
+    "description": "",
+    "price": 400,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "shkatulka-shlyapa-garri-potter-v-nalichii-1.jpg",
+      "shkatulka-shlyapa-garri-potter-v-nalichii-2.jpg",
+      "shkatulka-shlyapa-garri-potter-v-nalichii-3.jpg",
+      "shkatulka-shlyapa-garri-potter-v-nalichii-4.jpg"
+    ]
+  },
+  {
+    "id": "shkatulki-cilindry-s-kryshkoj",
+    "name": "Шкатулки-цилиндры с крышкой",
+    "sections": [
+      "Гипс",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [
+      "Шкатулки"
+    ],
+    "description": "Две расцветки: коричнево-розовая и бело-мятная.\nЦена за одну шкатулку.",
+    "price": 300,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "shkatulki-cilindry-s-kryshkoj-1.jpg",
+      "shkatulki-cilindry-s-kryshkoj-2.jpg",
+      "shkatulki-cilindry-s-kryshkoj-3.jpg"
+    ]
+  },
+  {
     "id": "stakan-gladkij-s-kryshkoj",
     "name": "Стакан гладкий с крышкой",
     "sections": [
@@ -1749,6 +2062,26 @@
     "createdAt": "2026-11-09T09:00:00.000Z",
     "images": [
       "svechi-shariki-1.jpg"
+    ]
+  },
+  {
+    "id": "svechi-v-bankah-neozhidanno",
+    "name": "Свечи в банках «Всё самое лучшее случается неожиданно»",
+    "sections": [
+      "Свечи",
+      "В наличии"
+    ],
+    "collections": [],
+    "categories": [],
+    "description": "",
+    "price": 500,
+    "availability": "available",
+    "visible": true,
+    "createdAt": "2026-11-09T12:00:00.000Z",
+    "images": [
+      "svechi-v-bankah-neozhidanno-1.jpg",
+      "svechi-v-bankah-neozhidanno-2.jpg",
+      "svechi-v-bankah-neozhidanno-3.jpg"
     ]
   },
   {

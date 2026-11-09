@@ -1,0 +1,24 @@
+{
+  "name": "Овальный поднос с двумя стаканчиками, зелёный",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Подносы",
+    "Подсвечники"
+  ],
+  "description": "Зелёно-белый овальный поднос и два стаканчика.",
+  "price": 600,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T12:00:00.000Z",
+  "imageOrder": [
+    "podnos-ovalnyj-zelenyj-so-stakanchikami-1.jpg",
+    "podnos-ovalnyj-zelenyj-so-stakanchikami-2.jpg",
+    "podnos-ovalnyj-zelenyj-so-stakanchikami-3.jpg",
+    "podnos-ovalnyj-zelenyj-so-stakanchikami-4.jpg",
+    "podnos-ovalnyj-zelenyj-so-stakanchikami-5.jpg"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Мраморный овальный поднос с ребристой чашей",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Подносы",
+    "Подсвечники"
+  ],
+  "description": "",
+  "price": 500,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T12:00:00.000Z",
+  "imageOrder": [
+    "mramornyj-podnos-s-rebristoj-chashej-1.jpg",
+    "mramornyj-podnos-s-rebristoj-chashej-2.jpg",
+    "mramornyj-podnos-s-rebristoj-chashej-3.jpg"
+  ]
+}

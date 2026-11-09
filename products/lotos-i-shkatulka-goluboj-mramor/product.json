@@ -1,0 +1,21 @@
+{
+  "name": "Лотос подсвечник и круглая шкатулка с голубым мрамором",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Подсвечники",
+    "Шкатулки"
+  ],
+  "description": "Цена за один предмет.",
+  "price": 300,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T12:00:00.000Z",
+  "imageOrder": [
+    "lotos-i-shkatulka-goluboj-mramor-1.jpg",
+    "lotos-i-shkatulka-goluboj-mramor-2.jpg"
+  ]
+}

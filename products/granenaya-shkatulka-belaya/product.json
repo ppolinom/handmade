@@ -1,0 +1,21 @@
+{
+  "name": "Граненая шкатулка с крышкой, белая",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Шкатулки"
+  ],
+  "description": "",
+  "price": 400,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T12:00:00.000Z",
+  "imageOrder": [
+    "granenaya-shkatulka-belaya-1.jpg",
+    "granenaya-shkatulka-belaya-2.jpg",
+    "granenaya-shkatulka-belaya-3.jpg"
+  ]
+}

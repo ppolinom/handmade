@@ -1,0 +1,21 @@
+{
+  "name": "Банка с крышкой серо-синяя",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Стаканы"
+  ],
+  "description": "",
+  "price": 300,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T12:00:00.000Z",
+  "imageOrder": [
+    "banka-s-kryshkoj-serosinyaya-1.jpg",
+    "banka-s-kryshkoj-serosinyaya-2.jpg",
+    "banka-s-kryshkoj-serosinyaya-3.jpg"
+  ]
+}

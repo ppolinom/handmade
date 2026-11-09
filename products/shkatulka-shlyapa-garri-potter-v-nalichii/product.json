@@ -1,0 +1,23 @@
+{
+  "name": "Шкатулка Шляпа Гарри Поттер",
+  "sections": [
+    "Гипс",
+    "В наличии"
+  ],
+  "collections": [],
+  "categories": [
+    "Шкатулки",
+    "Подсвечники"
+  ],
+  "description": "",
+  "price": 400,
+  "availability": "available",
+  "visible": true,
+  "createdAt": "2026-11-09T12:00:00.000Z",
+  "imageOrder": [
+    "shkatulka-shlyapa-garri-potter-v-nalichii-1.jpg",
+    "shkatulka-shlyapa-garri-potter-v-nalichii-2.jpg",
+    "shkatulka-shlyapa-garri-potter-v-nalichii-3.jpg",
+    "shkatulka-shlyapa-garri-potter-v-nalichii-4.jpg"
+  ]
+}
