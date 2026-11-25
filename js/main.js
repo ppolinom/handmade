@@ -136,7 +136,13 @@ async function initIndex() {
     .sort((a, b) => (lastOf(a.p) - lastOf(b.p)) || (priorityOf(a.p) - priorityOf(b.p)) || (a.i - b.i))
     .map(x => x.p);
 
-  function getProductSections(p) { return Array.isArray(p.sections) ? p.sections : []; }
+  // Раздел «В наличии» наполняется по статусу товара, а не по ручной галочке
+  const IN_STOCK_SECTION = 'В наличии';
+  function getProductSections(p) {
+    const own = Array.isArray(p.sections) ? p.sections.filter(s => s !== IN_STOCK_SECTION) : [];
+    const avail = p.availability || (p.available === false ? 'unavailable' : 'available');
+    return avail === 'available' ? [...own, IN_STOCK_SECTION] : own;
+  }
   function getProductCollections(p) { return Array.isArray(p.collections) ? p.collections : []; }
   function getProductCategories(p) {
     if (Array.isArray(p.categories)) return p.categories;
