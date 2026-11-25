@@ -1,0 +1,23 @@
+{
+  "name": "Мыло массажное",
+  "sections": [
+    "Мыло"
+  ],
+  "collections": [
+    "К 8 Марта",
+    "Новогодняя"
+  ],
+  "categories": [],
+  "description": "Мыло для массажа, может быть с разными ароматами",
+  "price": 250,
+  "availability": "on_order",
+  "visible": true,
+  "priority": 3,
+  "createdAt": "2026-11-25T10:02:35.001Z",
+  "imageOrder": [
+    "photo_11_2026-11-25_12-57-52.jpg",
+    "photo_10_2026-11-25_12-57-52.jpg",
+    "photo_12_2026-11-25_12-57-52.jpg",
+    "photo_9_2026-11-25_12-57-52.jpg"
+  ]
+}
