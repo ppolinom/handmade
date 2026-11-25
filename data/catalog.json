@@ -800,6 +800,33 @@
     ]
   },
   {
+    "id": "mylo-dlya-kistey-pion-maliny-serdechki",
+    "name": "Мыло для кистей (Пион, Малины, Сердечки)",
+    "sections": [
+      "Мыло"
+    ],
+    "collections": [
+      "К 8 Марта",
+      "Новогодняя"
+    ],
+    "categories": [],
+    "description": "",
+    "price": 400,
+    "availability": "available",
+    "visible": true,
+    "priority": 3,
+    "createdAt": "2026-11-25T09:59:01.961Z",
+    "images": [
+      "photo_3_2026-11-25_12-57-52.jpg",
+      "photo_6_2026-11-25_12-57-52.jpg",
+      "photo_5_2026-11-25_12-57-52.jpg",
+      "photo_1_2026-11-25_12-57-52.jpg",
+      "photo_2_2026-11-25_12-57-52.jpg",
+      "photo_4_2026-11-25_12-57-52.jpg",
+      "photo_8_2026-11-25_12-57-52.jpg"
+    ]
+  },
+  {
     "id": "mylo-pirozhnoe-serdechko",
     "name": "Мыло Пирожное сердечко",
     "sections": [
