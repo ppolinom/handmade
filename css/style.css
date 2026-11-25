@@ -176,6 +176,11 @@ main {
   margin-top: 0.25rem;
 }
 
+.badge-in-stock {
+  background: #e3f4e6;
+  color: #2e7d46;
+}
+
 /* --- Product page --- */
 .product-layout {
   display: grid;
